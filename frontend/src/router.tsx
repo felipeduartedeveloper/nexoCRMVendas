@@ -19,6 +19,12 @@ import { PlaceholderPage } from '@/features/app/pages/PlaceholderPage';
 import { DealsPage } from '@/features/deals/pages/DealsPage';
 import { ActivitiesPage } from '@/features/activities/pages/ActivitiesPage';
 
+import {
+  SettingsLayout,
+  SettingsPlaceholder,
+} from '@/features/settings/components/SettingsLayout';
+import { GeneralPage } from '@/features/settings/pages/GeneralPage';
+
 import { useAuthStore, useIsAuthenticated } from '@/store/auth.store';
 
 function PrivateRoute() {
@@ -90,12 +96,92 @@ export const router = createBrowserRouter([
               <PlaceholderPage title="Caixa de e-mails" subtitle="Sincronize Gmail/Outlook com os deals." />
             ),
           },
+
+          // Settings (SettingsLayout aninhado)
           {
             path: '/settings',
-            element: (
-              <PlaceholderPage title="Configurações" subtitle="Empresa, usuários, integrações e pipelines." />
-            ),
+            element: <SettingsLayout />,
+            children: [
+              { index: true, element: <Navigate to="/settings/company" replace /> },
+              { path: 'company', element: <GeneralPage /> },
+              {
+                path: 'personal',
+                element: (
+                  <SettingsPlaceholder
+                    title="Personal preferences"
+                    description="Defina seu idioma, fuso horário e formato de data."
+                  />
+                ),
+              },
+              {
+                path: 'password',
+                element: (
+                  <SettingsPlaceholder
+                    title="Password and login"
+                    description="Altere sua senha, gerencie 2FA e sessões ativas."
+                  />
+                ),
+              },
+              {
+                path: 'email-sync',
+                element: (
+                  <SettingsPlaceholder
+                    title="Email sync"
+                    description="Sincronize Gmail/Outlook two-way."
+                  />
+                ),
+              },
+              {
+                path: 'contact-sync',
+                element: <SettingsPlaceholder title="Contact sync" />,
+              },
+              {
+                path: 'calendar-sync',
+                element: <SettingsPlaceholder title="Calendar sync" />,
+              },
+              {
+                path: 'drive',
+                element: <SettingsPlaceholder title="Google Drive" />,
+              },
+              {
+                path: 'devices',
+                element: <SettingsPlaceholder title="Your devices" />,
+              },
+              {
+                path: 'notifications',
+                element: <SettingsPlaceholder title="Notifications" />,
+              },
+              {
+                path: 'referral',
+                element: <SettingsPlaceholder title="Referral program" />,
+              },
+              {
+                path: 'interface',
+                element: <SettingsPlaceholder title="Interface preferences" />,
+              },
+              {
+                path: 'company-overview',
+                element: (
+                  <SettingsPlaceholder
+                    title="Company overview"
+                    description="Visão consolidada da empresa, planos e métricas."
+                  />
+                ),
+              },
+              { path: 'users', element: <SettingsPlaceholder title="Manage users" /> },
+              { path: 'user-overview', element: <SettingsPlaceholder title="User overview" /> },
+              { path: 'data-fields', element: <SettingsPlaceholder title="Data fields" /> },
+              { path: 'usage', element: <SettingsPlaceholder title="Usage" /> },
+              { path: 'beta', element: <SettingsPlaceholder title="Beta program" /> },
+              { path: 'billing', element: <SettingsPlaceholder title="Billing" /> },
+              { path: 'security', element: <SettingsPlaceholder title="Security center" /> },
+              { path: 'dashboard', element: <SettingsPlaceholder title="Dashboard" /> },
+              { path: 'alerts', element: <SettingsPlaceholder title="Alerts" /> },
+              { path: 'rules', element: <SettingsPlaceholder title="Rules" /> },
+              { path: 'sso', element: <SettingsPlaceholder title="Single sign-on" /> },
+            ],
           },
+
           {
             path: '/profile',
             element: (
