@@ -20,6 +20,10 @@ import { ActivitiesModule } from './modules/activities/activities.module';
 import { DealsModule } from './modules/deals/deals.module';
 import { PipelinesModule } from './modules/pipelines/pipelines.module';
 import { LeadsModule } from './modules/leads/leads.module';
+import { LabelsModule } from './modules/labels/labels.module';
+import { LostReasonsModule } from './modules/lost-reasons/lost-reasons.module';
+import { CustomFieldsModule } from './modules/custom-fields/custom-fields.module';
+import { UsageModule } from './modules/usage/usage.module';
 
 @Module({
   imports: [
@@ -55,6 +59,10 @@ import { LeadsModule } from './modules/leads/leads.module';
     DealsModule,
     PipelinesModule,
     LeadsModule,
+    LabelsModule,
+    LostReasonsModule,
+    CustomFieldsModule,
+    UsageModule,
   ],
   controllers: [HealthController],
   providers: [

@@ -109,6 +109,45 @@ export class UsersService implements OnModuleInit {
     await this.repo.update({ id: userId }, { lastLoginAt: new Date() });
   }
 
+  async setActive(userId: string, isActive: boolean): Promise<User> {
+    const user = await this.findById(userId);
+    user.isActive = isActive;
+    return this.repo.save(user);
+  }
+
+  async delete(userId: string): Promise<void> {
+    const user = await this.findById(userId);
+    await this.repo.remove(user);
+  }
+
+  async invite(
+    organizationId: string | null,
+    dto: { email: string; name: string; role?: UserRole },
+  ): Promise<{ user: User; tempPassword: string }> {
+    if (!organizationId) {
+      throw new BadRequestException('Organization is required');
+    }
+    const email = dto.email.toLowerCase().trim();
+    if (await this.repo.findOne({ where: { email } })) {
+      throw new ConflictException('Email already registered');
+    }
+    const tempPassword =
+      Math.random().toString(36).slice(-10) + Math.floor(Math.random() * 100);
+    const rounds = Number(process.env.BCRYPT_ROUNDS || 10);
+    const passwordHash = await bcrypt.hash(tempPassword, rounds);
+    const user = this.repo.create({
+      email,
+      name: dto.name,
+      role: dto.role ?? UserRole.SALES,
+      organizationId,
+      passwordHash,
+      emailVerified: false,
+      isActive: true,
+    });
+    const saved = await this.repo.save(user);
+    return { user: saved, tempPassword };
+  }
+
   async list(pagination: PaginationDto, organizationId?: string | null): Promise<PaginatedResult<User>> {
     const page = pagination.page ?? 1;
     const limit = pagination.limit ?? 20;

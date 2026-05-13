@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CurrentUser, CurrentUserPayload } from '../../common/decorators/current-user.decorator';
+import { InviteUserDto } from './dto/invite-user.dto';
+import { CurrentUser, CurrentOrg, CurrentUserPayload } from '../../common/decorators/current-user.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { UserRole } from '../../common/enums/user-role.enum';
@@ -26,20 +27,45 @@ export class UsersController {
   }
 
   @Get()
-  @Roles(UserRole.ADMIN, UserRole.MANAGER)
+  @Roles(UserRole.ADMIN, UserRole.MANAGER, UserRole.SUPER_ADMIN)
   list(@CurrentUser() user: CurrentUserPayload, @Query() pagination: PaginationDto) {
     return this.users.list(pagination, user.organizationId);
   }
 
+  @Post('invite')
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  invite(@CurrentOrg() orgId: string | null, @Body() dto: InviteUserDto) {
+    return this.users.invite(orgId, dto);
+  }
+
   @Get(':id')
-  @Roles(UserRole.ADMIN, UserRole.MANAGER)
+  @Roles(UserRole.ADMIN, UserRole.MANAGER, UserRole.SUPER_ADMIN)
   byId(@Param('id', ParseUUIDPipe) id: string) {
     return this.users.findById(id);
   }
 
   @Patch(':id')
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
   update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateUserDto) {
     return this.users.updateById(id, dto);
+  }
+
+  @Patch(':id/activate')
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  activate(@Param('id', ParseUUIDPipe) id: string) {
+    return this.users.setActive(id, true);
+  }
+
+  @Patch(':id/deactivate')
+  @Roles(UserRole.ADMIN, UserRole.SUPER_ADMIN)
+  deactivate(@Param('id', ParseUUIDPipe) id: string) {
+    return this.users.setActive(id, false);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Roles(UserRole.SUPER_ADMIN)
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
+    await this.users.delete(id);
   }
 }
