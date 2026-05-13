@@ -1,0 +1,53 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { CacheModule } from '@nestjs/cache-manager';
+import { APP_GUARD } from '@nestjs/core';
+import * as redisStore from 'cache-manager-redis-yet';
+
+import { typeOrmConfig } from './config/typeorm.config';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { HealthController } from './common/health.controller';
+
+import { MailModule } from './modules/mail/mail.module';
+import { UsersModule } from './modules/users/users.module';
+import { OrganizationsModule } from './modules/organizations/organizations.module';
+import { AuthModule } from './modules/auth/auth.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({ useFactory: typeOrmConfig }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: Number(process.env.THROTTLE_TTL || 60) * 1000,
+        limit: Number(process.env.THROTTLE_LIMIT || 100),
+      },
+    ]),
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: async () => ({
+        store: await redisStore.redisStore({
+          socket: {
+            host: process.env.REDIS_HOST || 'localhost',
+            port: Number(process.env.REDIS_PORT || 6379),
+          },
+          password: process.env.REDIS_PASSWORD || undefined,
+        }),
+        ttl: 60,
+      }),
+    }),
+
+    MailModule,
+    UsersModule,
+    OrganizationsModule,
+    AuthModule,
+  ],
+  controllers: [HealthController],
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+  ],
+})
+export class AppModule {}
