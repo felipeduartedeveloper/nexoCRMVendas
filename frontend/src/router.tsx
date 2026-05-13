@@ -14,7 +14,7 @@ import { SetupTourPage } from '@/features/onboarding/pages/SetupTourPage';
 import { AppShell } from '@/components/layout/AppShell';
 import { DashboardPage } from '@/features/dashboard/pages/DashboardPage';
 import { SetupGuidePage } from '@/features/app/pages/SetupGuidePage';
-import { ContactsPage } from '@/features/app/pages/ContactsPage';
+import { ContactsPage } from '@/features/contacts/pages/ContactsPage';
 import { PlaceholderPage } from '@/features/app/pages/PlaceholderPage';
 import { DealsPage } from '@/features/deals/pages/DealsPage';
 import { ActivitiesPage } from '@/features/activities/pages/ActivitiesPage';
