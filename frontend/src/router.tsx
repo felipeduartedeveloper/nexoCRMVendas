@@ -17,6 +17,7 @@ import { SetupGuidePage } from '@/features/app/pages/SetupGuidePage';
 import { ContactsPage } from '@/features/app/pages/ContactsPage';
 import { PlaceholderPage } from '@/features/app/pages/PlaceholderPage';
 import { DealsPage } from '@/features/deals/pages/DealsPage';
+import { ActivitiesPage } from '@/features/activities/pages/ActivitiesPage';
 
 import { useAuthStore, useIsAuthenticated } from '@/store/auth.store';
 
@@ -69,12 +70,7 @@ export const router = createBrowserRouter([
           { path: '/dashboard', element: <DashboardPage /> },
           { path: '/setup-guide', element: <SetupGuidePage /> },
           { path: '/contacts', element: <ContactsPage /> },
-          {
-            path: '/activities',
-            element: (
-              <PlaceholderPage title="Atividades" subtitle="Ligações, reuniões, tarefas e prazos." />
-            ),
-          },
+          { path: '/activities', element: <ActivitiesPage /> },
           { path: '/deals', element: <DealsPage /> },
           {
             path: '/leads',
