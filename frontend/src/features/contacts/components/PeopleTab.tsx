@@ -6,10 +6,12 @@ import { Button } from '@/components/ui/Button';
 import { contactsApi } from '@/api/contacts.api';
 import { initials } from '@/lib/format';
 import { NewContactModal } from './NewContactModal';
+import { ContactDetailDrawer } from './ContactDetailDrawer';
 
 export function PeopleTab() {
   const [search, setSearch] = useState('');
   const [openNew, setOpenNew] = useState(false);
+  const [openContactId, setOpenContactId] = useState<string | null>(null);
 
   const q = useQuery({
     queryKey: ['contacts', { search }],
@@ -71,7 +73,11 @@ export function PeopleTab() {
               </tr>
             ) : (
               items.map((c) => (
-                <tr key={c.id} className="border-b border-ink-100 hover:bg-brand-50/40">
+                <tr
+                  key={c.id}
+                  onClick={() => setOpenContactId(c.id)}
+                  className="cursor-pointer border-b border-ink-100 hover:bg-brand-50/40"
+                >
                   <td className="px-4 py-2.5">
                     <div className="flex items-center gap-3">
                       <span className="grid h-7 w-7 place-items-center rounded-full bg-brand-100 text-[11px] font-bold text-brand-700">
@@ -119,6 +125,11 @@ export function PeopleTab() {
       </div>
 
       <NewContactModal open={openNew} onClose={() => setOpenNew(false)} />
+      <ContactDetailDrawer
+        open={!!openContactId}
+        contactId={openContactId}
+        onClose={() => setOpenContactId(null)}
+      />
     </div>
   );
 }

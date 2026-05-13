@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/Button';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { CalendarSyncBanner } from '../components/CalendarSyncBanner';
 import { NewActivityModal } from '../components/NewActivityModal';
+import { ActivityDetailDrawer } from '../components/ActivityDetailDrawer';
 import { activitiesApi, type Activity, type ActivityType } from '@/api/activities.api';
 import { extractErrorMessage } from '@/lib/api';
 import { cn } from '@/lib/cn';
@@ -65,6 +66,7 @@ export function ActivitiesPage() {
   const [search, setSearch] = useState('');
   const [doneFilter, setDoneFilter] = useState<'all' | 'done' | 'open'>('all');
   const [showNew, setShowNew] = useState(false);
+  const [openActivityId, setOpenActivityId] = useState<string | null>(null);
 
   const q = useQuery({
     queryKey: ['activities', { scope, search, doneFilter }],
@@ -217,12 +219,13 @@ export function ActivitiesPage() {
                   return (
                     <tr
                       key={a.id}
+                      onClick={() => setOpenActivityId(a.id)}
                       className={cn(
-                        'border-b border-ink-100 hover:bg-brand-50/40',
+                        'cursor-pointer border-b border-ink-100 hover:bg-brand-50/40',
                         a.done && 'bg-ink-50/60',
                       )}
                     >
-                      <td className="px-4 py-2.5">
+                      <td className="px-4 py-2.5" onClick={(e) => e.stopPropagation()}>
                         <input
                           type="checkbox"
                           checked={a.done}
@@ -305,6 +308,11 @@ export function ActivitiesPage() {
       </div>
 
       <NewActivityModal open={showNew} onClose={() => setShowNew(false)} />
+      <ActivityDetailDrawer
+        open={!!openActivityId}
+        activityId={openActivityId}
+        onClose={() => setOpenActivityId(null)}
+      />
     </div>
   );
 }

@@ -20,6 +20,7 @@ import { PipelinesReadyBanner } from '../components/PipelinesReadyBanner';
 import { KanbanColumn } from '../components/KanbanColumn';
 import { DealCard } from '../components/DealCard';
 import { NewDealModal } from '../components/NewDealModal';
+import { DealDetailDrawer } from '../components/DealDetailDrawer';
 
 import { pipelinesApi, type Pipeline } from '@/api/pipelines.api';
 import { dealsApi, type Deal } from '@/api/deals.api';
@@ -32,6 +33,7 @@ export function DealsPage() {
   const [activeDeal, setActiveDeal] = useState<Deal | null>(null);
   const [newDealOpen, setNewDealOpen] = useState(false);
   const [newDealStageId, setNewDealStageId] = useState<string | null>(null);
+  const [openDealId, setOpenDealId] = useState<string | null>(null);
 
   const pipelinesQ = useQuery({
     queryKey: ['pipelines'],
@@ -222,9 +224,7 @@ export function DealsPage() {
                   setNewDealStageId(stageId);
                   setNewDealOpen(true);
                 }}
-                onSelectDeal={() => {
-                  // drawer Pipedrive virá no pacote A9
-                }}
+                onSelectDeal={(deal) => setOpenDealId(deal.id)}
               />
             );
           })}
@@ -243,6 +243,13 @@ export function DealsPage() {
           onClose={() => setNewDealOpen(false)}
         />
       )}
+
+      <DealDetailDrawer
+        open={!!openDealId}
+        dealId={openDealId}
+        pipeline={pipeline}
+        onClose={() => setOpenDealId(null)}
+      />
     </div>
   );
 }
