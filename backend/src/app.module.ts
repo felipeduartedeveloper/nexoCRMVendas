@@ -14,6 +14,12 @@ import { MailModule } from './modules/mail/mail.module';
 import { UsersModule } from './modules/users/users.module';
 import { OrganizationsModule } from './modules/organizations/organizations.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { OnboardingModule } from './modules/onboarding/onboarding.module';
+import { ContactsModule } from './modules/contacts/contacts.module';
+import { ActivitiesModule } from './modules/activities/activities.module';
+import { DealsModule } from './modules/deals/deals.module';
+import { PipelinesModule } from './modules/pipelines/pipelines.module';
+import { LeadsModule } from './modules/leads/leads.module';
 
 @Module({
   imports: [
@@ -43,6 +49,12 @@ import { AuthModule } from './modules/auth/auth.module';
     UsersModule,
     OrganizationsModule,
     AuthModule,
+    OnboardingModule,
+    ContactsModule,
+    ActivitiesModule,
+    DealsModule,
+    PipelinesModule,
+    LeadsModule,
   ],
   controllers: [HealthController],
   providers: [
