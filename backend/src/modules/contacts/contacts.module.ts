@@ -4,11 +4,12 @@ import { Contact } from './contact.entity';
 import { OrgCompany } from './org-company.entity';
 import { ContactsService } from './contacts.service';
 import { ContactsController } from './contacts.controller';
+import { CompaniesController } from './companies.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Contact, OrgCompany])],
   providers: [ContactsService],
-  controllers: [ContactsController],
+  controllers: [ContactsController, CompaniesController],
   exports: [ContactsService],
 })
 export class ContactsModule {}
