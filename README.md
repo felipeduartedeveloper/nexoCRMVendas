@@ -97,6 +97,16 @@ Detalhes em [`docs/ONBOARDING.md`](docs/ONBOARDING.md).
 
 ## Status
 
-Sprint 1 — **fundação + auth + onboarding** ✅ em construção.
+**Sprint 1 — fundação completa.** Inclui:
 
-Roadmap próximo: CRUDs completos (Contacts, Activities, Deals), Kanban DnD, Pipelines/Stages config, Realtime WebSocket, Reports, Email integration, Automations.
+- Backend NestJS com todos os módulos (auth/2FA/refresh, users, organizations, onboarding seedando sample data, contacts, activities, deals, pipelines, leads)
+- Frontend completo: landing page, auth (login + register + verify 2FA + forgot + reset), onboarding wizard 3 etapas, dashboard, setup guide com goal cards, contacts, AppShell Pipedrive-style
+- Admin SaaS Console: login restrito a SUPER_ADMIN, dashboard de KPIs agregados, lista de usuários
+- Docker Compose com 7 containers + Nginx reverse proxy
+- 8 docs em `docs/` cobrindo arquitetura, backend, frontend, admin, banco, API, onboarding e Docker
+
+### Próximos sprints
+
+- **Sprint 2** — Painel Settings da empresa (admin user) Pipedrive-style; CRUDs completos de contacts/activities/deals; Kanban DnD; pipelines configuráveis pelo ADMIN; Realtime WebSocket (typing, presença, novas activities).
+- **Sprint 3** — Painel SUPER_ADMIN SaaS completo (organizations, plans, audit log, e-mails enviados, segurança); migrations TypeORM; Email integration (Gmail OAuth); Insights/Reports.
+- **Sprint 4** — Automations (regras: mover deal, atribuir owner, enviar e-mail), import CSV/XLSX, billing Stripe.
