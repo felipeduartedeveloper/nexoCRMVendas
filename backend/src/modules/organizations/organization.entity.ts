@@ -60,6 +60,18 @@ export class Organization {
   @Column({ length: 8, nullable: true })
   currency: string | null;
 
+  @Column({ length: 120, nullable: true })
+  domain: string | null;
+
+  @Column({ length: 64, nullable: true })
+  maintenanceWindowUtc: string | null;
+
+  @Column({ length: 32, default: 'pt-BR' })
+  locale: string;
+
+  @Column({ length: 64, default: 'America/Sao_Paulo' })
+  timezone: string;
+
   @Column({ type: 'text', nullable: true })
   notes: string | null;
 

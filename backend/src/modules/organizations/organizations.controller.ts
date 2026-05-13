@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrganizationsService } from './organizations.service';
 import { CreateOrganizationDto } from './dto/create-organization.dto';
+import { UpdateCurrentOrganizationDto } from './dto/update-current-organization.dto';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { UserRole } from '../../common/enums/user-role.enum';
@@ -19,6 +20,22 @@ export class OrganizationsController {
   myOrg(@CurrentOrg() orgId: string | null) {
     if (!orgId) return null;
     return this.orgs.findById(orgId);
+  }
+
+  @Get('current')
+  current(@CurrentOrg() orgId: string | null) {
+    if (!orgId) throw new BadRequestException('No organization in context');
+    return this.orgs.findById(orgId);
+  }
+
+  @Patch('current')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
+  updateCurrent(
+    @CurrentOrg() orgId: string | null,
+    @Body() dto: UpdateCurrentOrganizationDto,
+  ) {
+    if (!orgId) throw new BadRequestException('No organization in context');
+    return this.orgs.update(orgId, dto as any);
   }
 
   @Get()
