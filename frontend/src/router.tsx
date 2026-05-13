@@ -10,6 +10,13 @@ import { ResetPasswordPage } from '@/features/auth/pages/ResetPasswordPage';
 import { PersonalInfoPage } from '@/features/onboarding/pages/PersonalInfoPage';
 import { CompanyInfoPage } from '@/features/onboarding/pages/CompanyInfoPage';
 import { SetupTourPage } from '@/features/onboarding/pages/SetupTourPage';
+
+import { AppShell } from '@/components/layout/AppShell';
+import { DashboardPage } from '@/features/dashboard/pages/DashboardPage';
+import { SetupGuidePage } from '@/features/app/pages/SetupGuidePage';
+import { ContactsPage } from '@/features/app/pages/ContactsPage';
+import { PlaceholderPage } from '@/features/app/pages/PlaceholderPage';
+
 import { useAuthStore, useIsAuthenticated } from '@/store/auth.store';
 
 function PrivateRoute() {
@@ -54,18 +61,68 @@ export const router = createBrowserRouter([
   },
   {
     element: <AppOnlyRoute />,
-    children: [{ path: '/dashboard', element: <DashboardPlaceholder /> }],
+    children: [
+      {
+        element: <AppShell />,
+        children: [
+          { path: '/dashboard', element: <DashboardPage /> },
+          { path: '/setup-guide', element: <SetupGuidePage /> },
+          { path: '/contacts', element: <ContactsPage /> },
+          {
+            path: '/activities',
+            element: (
+              <PlaceholderPage title="Atividades" subtitle="Ligações, reuniões, tarefas e prazos." />
+            ),
+          },
+          {
+            path: '/deals',
+            element: (
+              <PlaceholderPage title="Negócios" subtitle="Kanban de deals por etapa." />
+            ),
+          },
+          {
+            path: '/leads',
+            element: (
+              <PlaceholderPage title="Leads" subtitle="Caixa de entrada de leads ainda não qualificados." />
+            ),
+          },
+          {
+            path: '/insights',
+            element: (
+              <PlaceholderPage title="Insights" subtitle="Relatórios e dashboards de performance." />
+            ),
+          },
+          {
+            path: '/sales-inbox',
+            element: (
+              <PlaceholderPage title="Caixa de e-mails" subtitle="Sincronize Gmail/Outlook com os deals." />
+            ),
+          },
+          {
+            path: '/settings',
+            element: (
+              <PlaceholderPage title="Configurações" subtitle="Empresa, usuários, integrações e pipelines." />
+            ),
+          },
+          {
+            path: '/profile',
+            element: (
+              <PlaceholderPage title="Meu perfil" subtitle="Suas informações e preferências." />
+            ),
+          },
+          { path: '/products', element: <PlaceholderPage title="Produtos" /> },
+          { path: '/projects', element: <PlaceholderPage title="Projetos" /> },
+          { path: '/documents', element: <PlaceholderPage title="Documentos" /> },
+          { path: '/campaigns', element: <PlaceholderPage title="Campanhas" /> },
+          { path: '/automations', element: <PlaceholderPage title="Automações" /> },
+          { path: '/labels', element: <PlaceholderPage title="Etiquetas" /> },
+          { path: '/billing', element: <PlaceholderPage title="Plano e cobrança" /> },
+          { path: '/permissions', element: <PlaceholderPage title="Permissões" /> },
+          { path: '/help', element: <PlaceholderPage title="Central de ajuda" /> },
+          { path: '/integrations', element: <PlaceholderPage title="Integrações" /> },
+        ],
+      },
+    ],
   },
   { path: '*', element: <NotFoundPage /> },
 ]);
-
-function DashboardPlaceholder() {
-  return (
-    <div className="grid min-h-screen place-items-center bg-ink-50">
-      <div className="rounded-xl border border-ink-200 bg-white p-8 text-center shadow-card">
-        <h1 className="text-2xl font-bold text-ink-900">Dashboard</h1>
-        <p className="mt-2 text-sm text-ink-600">App shell virá no próximo sprint.</p>
-      </div>
-    </div>
-  );
-}
