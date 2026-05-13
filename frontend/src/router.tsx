@@ -16,6 +16,7 @@ import { DashboardPage } from '@/features/dashboard/pages/DashboardPage';
 import { SetupGuidePage } from '@/features/app/pages/SetupGuidePage';
 import { ContactsPage } from '@/features/app/pages/ContactsPage';
 import { PlaceholderPage } from '@/features/app/pages/PlaceholderPage';
+import { DealsPage } from '@/features/deals/pages/DealsPage';
 
 import { useAuthStore, useIsAuthenticated } from '@/store/auth.store';
 
@@ -74,12 +75,7 @@ export const router = createBrowserRouter([
               <PlaceholderPage title="Atividades" subtitle="Ligações, reuniões, tarefas e prazos." />
             ),
           },
-          {
-            path: '/deals',
-            element: (
-              <PlaceholderPage title="Negócios" subtitle="Kanban de deals por etapa." />
-            ),
-          },
+          { path: '/deals', element: <DealsPage /> },
           {
             path: '/leads',
             element: (
