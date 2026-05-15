@@ -24,6 +24,7 @@ import { LabelsModule } from './modules/labels/labels.module';
 import { LostReasonsModule } from './modules/lost-reasons/lost-reasons.module';
 import { CustomFieldsModule } from './modules/custom-fields/custom-fields.module';
 import { UsageModule } from './modules/usage/usage.module';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { UsageModule } from './modules/usage/usage.module';
     LostReasonsModule,
     CustomFieldsModule,
     UsageModule,
+    ProductsModule,
   ],
   controllers: [HealthController],
   providers: [
