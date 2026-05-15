@@ -23,7 +23,7 @@ export class MailService {
   }
 
   async send(opts: { to: string; subject: string; html: string; text?: string }) {
-    const from = process.env.SMTP_FROM || 'crmvendas <no-reply@crmvendas.local>';
+    const from = process.env.SMTP_FROM || 'oxlify <no-reply@oxlify.com>';
     if (!this.transporter) {
       this.logger.log(`[mail:log] to=${opts.to} subject=${opts.subject}`);
       this.logger.debug(opts.text || opts.html);

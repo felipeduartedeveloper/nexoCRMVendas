@@ -14,7 +14,7 @@ export function DashboardPage() {
         Visão geral da plataforma
       </h1>
       <p className="mt-1 text-sm text-ink-600">
-        Métricas agregadas de todas as organizações em CRM Vendas.
+        Métricas agregadas de todas as organizações em oxlify.
       </p>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">

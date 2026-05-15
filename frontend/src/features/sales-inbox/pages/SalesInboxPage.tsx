@@ -71,7 +71,7 @@ const FAQS = [
     a: 'Sim. Por padrão suas conversas são privadas. Você pode marcar threads específicos como compartilhados com o time, ou liberar tudo se quiser uma caixa colaborativa.',
   },
   {
-    q: 'How does CRM Vendas handle email security?',
+    q: 'How does oxlify handle email security?',
     a: 'Usamos OAuth (sem armazenar senhas), criptografia em trânsito e repouso, e auditoria de acesso. SUPER_ADMIN pode revogar tokens individualmente.',
   },
   {

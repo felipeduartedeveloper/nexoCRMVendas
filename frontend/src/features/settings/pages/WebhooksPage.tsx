@@ -60,7 +60,7 @@ export function WebhooksPage() {
         <div>
           <h1 className="text-xl font-bold text-ink-900">Webhooks</h1>
           <p className="text-sm text-ink-500">
-            Receba notificações HTTP em tempo real quando dados mudam no nexoCRM.
+            Receba notificações HTTP em tempo real quando dados mudam no oxlify.
           </p>
         </div>
         <button

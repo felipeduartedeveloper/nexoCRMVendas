@@ -80,7 +80,7 @@ export function LandingPage() {
           </Link>
           <nav className="hidden items-center gap-7 text-sm font-medium text-ink-700 md:flex">
             <a href="#features" className="hover:text-brand-600">Recursos</a>
-            <a href="#why" className="hover:text-brand-600">Por que CRM Vendas</a>
+            <a href="#why" className="hover:text-brand-600">Por que oxlify</a>
             <a href="#pricing" className="hover:text-brand-600">Planos</a>
           </nav>
           <div className="flex items-center gap-2">
@@ -234,7 +234,7 @@ export function LandingPage() {
           <div className="rounded-2xl border border-ink-200 bg-white p-8 shadow-card">
             <p className="text-2xl font-bold leading-snug text-ink-900">
               "Em 30 dias o time de vendas triplicou a quantidade de deals fechados.
-              O CRM Vendas é simples como uma planilha — e poderoso como um sistema de
+              O oxlify é simples como uma planilha — e poderoso como um sistema de
               verdade."
             </p>
             <div className="mt-6 flex items-center gap-3">
@@ -322,7 +322,7 @@ export function LandingPage() {
       <footer className="border-t border-ink-200 bg-white py-10">
         <div className="container-wide flex flex-col items-center justify-between gap-4 text-sm text-ink-500 md:flex-row">
           <Logo />
-          <p>© {new Date().getFullYear()} CRM Vendas. Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} oxlify. Todos os direitos reservados.</p>
         </div>
       </footer>
     </div>

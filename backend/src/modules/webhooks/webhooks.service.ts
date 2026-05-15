@@ -156,9 +156,9 @@ export class WebhooksService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Nexo-Signature': signature,
-          'X-Nexo-Event': event,
-          'User-Agent': 'nexoCRM-Vendas-Webhooks/1.0',
+          'X-Oxlify-Signature': signature,
+          'X-Oxlify-Event': event,
+          'User-Agent': 'oxlify-Webhooks/1.0',
         },
         body,
         signal: controller.signal,
@@ -198,7 +198,6 @@ export class WebhooksService {
       w.consecutiveFailures = 0;
       w.lastDeliveryAt = new Date();
       w.lastStatusCode = statusCode;
-      if (w.status === 'FAILING') w.status = 'ACTIVE';
     } else {
       w.consecutiveFailures += 1;
       w.lastStatusCode = statusCode;

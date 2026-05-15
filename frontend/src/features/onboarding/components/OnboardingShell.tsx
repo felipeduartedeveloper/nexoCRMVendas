@@ -88,7 +88,7 @@ export function OnboardingShell({ step, title, subtitle, children, rightHero }: 
             <>
               <div className="rounded-2xl bg-white/10 p-6 backdrop-blur">
                 <p className="text-lg font-semibold leading-snug">
-                  "Em 30 dias triplicamos o número de deals fechados. CRM Vendas é simples
+                  "Em 30 dias triplicamos o número de deals fechados. oxlify é simples
                   como uma planilha, poderoso como um CRM de verdade."
                 </p>
                 <div className="mt-4 flex items-center gap-3">

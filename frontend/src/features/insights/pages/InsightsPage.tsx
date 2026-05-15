@@ -152,7 +152,7 @@ function DashboardsSection({ usage }: { usage: any }) {
           Identify growth opportunities. Take action.
         </h2>
         <p className="mx-auto mt-2 max-w-md text-sm text-ink-600">
-          Set up your personalized, customizable reporting dashboard. Track CRM Vendas data
+          Set up your personalized, customizable reporting dashboard. Track oxlify data
           related to your sales activities. Make informed decisions at the right time.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">

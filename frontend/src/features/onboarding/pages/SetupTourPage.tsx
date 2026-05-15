@@ -101,7 +101,7 @@ export function SetupTourPage() {
         /* noop */
       }
       draft.reset();
-      toast.success('Pronto! Bem-vindo ao CRM Vendas.');
+      toast.success('Pronto! Bem-vindo ao oxlify.');
       navigate('/dashboard');
     },
     onError: (err) =>

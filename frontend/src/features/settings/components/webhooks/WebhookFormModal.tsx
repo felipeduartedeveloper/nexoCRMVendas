@@ -168,7 +168,7 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
               type="url"
               value={targetUrl}
               onChange={(e) => setTargetUrl(e.target.value)}
-              placeholder="https://api.exemplo.com.br/webhooks/nexo"
+              placeholder="https://api.exemplo.com.br/webhooks/oxlify"
               className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
             />
           </label>

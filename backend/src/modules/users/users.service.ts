@@ -25,7 +25,7 @@ export class UsersService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    const email = (process.env.ADMIN_BOOTSTRAP_EMAIL || 'admin@crmvendas.local').toLowerCase();
+    const email = (process.env.ADMIN_BOOTSTRAP_EMAIL || 'admin@oxlify.com').toLowerCase();
     const exists = await this.repo.findOne({ where: { email } });
     if (exists) return;
     const password = process.env.ADMIN_BOOTSTRAP_PASSWORD || 'Admin@123';

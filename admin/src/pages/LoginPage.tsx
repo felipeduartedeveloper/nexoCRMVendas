@@ -20,7 +20,7 @@ interface LoginResp {
 export function LoginPage() {
   const navigate = useNavigate();
   const setSession = useAuthStore((s) => s.setSession);
-  const [email, setEmail] = useState('admin@crmvendas.local');
+  const [email, setEmail] = useState('admin@oxlify.com');
   const [password, setPassword] = useState('');
 
   const m = useMutation({
@@ -66,7 +66,7 @@ export function LoginPage() {
             SaaS Console
           </h1>
           <p className="mt-2 text-center text-sm text-ink-600">
-            Painel administrativo do CRM Vendas. Acesso somente para SUPER_ADMIN.
+            Painel administrativo do oxlify. Acesso somente para SUPER_ADMIN.
           </p>
           <div className="mt-8 rounded-xl border border-ink-200 bg-white p-7 shadow-card">
             <form onSubmit={onSubmit} className="space-y-4">

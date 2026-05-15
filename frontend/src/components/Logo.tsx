@@ -40,17 +40,12 @@ export function Logo({ size = 40, withWordmark = true, className }: Props) {
       </div>
 
       {withWordmark && (
-        <div className="flex flex-col leading-none">
-          <span className="text-xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
-              nexo
-            </span>
+        <div className="flex items-baseline leading-none">
+          <span className="text-2xl font-extrabold tracking-tight">
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              CRM
+              oxli
             </span>
-          </span>
-          <span className="text-[11px] font-medium text-muted-foreground mt-0.5 tracking-wide">
-            Vendas
+            <span className="text-black dark:text-white">fy</span>
           </span>
         </div>
       )}

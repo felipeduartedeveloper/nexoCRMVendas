@@ -339,7 +339,7 @@ export class MarketingService {
     if (!s) {
       s = this.settingsRepo.create({
         organizationId: orgId,
-        unsubscribeUrl: `https://nexocrm.app/unsubscribe/${orgId}`,
+        unsubscribeUrl: `https://oxlify.com/unsubscribe/${orgId}`,
       });
       s = await this.settingsRepo.save(s);
     }
