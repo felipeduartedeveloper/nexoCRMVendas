@@ -37,6 +37,17 @@ export const onboardingApi = {
   state: async () => unwrap<OnboardingState>(await api.get('/onboarding/state')),
   patchState: async (data: Partial<OnboardingState>) =>
     unwrap<OnboardingState>(await api.patch('/onboarding/state', data)),
-  complete: async (payload: CompletePayload) =>
-    unwrap<{ organizationId: string }>(await api.post('/onboarding/complete', payload)),
+  complete: async (payload: CompletePayload) => {
+    const flat = {
+      companyName: payload.company?.name?.trim() || 'Minha empresa',
+      industry: payload.company?.industry,
+      employeesRange: payload.company?.employeesRange,
+      country: payload.company?.country,
+      currency: payload.company?.currency || 'BRL',
+      role: payload.personal?.role,
+      useCase: payload.survey?.useCase,
+      feedbackScore: payload.feedbackScore,
+    };
+    return unwrap<{ organizationId: string }>(await api.post('/onboarding/complete', flat));
+  },
 };
