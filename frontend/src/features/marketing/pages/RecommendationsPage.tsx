@@ -34,10 +34,10 @@ export function RecommendationsPage() {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex items-center justify-between border-b border-ink-200 px-6 py-4">
+      <header className="flex items-center justify-between border-b border-border px-6 py-4">
         <div>
-          <h1 className="text-xl font-bold text-ink-900">Recomendações</h1>
-          <p className="text-sm text-ink-500">
+          <h1 className="text-xl font-bold text-foreground">Recomendações</h1>
+          <p className="text-sm text-muted-foreground">
             Sugestões automáticas de ações de marketing baseadas no seu CRM.
           </p>
         </div>
@@ -55,9 +55,9 @@ export function RecommendationsPage() {
       <div className="flex-1 space-y-3 overflow-auto p-6">
         {data.length === 0 && (
           <div className="grid place-items-center p-16 text-center">
-            <Sparkles className="h-12 w-12 text-ink-300" />
-            <h2 className="mt-3 text-base font-semibold text-ink-900">Sem recomendações</h2>
-            <p className="mt-1 text-sm text-ink-500">
+            <Sparkles className="h-12 w-12 text-muted-foreground/50" />
+            <h2 className="mt-3 text-base font-semibold text-foreground">Sem recomendações</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
               Clique em "Gerar novas" pra receber sugestões automáticas.
             </p>
           </div>
@@ -65,17 +65,17 @@ export function RecommendationsPage() {
         {data.map((r) => (
           <div
             key={r.id}
-            className="flex items-start justify-between gap-4 rounded-lg border border-ink-200 bg-white p-4 shadow-card"
+            className="flex items-start justify-between gap-4 rounded-lg border border-border bg-card p-4 shadow-card"
           >
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <span className="inline-flex rounded-md bg-brand-50 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-700">
                   {TYPE_LABELS[r.type]}
                 </span>
-                <h3 className="font-semibold text-ink-900">{r.title}</h3>
+                <h3 className="font-semibold text-foreground">{r.title}</h3>
               </div>
-              <p className="mt-1 text-sm text-ink-600">{r.description}</p>
-              <p className="mt-2 text-xs text-ink-500">
+              <p className="mt-1 text-sm text-muted-foreground">{r.description}</p>
+              <p className="mt-2 text-xs text-muted-foreground">
                 Impacto estimado: <strong>{r.estimatedImpact}</strong>
               </p>
             </div>
@@ -92,7 +92,7 @@ export function RecommendationsPage() {
                 type="button"
                 onClick={() => dismissMut.mutate(r.id)}
                 title="Descartar"
-                className="inline-flex items-center gap-1 rounded-md bg-ink-100 px-2 py-1 text-xs font-medium text-ink-700 hover:bg-ink-200"
+                className="inline-flex items-center gap-1 rounded-md bg-muted px-2 py-1 text-xs font-medium text-foreground/80 hover:bg-muted"
               >
                 <X className="h-3.5 w-3.5" /> Descartar
               </button>

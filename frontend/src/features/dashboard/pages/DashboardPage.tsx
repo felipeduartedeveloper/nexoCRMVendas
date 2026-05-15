@@ -74,7 +74,7 @@ export function DashboardPage() {
         {kpis.map((k) => (
           <div
             key={k.label}
-            className="rounded-xl border border-ink-200 bg-white p-5 shadow-card"
+            className="rounded-xl border border-border bg-card p-5 shadow-card"
           >
             <div className="flex items-center justify-between">
               <span
@@ -89,22 +89,22 @@ export function DashboardPage() {
               >
                 <k.icon className="h-5 w-5" />
               </span>
-              <ArrowUpRight className="h-4 w-4 text-ink-400" />
+              <ArrowUpRight className="h-4 w-4 text-muted-foreground/70" />
             </div>
-            <div className="mt-4 text-3xl font-extrabold tracking-tight text-ink-900">
+            <div className="mt-4 text-3xl font-extrabold tracking-tight text-foreground">
               {k.value}
             </div>
-            <div className="text-sm font-medium text-ink-600">{k.label}</div>
-            <div className="mt-1 text-xs text-ink-500">{k.hint}</div>
+            <div className="text-sm font-medium text-muted-foreground">{k.label}</div>
+            <div className="mt-1 text-xs text-muted-foreground">{k.hint}</div>
           </div>
         ))}
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         {/* Pipeline preview */}
-        <div className="rounded-xl border border-ink-200 bg-white p-5 shadow-card lg:col-span-2">
+        <div className="rounded-xl border border-border bg-card p-5 shadow-card lg:col-span-2">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-base font-bold text-ink-900">Pipeline · Vendas (padrão)</h2>
+            <h2 className="text-base font-bold text-foreground">Pipeline · Vendas (padrão)</h2>
             <Link
               to="/deals"
               className="text-sm font-semibold text-brand-600 hover:underline"
@@ -114,22 +114,22 @@ export function DashboardPage() {
           </div>
           <div className="grid grid-cols-3 gap-3">
             {['Novo deal', 'Contato feito', 'Qualificado'].map((label, idx) => (
-              <div key={label} className="rounded-lg bg-ink-50 p-3">
-                <div className="mb-2 text-[11px] font-bold uppercase tracking-wide text-ink-500">
+              <div key={label} className="rounded-lg bg-muted/40 p-3">
+                <div className="mb-2 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
                   {label}
                 </div>
                 {idx === 1 ? (
-                  <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-card">
-                    <div className="text-sm font-semibold text-ink-900">
+                  <div className="rounded-lg border border-border bg-card p-3 shadow-card">
+                    <div className="text-sm font-semibold text-foreground">
                       [Sample] Tony Turner / MoveEr
                     </div>
-                    <div className="mt-0.5 text-xs text-ink-500">Tony Turner</div>
+                    <div className="mt-0.5 text-xs text-muted-foreground">Tony Turner</div>
                     <span className="mt-2 inline-flex rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-bold text-success">
                       £ 30.000
                     </span>
                   </div>
                 ) : (
-                  <div className="grid h-20 place-items-center rounded-lg border border-dashed border-ink-200 text-xs text-ink-400">
+                  <div className="grid h-20 place-items-center rounded-lg border border-dashed border-border text-xs text-muted-foreground/70">
                     Arraste um deal aqui
                   </div>
                 )}
@@ -139,9 +139,9 @@ export function DashboardPage() {
         </div>
 
         {/* Activities */}
-        <div className="rounded-xl border border-ink-200 bg-white p-5 shadow-card">
+        <div className="rounded-xl border border-border bg-card p-5 shadow-card">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-base font-bold text-ink-900">Próximas atividades</h2>
+            <h2 className="text-base font-bold text-foreground">Próximas atividades</h2>
             <Link
               to="/activities"
               className="text-sm font-semibold text-brand-600 hover:underline"
@@ -156,12 +156,12 @@ export function DashboardPage() {
                   <a.icon className="h-4 w-4" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-semibold text-ink-900">
+                  <div className="truncate text-sm font-semibold text-foreground">
                     {a.title}
                   </div>
-                  <div className="text-xs text-ink-500">{a.when}</div>
+                  <div className="text-xs text-muted-foreground">{a.when}</div>
                 </div>
-                <span className="hidden rounded-full bg-ink-100 px-2 py-0.5 text-[11px] font-medium text-ink-700 sm:inline">
+                <span className="hidden rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-foreground/80 sm:inline">
                   {a.badge}
                 </span>
               </li>

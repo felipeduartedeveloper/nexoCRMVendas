@@ -49,8 +49,8 @@ export function DataFieldsPage() {
     <div className="mx-auto max-w-5xl">
       <header className="mb-6 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-ink-900">Data fields</h1>
-          <p className="mt-1 text-sm text-ink-600">
+          <h1 className="text-2xl font-extrabold tracking-tight text-foreground">Data fields</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             Personalize campos extras em cada entidade.
           </p>
         </div>
@@ -68,7 +68,7 @@ export function DataFieldsPage() {
               'rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-wide transition-colors',
               entity === e
                 ? 'border-brand-500 bg-brand-50 text-brand-700'
-                : 'border-ink-200 bg-white text-ink-600 hover:border-ink-300',
+                : 'border-border bg-card text-muted-foreground hover:border-border',
             )}
           >
             {e}
@@ -76,10 +76,10 @@ export function DataFieldsPage() {
         ))}
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-ink-200 bg-white shadow-card">
+      <div className="overflow-hidden rounded-xl border border-border bg-card shadow-card">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-ink-100 bg-ink-50 text-left text-[11px] font-bold uppercase tracking-wide text-ink-500">
+            <tr className="border-b border-border/50 bg-muted/40 text-left text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
               <th className="px-4 py-2.5">Label</th>
               <th className="px-4 py-2.5">Key</th>
               <th className="px-4 py-2.5">Tipo</th>
@@ -91,33 +91,33 @@ export function DataFieldsPage() {
           <tbody>
             {q.isLoading ? (
               <tr>
-                <td colSpan={6} className="p-12 text-center text-ink-500">Carregando…</td>
+                <td colSpan={6} className="p-12 text-center text-muted-foreground">Carregando…</td>
               </tr>
             ) : !items.length ? (
               <tr>
-                <td colSpan={6} className="p-12 text-center text-sm text-ink-500">
-                  <AlertCircle className="mx-auto mb-2 h-6 w-6 text-ink-300" />
+                <td colSpan={6} className="p-12 text-center text-sm text-muted-foreground">
+                  <AlertCircle className="mx-auto mb-2 h-6 w-6 text-muted-foreground/50" />
                   Nenhum campo customizado em {entity}.
                 </td>
               </tr>
             ) : (
               items.map((f) => (
-                <tr key={f.id} className="border-b border-ink-100 hover:bg-brand-50/30">
-                  <td className="px-4 py-2.5 font-semibold text-ink-900">{f.label}</td>
-                  <td className="px-4 py-2.5 font-mono text-xs text-ink-600">{f.key}</td>
+                <tr key={f.id} className="border-b border-border/50 hover:bg-brand-50/30">
+                  <td className="px-4 py-2.5 font-semibold text-foreground">{f.label}</td>
+                  <td className="px-4 py-2.5 font-mono text-xs text-muted-foreground">{f.key}</td>
                   <td className="px-4 py-2.5">
-                    <span className="rounded bg-ink-100 px-2 py-0.5 text-[11px] font-bold uppercase">
+                    <span className="rounded bg-muted px-2 py-0.5 text-[11px] font-bold uppercase">
                       {f.dataType}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-ink-600">
+                  <td className="px-4 py-2.5 text-muted-foreground">
                     {f.options?.length ? f.options.join(', ') : '—'}
                   </td>
                   <td className="px-4 py-2.5">
                     {f.required ? (
                       <span className="text-xs font-bold text-warning">Obrigatório</span>
                     ) : (
-                      <span className="text-xs text-ink-400">Opcional</span>
+                      <span className="text-xs text-muted-foreground/70">Opcional</span>
                     )}
                   </td>
                   <td className="px-4 py-2.5 text-right">
@@ -185,8 +185,8 @@ function NewFieldModal({ entity, onClose }: { entity: string; onClose: () => voi
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <form onSubmit={onSubmit} className="w-full max-w-md space-y-4 rounded-xl bg-white p-6 shadow-elevated">
-        <h3 className="text-lg font-bold text-ink-900">Novo campo em {entity}</h3>
+      <form onSubmit={onSubmit} className="w-full max-w-md space-y-4 rounded-xl bg-card p-6 shadow-elevated">
+        <h3 className="text-lg font-bold text-foreground">Novo campo em {entity}</h3>
         <Input
           label="Label"
           value={label}
@@ -213,7 +213,7 @@ function NewFieldModal({ entity, onClose }: { entity: string; onClose: () => voi
           <select
             value={dataType}
             onChange={(e) => setDataType(e.target.value as any)}
-            className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm"
+            className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm"
           >
             {DATA_TYPES.map((t) => (
               <option key={t} value={t}>

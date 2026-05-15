@@ -120,7 +120,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
         <div className="flex items-center gap-2">
           <span className="truncate">{project?.title ?? 'Projeto'}</span>
           {project && (
-            <span className="rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-ink-600">
+            <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
               {STATUS_LABELS[project.status]}
             </span>
           )}
@@ -141,7 +141,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
             <button
               type="button"
               onClick={() => archiveMut.mutate()}
-              className="rounded-md px-2 py-1 text-xs font-medium text-ink-700 hover:bg-ink-100"
+              className="rounded-md px-2 py-1 text-xs font-medium text-foreground/80 hover:bg-muted"
             >
               Arquivar
             </button>
@@ -151,7 +151,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                 if (confirm('Apagar projeto?')) deleteMut.mutate();
               }}
               aria-label="Apagar"
-              className="grid h-8 w-8 place-items-center rounded-md text-ink-500 hover:bg-ink-100 hover:text-danger"
+              className="grid h-8 w-8 place-items-center rounded-md text-muted-foreground hover:bg-muted hover:text-danger"
             >
               <Trash2 className="h-4 w-4" />
             </button>
@@ -161,7 +161,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
     >
       {project && (
         <div className="flex h-full flex-col">
-          <nav className="flex gap-1 border-b border-ink-200 px-5">
+          <nav className="flex gap-1 border-b border-border px-5">
             {(
               [
                 ['overview', 'Visão geral'],
@@ -174,7 +174,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                 type="button"
                 onClick={() => setTab(k)}
                 className={`relative px-3 py-2.5 text-sm font-medium transition-colors ${
-                  tab === k ? 'text-brand-700' : 'text-ink-600 hover:text-ink-900'
+                  tab === k ? 'text-brand-700' : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {label}
@@ -188,12 +188,12 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
           <div className="flex-1 space-y-4 overflow-y-auto p-5">
             {tab === 'overview' && (
               <>
-                <div className="rounded-lg border border-ink-200 p-3">
+                <div className="rounded-lg border border-border p-3">
                   <ProgressBar value={project.progress} />
                   <div className="mt-2 flex justify-between text-xs">
                     <HealthBadge value={project.health} />
                     {project.endDate && (
-                      <span className="text-ink-500">
+                      <span className="text-muted-foreground">
                         Prevista: {new Date(project.endDate).toLocaleDateString('pt-BR')}
                       </span>
                     )}
@@ -218,7 +218,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                   />
                   <div>
                     <span className="field-label">Criado em</span>
-                    <div className="text-sm text-ink-900">
+                    <div className="text-sm text-foreground">
                       {new Date(project.createdAt).toLocaleString('pt-BR')}
                     </div>
                   </div>
@@ -233,12 +233,12 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                   </div>
                 </div>
 
-                <div className="flex justify-end gap-2 border-t border-ink-200 pt-4">
+                <div className="flex justify-end gap-2 border-t border-border pt-4">
                   {!editing ? (
                     <button
                       type="button"
                       onClick={() => setEditing(true)}
-                      className="h-9 rounded-md border border-ink-200 bg-white px-3 text-sm font-medium text-ink-700 hover:bg-ink-50"
+                      className="h-9 rounded-md border border-border bg-card px-3 text-sm font-medium text-foreground/80 hover:bg-muted/40"
                     >
                       Editar
                     </button>
@@ -247,7 +247,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                       <button
                         type="button"
                         onClick={() => setEditing(false)}
-                        className="h-9 rounded-md border border-ink-200 bg-white px-3 text-sm font-medium text-ink-700 hover:bg-ink-50"
+                        className="h-9 rounded-md border border-border bg-card px-3 text-sm font-medium text-foreground/80 hover:bg-muted/40"
                       >
                         Cancelar
                       </button>
@@ -278,7 +278,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                       }
                     }}
                     placeholder="Nova tarefa..."
-                    className="h-9 flex-1 rounded-md border border-ink-200 px-2 text-sm"
+                    className="h-9 flex-1 rounded-md border border-border px-2 text-sm"
                   />
                   <button
                     type="button"
@@ -290,22 +290,22 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                   </button>
                 </div>
                 {tasks.length === 0 && (
-                  <p className="py-4 text-center text-sm text-ink-500">Sem tarefas ainda.</p>
+                  <p className="py-4 text-center text-sm text-muted-foreground">Sem tarefas ainda.</p>
                 )}
                 {tasks.map((t) => (
                   <div
                     key={t.id}
-                    className="flex items-center gap-2 rounded-md border border-ink-200 p-2"
+                    className="flex items-center gap-2 rounded-md border border-border p-2"
                   >
                     <input
                       type="checkbox"
                       checked={t.done}
                       onChange={() => toggleTaskMut.mutate(t.id)}
-                      className="h-4 w-4 rounded border-ink-300 text-brand-600 focus:ring-brand-500"
+                      className="h-4 w-4 rounded border-border text-brand-600 focus:ring-brand-500"
                     />
                     <span
                       className={`flex-1 text-sm ${
-                        t.done ? 'text-ink-400 line-through' : 'text-ink-900'
+                        t.done ? 'text-muted-foreground/70 line-through' : 'text-foreground'
                       }`}
                     >
                       {t.title}
@@ -313,7 +313,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
                     <button
                       type="button"
                       onClick={() => deleteTaskMut.mutate(t.id)}
-                      className="grid h-7 w-7 place-items-center rounded text-ink-400 hover:bg-ink-100 hover:text-danger"
+                      className="grid h-7 w-7 place-items-center rounded text-muted-foreground/70 hover:bg-muted hover:text-danger"
                       aria-label="Apagar"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
@@ -324,7 +324,7 @@ export function ProjectDetailDrawer({ projectId, open, onClose }: Props) {
             )}
 
             {tab === 'deals' && (
-              <div className="rounded-lg border border-dashed border-ink-200 p-6 text-center text-sm text-ink-600">
+              <div className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
                 Vinculação a negócios estará disponível em breve.
                 <br />
                 Endpoint: <code>POST /projects/:id/deal-links</code>
@@ -361,18 +361,18 @@ function Field({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             rows={3}
-            className="w-full rounded-md border border-ink-200 px-2 py-1.5 text-sm"
+            className="w-full rounded-md border border-border px-2 py-1.5 text-sm"
           />
         ) : (
           <input
             type={type}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+            className="h-9 w-full rounded-md border border-border px-2 text-sm"
           />
         )
       ) : (
-        <div className="text-sm text-ink-900">{value || '—'}</div>
+        <div className="text-sm text-foreground">{value || '—'}</div>
       )}
     </div>
   );
@@ -395,7 +395,7 @@ function SelectField({
     return (
       <div>
         <span className="field-label">{label}</span>
-        <div className="text-sm text-ink-900">
+        <div className="text-sm text-foreground">
           {options.find((o) => o.value === value)?.label ?? '—'}
         </div>
       </div>
@@ -407,7 +407,7 @@ function SelectField({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+        className="h-9 w-full rounded-md border border-border px-2 text-sm"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>

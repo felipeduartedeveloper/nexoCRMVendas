@@ -98,15 +98,15 @@ export function SalesInboxPage() {
       />
 
       <div className="mb-6 grid gap-4 lg:grid-cols-[260px_1fr]">
-        <aside className="rounded-xl border border-ink-200 bg-white p-3 shadow-card">
+        <aside className="rounded-xl border border-border bg-card p-3 shadow-card">
           <div className="mb-3 rounded-lg border border-brand-200 bg-brand-50 p-3">
             <div className="text-[10px] font-bold uppercase tracking-wide text-brand-700">
               Conta conectada
             </div>
-            <div className="mt-0.5 truncate text-sm font-semibold text-ink-900">
+            <div className="mt-0.5 truncate text-sm font-semibold text-foreground">
               {user?.email ?? 'não conectada'}
             </div>
-            <div className="mt-1 text-xs text-ink-500">
+            <div className="mt-1 text-xs text-muted-foreground">
               Incluído no seu plano <strong>Premium</strong>.
             </div>
           </div>
@@ -120,12 +120,12 @@ export function SalesInboxPage() {
                     'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                     folder === f.value
                       ? 'bg-brand-50 text-brand-700'
-                      : 'text-ink-700 hover:bg-ink-100',
+                      : 'text-foreground/80 hover:bg-muted',
                   )}
                 >
                   <f.icon className="h-4 w-4" />
                   <span className="flex-1 text-left">{f.label}</span>
-                  <span className="rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-bold text-ink-500">
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold text-muted-foreground">
                     0
                   </span>
                 </button>
@@ -134,14 +134,14 @@ export function SalesInboxPage() {
           </ul>
         </aside>
 
-        <section className="rounded-xl border border-ink-200 bg-white p-8 text-center shadow-card">
+        <section className="rounded-xl border border-border bg-card p-8 text-center shadow-card">
           <span className="grid h-12 w-12 mx-auto place-items-center rounded-lg bg-brand-100 text-brand-700">
             <Mail className="h-6 w-6" />
           </span>
-          <h2 className="mt-4 text-xl font-extrabold text-ink-900">
+          <h2 className="mt-4 text-xl font-extrabold text-foreground">
             Conecte sua caixa de e-mails
           </h2>
-          <p className="mx-auto mt-2 max-w-md text-sm text-ink-600">
+          <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
             Sincronize Gmail ou Outlook em dois cliques. Suas conversas vão aparecer
             vinculadas a contatos e deals automaticamente.
           </p>
@@ -153,7 +153,7 @@ export function SalesInboxPage() {
               <Mail className="h-4 w-4" /> Conectar Outlook
             </Button>
           </div>
-          <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-ink-500">
+          <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
             <Shield className="h-3.5 w-3.5" /> OAuth seguro. Não armazenamos senhas.
           </div>
         </section>
@@ -163,13 +163,13 @@ export function SalesInboxPage() {
         {FEATURES.map((f) => (
           <div
             key={f.title}
-            className="rounded-xl border border-ink-200 bg-white p-5 shadow-card"
+            className="rounded-xl border border-border bg-card p-5 shadow-card"
           >
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600">
               <f.icon className="h-5 w-5" />
             </span>
-            <h3 className="mt-3 text-base font-bold text-ink-900">{f.title}</h3>
-            <p className="mt-1 text-sm text-ink-600">{f.desc}</p>
+            <h3 className="mt-3 text-base font-bold text-foreground">{f.title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{f.desc}</p>
           </div>
         ))}
       </section>
@@ -189,15 +189,15 @@ export function SalesInboxPage() {
               <div className="text-3xl font-extrabold tracking-tight text-brand-700">
                 {s.value}
               </div>
-              <div className="text-xs font-semibold text-ink-700">{s.label}</div>
+              <div className="text-xs font-semibold text-foreground/80">{s.label}</div>
             </div>
           </div>
         ))}
       </section>
 
-      <section className="rounded-xl border border-ink-200 bg-white p-6 shadow-card">
-        <h2 className="mb-4 text-lg font-bold text-ink-900">Frequently asked questions</h2>
-        <ul className="divide-y divide-ink-100">
+      <section className="rounded-xl border border-border bg-card p-6 shadow-card">
+        <h2 className="mb-4 text-lg font-bold text-foreground">Frequently asked questions</h2>
+        <ul className="divide-y divide-border/50">
           {FAQS.map((f, idx) => {
             const open = openFaq === idx;
             return (
@@ -207,15 +207,15 @@ export function SalesInboxPage() {
                   onClick={() => setOpenFaq(open ? null : idx)}
                   className="flex w-full items-center justify-between gap-3 text-left"
                 >
-                  <span className="font-semibold text-ink-900">{f.q}</span>
+                  <span className="font-semibold text-foreground">{f.q}</span>
                   <ChevronDown
                     className={cn(
-                      'h-4 w-4 shrink-0 text-ink-500 transition-transform',
+                      'h-4 w-4 shrink-0 text-muted-foreground transition-transform',
                       open && 'rotate-180',
                     )}
                   />
                 </button>
-                {open && <p className="mt-2 text-sm text-ink-600">{f.a}</p>}
+                {open && <p className="mt-2 text-sm text-muted-foreground">{f.a}</p>}
               </li>
             );
           })}

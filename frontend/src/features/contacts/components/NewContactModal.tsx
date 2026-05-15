@@ -56,13 +56,13 @@ export function NewContactModal({ open, onClose }: Props) {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-xl bg-white shadow-elevated">
-        <div className="flex items-center justify-between border-b border-ink-200 p-5">
-          <h3 className="text-lg font-bold text-ink-900">Novo contato</h3>
+      <div className="w-full max-w-md rounded-xl bg-card shadow-elevated">
+        <div className="flex items-center justify-between border-b border-border p-5">
+          <h3 className="text-lg font-bold text-foreground">Novo contato</h3>
           <button
             type="button"
             onClick={onClose}
-            className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-ink-100"
+            className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
             aria-label="Fechar"
           >
             <X className="h-4 w-4" />

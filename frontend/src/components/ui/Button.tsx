@@ -9,11 +9,11 @@ const variantStyles: Record<Variant, string> = {
   primary:
     'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-sm focus-visible:ring-brand-300',
   secondary:
-    'bg-ink-100 text-ink-800 hover:bg-ink-200 active:bg-ink-300 focus-visible:ring-ink-300',
+    'bg-muted text-foreground/90 hover:bg-muted active:bg-muted-foreground/30 focus-visible:ring-border',
   ghost:
-    'bg-transparent text-ink-700 hover:bg-ink-100 active:bg-ink-200 focus-visible:ring-ink-300',
+    'bg-transparent text-foreground/80 hover:bg-muted active:bg-muted focus-visible:ring-border',
   outline:
-    'border border-ink-300 bg-white text-ink-800 hover:bg-ink-50 active:bg-ink-100 focus-visible:ring-ink-300',
+    'border border-border bg-card text-foreground/90 hover:bg-muted/40 active:bg-muted focus-visible:ring-border',
   danger:
     'bg-danger text-white hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-300',
 };

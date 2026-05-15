@@ -9,7 +9,7 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-xl border border-ink-200 bg-white shadow-card',
+        'rounded-xl border border-border bg-card shadow-card',
         className,
       )}
       {...rest}
@@ -30,5 +30,5 @@ export function CardHeader({
   className,
   ...rest
 }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn('border-b border-ink-200 p-6', className)} {...rest} />;
+  return <div className={cn('border-b border-border p-6', className)} {...rest} />;
 }

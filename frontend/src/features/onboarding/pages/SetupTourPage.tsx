@@ -122,8 +122,8 @@ export function SetupTourPage() {
       title="Tudo pronto. Veja o que já criamos para você."
       subtitle="Carregamos contatos, atividades e um deal de exemplo para você explorar."
     >
-      <div className="rounded-xl border border-ink-200 bg-white shadow-card">
-        <div className="flex border-b border-ink-200">
+      <div className="rounded-xl border border-border bg-card shadow-card">
+        <div className="flex border-b border-border">
           {tabs.map((t) => {
             const active = tab === t.key;
             return (
@@ -135,7 +135,7 @@ export function SetupTourPage() {
                   'flex flex-1 items-center justify-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors ' +
                   (active
                     ? 'border-brand-600 text-brand-700'
-                    : 'border-transparent text-ink-600 hover:text-ink-900')
+                    : 'border-transparent text-muted-foreground hover:text-foreground')
                 }
               >
                 <t.icon className="h-4 w-4" /> {t.label}
@@ -146,7 +146,7 @@ export function SetupTourPage() {
 
         <div className="p-5">
           {tab === 'contacts' && (
-            <ul className="divide-y divide-ink-100">
+            <ul className="divide-y divide-border/50">
               {sampleContacts.map((c) => (
                 <li key={c.email} className="flex items-center gap-4 py-3">
                   <div className="grid h-10 w-10 place-items-center rounded-full bg-brand-50 font-bold text-brand-700">
@@ -157,12 +157,12 @@ export function SetupTourPage() {
                       .join('')}
                   </div>
                   <div className="flex-1">
-                    <div className="font-semibold text-ink-900">{c.name}</div>
-                    <div className="text-sm text-ink-500">
+                    <div className="font-semibold text-foreground">{c.name}</div>
+                    <div className="text-sm text-muted-foreground">
                       {c.email} · {c.phone}
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-ink-100 px-3 py-1 text-xs font-medium text-ink-700">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground/80">
                     <Building2 className="h-3 w-3" /> {c.company}
                   </span>
                 </li>
@@ -175,14 +175,14 @@ export function SetupTourPage() {
               {sampleActivities.map((a) => (
                 <li
                   key={a.title}
-                  className="flex items-center gap-4 rounded-lg border border-ink-200 p-3"
+                  className="flex items-center gap-4 rounded-lg border border-border p-3"
                 >
                   <div className="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-700">
                     <a.icon className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
-                    <div className="font-semibold text-ink-900">{a.title}</div>
-                    <div className="text-sm text-ink-500">
+                    <div className="font-semibold text-foreground">{a.title}</div>
+                    <div className="text-sm text-muted-foreground">
                       {a.due} · {a.deal}
                     </div>
                   </div>
@@ -197,20 +197,20 @@ export function SetupTourPage() {
           {tab === 'deals' && (
             <div className="grid grid-cols-3 gap-2">
               {sampleStages.slice(0, 3).map((s) => (
-                <div key={s.key} className="rounded-lg bg-ink-50 p-2">
-                  <div className="mb-2 text-xs font-bold uppercase tracking-wide text-ink-500">
+                <div key={s.key} className="rounded-lg bg-muted/40 p-2">
+                  <div className="mb-2 text-xs font-bold uppercase tracking-wide text-muted-foreground">
                     {s.label}
                   </div>
                   {s.key === sampleDeal.stage ? (
-                    <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-card">
-                      <div className="font-semibold text-ink-900">{sampleDeal.title}</div>
-                      <div className="mt-1 text-sm text-ink-500">MoveEr · Tony Turner</div>
+                    <div className="rounded-lg border border-border bg-card p-3 shadow-card">
+                      <div className="font-semibold text-foreground">{sampleDeal.title}</div>
+                      <div className="mt-1 text-sm text-muted-foreground">MoveEr · Tony Turner</div>
                       <div className="mt-2 inline-flex items-center rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-bold text-success">
                         {currencyFmt.format(sampleDeal.value)}
                       </div>
                     </div>
                   ) : (
-                    <div className="h-20 rounded-lg border border-dashed border-ink-200" />
+                    <div className="h-20 rounded-lg border border-dashed border-border" />
                   )}
                 </div>
               ))}
@@ -267,11 +267,11 @@ function FeedbackModal({
   const [score, setScore] = useState<number | null>(null);
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-elevated">
-        <h3 className="text-lg font-bold text-ink-900">
+      <div className="w-full max-w-md rounded-xl bg-card p-6 shadow-elevated">
+        <h3 className="text-lg font-bold text-foreground">
           Como foi sua configuração inicial?
         </h3>
-        <p className="mt-1 text-sm text-ink-600">
+        <p className="mt-1 text-sm text-muted-foreground">
           Seu feedback nos ajuda a melhorar.
         </p>
         <div className="mt-5 flex justify-center gap-2">
@@ -288,7 +288,7 @@ function FeedbackModal({
                   'h-8 w-8 ' +
                   ((score ?? 0) >= n
                     ? 'fill-warning text-warning'
-                    : 'text-ink-300')
+                    : 'text-muted-foreground/50')
                 }
               />
             </button>

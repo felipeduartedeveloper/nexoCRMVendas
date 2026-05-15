@@ -97,7 +97,7 @@ export function Verify2faPage() {
               onKeyDown={(e) => onKeyDown(i, e)}
               inputMode="numeric"
               maxLength={1}
-              className="h-14 w-12 rounded-lg border border-ink-300 bg-white text-center text-2xl font-bold text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+              className="h-14 w-12 rounded-lg border border-border bg-card text-center text-2xl font-bold text-foreground focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
               aria-label={`Dígito ${i + 1}`}
             />
           ))}

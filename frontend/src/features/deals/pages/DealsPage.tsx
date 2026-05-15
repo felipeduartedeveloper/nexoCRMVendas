@@ -163,8 +163,8 @@ export function DealsPage() {
     return (
       <div className="mx-auto max-w-7xl">
         <PageHeader title="Negócios" />
-        <div className="grid place-items-center rounded-xl border border-dashed border-ink-300 bg-white p-12 text-center">
-          <p className="text-sm text-ink-600">Nenhum pipeline configurado ainda.</p>
+        <div className="grid place-items-center rounded-xl border border-dashed border-border bg-card p-12 text-center">
+          <p className="text-sm text-muted-foreground">Nenhum pipeline configurado ainda.</p>
         </div>
       </div>
     );
@@ -269,7 +269,7 @@ function PipelineSelector({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="appearance-none rounded-lg border border-ink-300 bg-white py-1.5 pl-3 pr-8 text-sm font-semibold text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+        className="appearance-none rounded-lg border border-border bg-card py-1.5 pl-3 pr-8 text-sm font-semibold text-foreground focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
       >
         {pipelines.map((p) => (
           <option key={p.id} value={p.id}>
@@ -277,7 +277,7 @@ function PipelineSelector({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-2 top-2 h-4 w-4 text-ink-500" />
+      <ChevronDown className="pointer-events-none absolute right-2 top-2 h-4 w-4 text-muted-foreground" />
     </div>
   );
 }

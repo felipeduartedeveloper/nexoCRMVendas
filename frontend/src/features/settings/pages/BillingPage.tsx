@@ -46,8 +46,8 @@ export function BillingPage() {
   return (
     <div className="mx-auto max-w-5xl">
       <header className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-ink-900">Billing</h1>
-        <p className="mt-1 text-sm text-ink-600">
+        <h1 className="text-2xl font-extrabold tracking-tight text-foreground">Billing</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           Gerencie seu plano e veja o histórico de cobrança.
         </p>
       </header>
@@ -61,7 +61,7 @@ export function BillingPage() {
             <div className="text-xs font-bold uppercase tracking-wide text-brand-700">
               Plano atual
             </div>
-            <div className="text-xl font-extrabold text-ink-900">{current}</div>
+            <div className="text-xl font-extrabold text-foreground">{current}</div>
           </div>
           <Button variant="outline" size="sm">
             Histórico de faturas
@@ -76,16 +76,16 @@ export function BillingPage() {
             <div
               key={p.code}
               className={cn(
-                'flex flex-col rounded-xl border bg-white p-6 shadow-card transition-shadow',
+                'flex flex-col rounded-xl border bg-card p-6 shadow-card transition-shadow',
                 active
                   ? 'border-brand-500 ring-2 ring-brand-100'
                   : p.highlight
                   ? 'border-brand-300'
-                  : 'border-ink-200 hover:shadow-elevated',
+                  : 'border-border hover:shadow-elevated',
               )}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-ink-900">{p.name}</h3>
+                <h3 className="text-base font-bold text-foreground">{p.name}</h3>
                 {active && (
                   <span className="rounded-full bg-success/10 px-2.5 py-0.5 text-[10px] font-bold uppercase text-success">
                     Seu plano
@@ -93,7 +93,7 @@ export function BillingPage() {
                 )}
               </div>
               <div className="mt-2 text-sm font-semibold text-brand-700">{p.price}</div>
-              <ul className="mt-4 space-y-1.5 text-sm text-ink-700">
+              <ul className="mt-4 space-y-1.5 text-sm text-foreground/80">
                 {p.features.map((f) => (
                   <li key={f} className="flex items-center gap-1.5">
                     <CheckCircle2 className="h-3.5 w-3.5 text-success" />

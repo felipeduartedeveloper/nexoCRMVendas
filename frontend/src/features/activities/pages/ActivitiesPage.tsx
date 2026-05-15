@@ -35,7 +35,7 @@ const TYPE_META: Record<ActivityType, { label: string; icon: any; color: string 
 const PRIORITY_COLOR: Record<string, string> = {
   HIGH: 'text-danger',
   MEDIUM: 'text-warning',
-  LOW: 'text-ink-400',
+  LOW: 'text-muted-foreground/70',
 };
 
 const SCOPES = [
@@ -132,18 +132,18 @@ export function ActivitiesPage() {
         <Counter label="Concluídas" value={counters.data?.done ?? 0} color="text-success" />
       </div>
 
-      <div className="rounded-xl border border-ink-200 bg-white shadow-card">
-        <div className="flex flex-wrap items-center gap-3 border-b border-ink-200 p-3">
+      <div className="rounded-xl border border-border bg-card shadow-card">
+        <div className="flex flex-wrap items-center gap-3 border-b border-border p-3">
           <div className="relative flex w-full max-w-sm items-center">
-            <Search className="pointer-events-none absolute left-3 h-4 w-4 text-ink-400" />
+            <Search className="pointer-events-none absolute left-3 h-4 w-4 text-muted-foreground/70" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar por assunto…"
-              className="h-9 w-full rounded-lg border border-ink-200 bg-white pl-9 pr-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+              className="h-9 w-full rounded-lg border border-border bg-card pl-9 pr-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
           </div>
-          <div className="flex items-center gap-1 rounded-lg border border-ink-200 bg-ink-50 p-1">
+          <div className="flex items-center gap-1 rounded-lg border border-border bg-muted/40 p-1">
             {SCOPES.map((s) => (
               <button
                 key={s.value}
@@ -151,15 +151,15 @@ export function ActivitiesPage() {
                 className={cn(
                   'rounded-md px-3 py-1 text-xs font-semibold transition-colors',
                   scope === s.value
-                    ? 'bg-white text-brand-700 shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900',
+                    ? 'bg-card text-brand-700 shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground',
                 )}
               >
                 {s.label}
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-1 rounded-lg border border-ink-200 bg-ink-50 p-1">
+          <div className="flex items-center gap-1 rounded-lg border border-border bg-muted/40 p-1">
             {['all', 'open', 'done'].map((v) => (
               <button
                 key={v}
@@ -167,8 +167,8 @@ export function ActivitiesPage() {
                 className={cn(
                   'rounded-md px-3 py-1 text-xs font-semibold transition-colors',
                   doneFilter === v
-                    ? 'bg-white text-brand-700 shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900',
+                    ? 'bg-card text-brand-700 shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground',
                 )}
               >
                 {v === 'all' ? 'Todas' : v === 'open' ? 'Em aberto' : 'Concluídas'}
@@ -183,7 +183,7 @@ export function ActivitiesPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-ink-100 bg-ink-50 text-left text-[11px] font-bold uppercase tracking-wide text-ink-500">
+              <tr className="border-b border-border/50 bg-muted/40 text-left text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
                 <th className="w-10 px-4 py-2.5">Done</th>
                 <th className="px-4 py-2.5">Subject</th>
                 <th className="px-4 py-2.5">Deal</th>
@@ -200,15 +200,15 @@ export function ActivitiesPage() {
             <tbody>
               {q.isLoading ? (
                 <tr>
-                  <td colSpan={11} className="p-12 text-center text-ink-500">
+                  <td colSpan={11} className="p-12 text-center text-muted-foreground">
                     Carregando atividades…
                   </td>
                 </tr>
               ) : !items.length ? (
                 <tr>
                   <td colSpan={11} className="p-12 text-center">
-                    <ClipboardList className="mx-auto mb-2 h-8 w-8 text-ink-300" />
-                    <p className="text-sm text-ink-500">
+                    <ClipboardList className="mx-auto mb-2 h-8 w-8 text-muted-foreground/50" />
+                    <p className="text-sm text-muted-foreground">
                       Nenhuma atividade nesse filtro.
                     </p>
                   </td>
@@ -221,8 +221,8 @@ export function ActivitiesPage() {
                       key={a.id}
                       onClick={() => setOpenActivityId(a.id)}
                       className={cn(
-                        'cursor-pointer border-b border-ink-100 hover:bg-brand-50/40',
-                        a.done && 'bg-ink-50/60',
+                        'cursor-pointer border-b border-border/50 hover:bg-brand-50/40',
+                        a.done && 'bg-muted/40/60',
                       )}
                     >
                       <td className="px-4 py-2.5" onClick={(e) => e.stopPropagation()}>
@@ -230,7 +230,7 @@ export function ActivitiesPage() {
                           type="checkbox"
                           checked={a.done}
                           onChange={(e) => toggleDone.mutate({ id: a.id, done: e.target.checked })}
-                          className="h-4 w-4 cursor-pointer rounded border-ink-300 text-brand-600 focus:ring-brand-300"
+                          className="h-4 w-4 cursor-pointer rounded border-border text-brand-600 focus:ring-brand-300"
                         />
                       </td>
                       <td className="px-4 py-2.5">
@@ -245,17 +245,17 @@ export function ActivitiesPage() {
                           </span>
                           <span
                             className={cn(
-                              'truncate font-semibold text-ink-900',
-                              a.done && 'text-ink-400 line-through',
+                              'truncate font-semibold text-foreground',
+                              a.done && 'text-muted-foreground/70 line-through',
                             )}
                           >
                             {a.subject}
                           </span>
                         </div>
                       </td>
-                      <td className="px-4 py-2.5 text-ink-600">
+                      <td className="px-4 py-2.5 text-muted-foreground">
                         {a.dealId ? (
-                          <span className="rounded bg-ink-100 px-2 py-0.5 font-mono text-[11px]">
+                          <span className="rounded bg-muted px-2 py-0.5 font-mono text-[11px]">
                             {a.dealId.slice(0, 8)}…
                           </span>
                         ) : (
@@ -273,25 +273,25 @@ export function ActivitiesPage() {
                           {a.priority === 'HIGH' ? 'Alta' : a.priority === 'MEDIUM' ? 'Média' : 'Baixa'}
                         </span>
                       </td>
-                      <td className="px-4 py-2.5 text-ink-600">
+                      <td className="px-4 py-2.5 text-muted-foreground">
                         {a.contactId ? (
                           <span className="font-mono text-[11px]">{a.contactId.slice(0, 8)}…</span>
                         ) : (
                           '—'
                         )}
                       </td>
-                      <td className="px-4 py-2.5 text-ink-600">—</td>
-                      <td className="px-4 py-2.5 text-ink-600">—</td>
-                      <td className="px-4 py-2.5 text-ink-600">
+                      <td className="px-4 py-2.5 text-muted-foreground">—</td>
+                      <td className="px-4 py-2.5 text-muted-foreground">—</td>
+                      <td className="px-4 py-2.5 text-muted-foreground">
                         {a.orgCompanyId ? (
                           <span className="font-mono text-[11px]">{a.orgCompanyId.slice(0, 8)}…</span>
                         ) : (
                           '—'
                         )}
                       </td>
-                      <td className="px-4 py-2.5 text-ink-700">{formatDateCell(a.dueAt)}</td>
-                      <td className="px-4 py-2.5 text-ink-700">{a.durationMin} min</td>
-                      <td className="px-4 py-2.5 text-ink-600">
+                      <td className="px-4 py-2.5 text-foreground/80">{formatDateCell(a.dueAt)}</td>
+                      <td className="px-4 py-2.5 text-foreground/80">{a.durationMin} min</td>
+                      <td className="px-4 py-2.5 text-muted-foreground">
                         {a.ownerUserId ? (
                           <span className="font-mono text-[11px]">{a.ownerUserId.slice(0, 8)}…</span>
                         ) : (
@@ -319,9 +319,9 @@ export function ActivitiesPage() {
 
 function Counter({ label, value, color }: { label: string; value: number; color: string }) {
   return (
-    <div className="rounded-xl border border-ink-200 bg-white p-4 shadow-card">
+    <div className="rounded-xl border border-border bg-card p-4 shadow-card">
       <div className={cn('text-2xl font-extrabold tracking-tight', color)}>{value}</div>
-      <div className="text-xs font-medium text-ink-500">{label}</div>
+      <div className="text-xs font-medium text-muted-foreground">{label}</div>
     </div>
   );
 }

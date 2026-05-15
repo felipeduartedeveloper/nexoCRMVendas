@@ -35,10 +35,10 @@ export function SecurityCenterPage() {
   return (
     <div className="mx-auto max-w-4xl">
       <header className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-ink-900">
+        <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
           Security center
         </h1>
-        <p className="mt-1 text-sm text-ink-600">
+        <p className="mt-1 text-sm text-muted-foreground">
           Controles de segurança da sua organização.
         </p>
       </header>
@@ -47,30 +47,30 @@ export function SecurityCenterPage() {
         {items.map((it) => (
           <li
             key={it.title}
-            className="flex items-start gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-card"
+            className="flex items-start gap-4 rounded-xl border border-border bg-card p-5 shadow-card"
           >
             <span
               className={
                 'grid h-10 w-10 shrink-0 place-items-center rounded-lg ' +
-                (it.enabled ? 'bg-success/10 text-success' : 'bg-ink-100 text-ink-500')
+                (it.enabled ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground')
               }
             >
               <it.icon className="h-5 w-5" />
             </span>
             <div className="flex-1">
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-ink-900">{it.title}</h3>
+                <h3 className="font-bold text-foreground">{it.title}</h3>
                 {it.enabled ? (
                   <span className="rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold uppercase text-success">
                     Ativo
                   </span>
                 ) : (
-                  <span className="rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-bold uppercase text-ink-500">
+                  <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
                     {it.note ?? 'Inativo'}
                   </span>
                 )}
               </div>
-              <p className="mt-1 text-sm text-ink-600">{it.desc}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{it.desc}</p>
             </div>
             <Button variant="outline" size="sm" disabled={!it.enabled}>
               <Shield className="h-4 w-4" /> Gerir

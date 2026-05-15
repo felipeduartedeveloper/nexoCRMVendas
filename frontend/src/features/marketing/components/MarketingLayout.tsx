@@ -37,12 +37,12 @@ const sections = [
 export function MarketingLayout() {
   return (
     <div className="grid h-full grid-cols-[240px_1fr]">
-      <aside className="border-r border-ink-200 bg-white p-4">
-        <h2 className="mb-3 px-2 text-lg font-bold text-ink-900">Marketing</h2>
+      <aside className="border-r border-border bg-card p-4">
+        <h2 className="mb-3 px-2 text-lg font-bold text-foreground">Marketing</h2>
         <nav className="space-y-4">
           {sections.map((s) => (
             <div key={s.title}>
-              <h3 className="mb-1 px-2 text-[11px] font-bold uppercase tracking-wider text-ink-500">
+              <h3 className="mb-1 px-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
                 {s.title}
               </h3>
               <ul className="space-y-0.5">
@@ -55,7 +55,7 @@ export function MarketingLayout() {
                         `flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors ${
                           isActive
                             ? 'bg-brand-50 text-brand-700'
-                            : 'text-ink-700 hover:bg-ink-100'
+                            : 'text-foreground/80 hover:bg-muted'
                         }`
                       }
                     >

@@ -75,13 +75,13 @@ export function NewActivityModal({ open, onClose }: Props) {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-xl bg-white shadow-elevated">
-        <div className="flex items-center justify-between border-b border-ink-200 p-5">
-          <h3 className="text-lg font-bold text-ink-900">Nova atividade</h3>
+      <div className="w-full max-w-md rounded-xl bg-card shadow-elevated">
+        <div className="flex items-center justify-between border-b border-border p-5">
+          <h3 className="text-lg font-bold text-foreground">Nova atividade</h3>
           <button
             type="button"
             onClick={onClose}
-            className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-ink-100"
+            className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
             aria-label="Fechar"
           >
             <X className="h-4 w-4" />
@@ -102,7 +102,7 @@ export function NewActivityModal({ open, onClose }: Props) {
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as ActivityType)}
-                className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
               >
                 {TYPES.map((t) => (
                   <option key={t.value} value={t.value}>
@@ -116,7 +116,7 @@ export function NewActivityModal({ open, onClose }: Props) {
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as ActivityPriority)}
-                className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
               >
                 {PRIORITIES.map((p) => (
                   <option key={p.value} value={p.value}>

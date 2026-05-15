@@ -83,17 +83,17 @@ export function NewCampaignModal({ open, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <form onSubmit={onSubmit} className="w-full max-w-2xl rounded-xl bg-white shadow-elevated">
-        <header className="flex items-center justify-between border-b border-ink-200 p-5">
+      <form onSubmit={onSubmit} className="w-full max-w-2xl rounded-xl bg-card shadow-elevated">
+        <header className="flex items-center justify-between border-b border-border p-5">
           <div>
-            <h2 className="text-lg font-bold text-ink-900">Nova campanha</h2>
-            <p className="text-xs text-ink-500">Passo {step} de 3</p>
+            <h2 className="text-lg font-bold text-foreground">Nova campanha</h2>
+            <p className="text-xs text-muted-foreground">Passo {step} de 3</p>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-ink-100"
+            className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
           >
             <X className="h-4 w-4" />
           </button>
@@ -108,7 +108,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
               <label className="block">
@@ -117,7 +117,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                   required
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -127,7 +127,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                     required
                     value={fromName}
                     onChange={(e) => setFromName(e.target.value)}
-                    className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                    className="h-9 w-full rounded-md border border-border px-2 text-sm"
                   />
                 </label>
                 <label className="block">
@@ -137,7 +137,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                     type="email"
                     value={fromEmail}
                     onChange={(e) => setFromEmail(e.target.value)}
-                    className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                    className="h-9 w-full rounded-md border border-border px-2 text-sm"
                   />
                 </label>
               </div>
@@ -147,7 +147,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                   type="email"
                   value={replyToEmail}
                   onChange={(e) => setReplyToEmail(e.target.value)}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
             </>
@@ -155,17 +155,17 @@ export function NewCampaignModal({ open, onClose }: Props) {
 
           {step === 2 && (
             <>
-              <p className="text-sm text-ink-600">Escolha um modelo ou crie um email em branco:</p>
+              <p className="text-sm text-muted-foreground">Escolha um modelo ou crie um email em branco:</p>
               <div className="grid grid-cols-2 gap-3">
                 <button
                   type="button"
                   onClick={() => setTemplateId(null)}
                   className={`rounded-md border-2 p-3 text-left text-sm ${
-                    templateId === null ? 'border-brand-500 bg-brand-50' : 'border-ink-200'
+                    templateId === null ? 'border-brand-500 bg-brand-50' : 'border-border'
                   }`}
                 >
                   <strong>Email em branco</strong>
-                  <p className="mt-1 text-xs text-ink-500">Começar do zero</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Começar do zero</p>
                 </button>
                 {templates.map((t) => (
                   <button
@@ -173,11 +173,11 @@ export function NewCampaignModal({ open, onClose }: Props) {
                     key={t.id}
                     onClick={() => setTemplateId(t.id)}
                     className={`rounded-md border-2 p-3 text-left text-sm ${
-                      templateId === t.id ? 'border-brand-500 bg-brand-50' : 'border-ink-200'
+                      templateId === t.id ? 'border-brand-500 bg-brand-50' : 'border-border'
                     }`}
                   >
                     <strong>{t.name}</strong>
-                    <p className="mt-1 truncate text-xs text-ink-500">{t.subject}</p>
+                    <p className="mt-1 truncate text-xs text-muted-foreground">{t.subject}</p>
                   </button>
                 ))}
               </div>
@@ -189,7 +189,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                     onChange={(e) => setBodyHtml(e.target.value)}
                     rows={6}
                     placeholder="<p>Olá {{contact.firstName}}...</p>"
-                    className="w-full rounded-md border border-ink-200 px-2 py-1.5 font-mono text-xs"
+                    className="w-full rounded-md border border-border px-2 py-1.5 font-mono text-xs"
                   />
                 </label>
               )}
@@ -203,7 +203,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                 <select
                   value={audienceId ?? ''}
                   onChange={(e) => setAudienceId(e.target.value || null)}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 >
                   <option value="">— Selecione —</option>
                   {audiences.map((a) => (
@@ -219,7 +219,7 @@ export function NewCampaignModal({ open, onClose }: Props) {
                   type="datetime-local"
                   value={scheduledAt}
                   onChange={(e) => setScheduledAt(e.target.value)}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
                 <p className="field-hint">Deixe em branco para criar como rascunho.</p>
               </label>
@@ -233,11 +233,11 @@ export function NewCampaignModal({ open, onClose }: Props) {
           )}
         </div>
 
-        <footer className="flex items-center justify-between border-t border-ink-200 p-4">
+        <footer className="flex items-center justify-between border-t border-border p-4">
           <button
             type="button"
             onClick={() => (step > 1 ? setStep((s) => s - 1) : onClose())}
-            className="h-9 rounded-md border border-ink-200 bg-white px-4 text-sm font-medium text-ink-700 hover:bg-ink-50"
+            className="h-9 rounded-md border border-border bg-card px-4 text-sm font-medium text-foreground/80 hover:bg-muted/40"
           >
             {step > 1 ? 'Voltar' : 'Cancelar'}
           </button>

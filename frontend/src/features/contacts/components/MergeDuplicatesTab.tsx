@@ -26,7 +26,7 @@ export function MergeDuplicatesTab() {
   });
 
   if (q.isLoading) {
-    return <div className="p-12 text-center text-sm text-ink-500">Procurando duplicatas…</div>;
+    return <div className="p-12 text-center text-sm text-muted-foreground">Procurando duplicatas…</div>;
   }
 
   const groups = q.data ?? [];
@@ -35,8 +35,8 @@ export function MergeDuplicatesTab() {
     return (
       <div className="p-12 text-center">
         <Merge className="mx-auto h-10 w-10 text-success" />
-        <p className="mt-3 text-sm font-semibold text-ink-900">Tudo limpo!</p>
-        <p className="text-xs text-ink-500">Nenhum contato duplicado por e-mail encontrado.</p>
+        <p className="mt-3 text-sm font-semibold text-foreground">Tudo limpo!</p>
+        <p className="text-xs text-muted-foreground">Nenhum contato duplicado por e-mail encontrado.</p>
       </div>
     );
   }
@@ -55,14 +55,14 @@ export function MergeDuplicatesTab() {
           return (
             <li
               key={g.email}
-              className="rounded-xl border border-ink-200 bg-white p-4 shadow-card"
+              className="rounded-xl border border-border bg-card p-4 shadow-card"
             >
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-900">
-                    <Mail className="h-3.5 w-3.5 text-ink-400" /> {g.email}
+                  <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                    <Mail className="h-3.5 w-3.5 text-muted-foreground/70" /> {g.email}
                   </div>
-                  <div className="text-xs text-ink-500">
+                  <div className="text-xs text-muted-foreground">
                     {g.count} contatos com este e-mail
                   </div>
                 </div>
@@ -74,7 +74,7 @@ export function MergeDuplicatesTab() {
                   <Merge className="h-4 w-4" /> Mesclar em 1
                 </Button>
               </div>
-              <ul className="mt-3 space-y-1 border-t border-ink-100 pt-3 text-xs text-ink-600">
+              <ul className="mt-3 space-y-1 border-t border-border/50 pt-3 text-xs text-muted-foreground">
                 {g.contactIds.map((id, idx) => (
                   <li key={id} className="flex items-center gap-2">
                     <span
@@ -82,7 +82,7 @@ export function MergeDuplicatesTab() {
                         'inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ' +
                         (idx === 0
                           ? 'bg-brand-100 text-brand-700'
-                          : 'bg-ink-100 text-ink-500')
+                          : 'bg-muted text-muted-foreground')
                       }
                     >
                       {idx === 0 ? 'Manter' : 'Mesclar'}

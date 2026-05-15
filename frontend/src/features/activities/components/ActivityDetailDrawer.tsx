@@ -88,7 +88,7 @@ export function ActivityDetailDrawer({ open, activityId, onClose }: Props) {
       title={a ? a.subject : 'Carregando…'}
       subtitle={
         a && (
-          <span className="text-xs text-ink-500">
+          <span className="text-xs text-muted-foreground">
             {a.dueAt ? new Date(a.dueAt).toLocaleString('pt-BR') : 'Sem prazo'} ·{' '}
             {a.durationMin} min
           </span>
@@ -111,7 +111,7 @@ export function ActivityDetailDrawer({ open, activityId, onClose }: Props) {
               onClick={() => {
                 if (window.confirm('Apagar esta atividade?')) remove.mutate();
               }}
-              className="grid h-8 w-8 place-items-center rounded-lg text-danger hover:bg-red-50"
+              className="grid h-8 w-8 place-items-center rounded-lg text-danger hover:bg-danger/10"
               aria-label="Apagar"
             >
               <Trash2 className="h-4 w-4" />
@@ -121,7 +121,7 @@ export function ActivityDetailDrawer({ open, activityId, onClose }: Props) {
       }
     >
       {!a ? (
-        <div className="p-8 text-center text-sm text-ink-500">Carregando…</div>
+        <div className="p-8 text-center text-sm text-muted-foreground">Carregando…</div>
       ) : (
         <div className="space-y-4 p-5">
           <Input
@@ -140,7 +140,7 @@ export function ActivityDetailDrawer({ open, activityId, onClose }: Props) {
                   setType(v);
                   update.mutate({ type: v });
                 }}
-                className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
               >
                 {TYPES.map((t) => (
                   <option key={t.value} value={t.value}>
@@ -158,7 +158,7 @@ export function ActivityDetailDrawer({ open, activityId, onClose }: Props) {
                   setPriority(v);
                   update.mutate({ priority: v });
                 }}
-                className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+                className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
               >
                 <option value="LOW">Baixa</option>
                 <option value="MEDIUM">Média</option>
@@ -184,11 +184,11 @@ export function ActivityDetailDrawer({ open, activityId, onClose }: Props) {
               onChange={(e) => setNotes(e.target.value)}
               onBlur={() => notes !== (a.notes ?? '') && update.mutate({ notes: notes || null })}
               rows={5}
-              className="w-full rounded-lg border border-ink-300 bg-white px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+              className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
               placeholder="Adicione notas sobre esta atividade…"
             />
           </div>
-          <div className="grid grid-cols-2 gap-3 text-xs text-ink-500">
+          <div className="grid grid-cols-2 gap-3 text-xs text-muted-foreground">
             <div>
               <Flag className="mr-1 inline h-3 w-3" />
               Criada em {new Date(a.createdAt).toLocaleString('pt-BR')}

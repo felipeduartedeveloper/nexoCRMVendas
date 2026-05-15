@@ -94,7 +94,7 @@ export function Sidebar({ collapsed, onToggle }: Props) {
                     'group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                     isActive
                       ? 'bg-brand-50 text-brand-700'
-                      : 'text-ink-700 hover:bg-ink-100 hover:text-ink-900',
+                      : 'text-foreground/80 hover:bg-muted hover:text-foreground',
                   )
                 }
                 title={collapsed ? it.label : undefined}
@@ -111,8 +111,8 @@ export function Sidebar({ collapsed, onToggle }: Props) {
               className={cn(
                 'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 moreOpen
-                  ? 'bg-ink-100 text-ink-900'
-                  : 'text-ink-700 hover:bg-ink-100 hover:text-ink-900',
+                  ? 'bg-muted text-foreground'
+                  : 'text-foreground/80 hover:bg-muted hover:text-foreground',
               )}
               title={collapsed ? 'Mais' : undefined}
             >
@@ -121,7 +121,7 @@ export function Sidebar({ collapsed, onToggle }: Props) {
             </button>
           </li>
           {moreOpen && (
-            <ul className={cn('mt-1 space-y-0.5', !collapsed && 'border-l border-ink-200 pl-3 ml-3')}>
+            <ul className={cn('mt-1 space-y-0.5', !collapsed && 'border-l border-border pl-3 ml-3')}>
               {moreItems.map((it) => (
                 <li key={it.to}>
                   <NavLink
@@ -131,7 +131,7 @@ export function Sidebar({ collapsed, onToggle }: Props) {
                         'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                         isActive
                           ? 'bg-brand-50 text-brand-700'
-                          : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900',
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                       )
                     }
                     title={collapsed ? it.label : undefined}
@@ -147,7 +147,7 @@ export function Sidebar({ collapsed, onToggle }: Props) {
       </nav>
 
       {!collapsed && (
-        <div className="border-t border-ink-200 p-3">
+        <div className="border-t border-border p-3">
           <div className="rounded-lg bg-brand-50 p-3">
             <p className="text-xs font-semibold text-brand-800">
               14 dias grátis restantes

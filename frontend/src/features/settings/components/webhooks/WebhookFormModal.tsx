@@ -98,36 +98,36 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
   if (createdSecret) {
     return (
       <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-        <div className="w-full max-w-lg rounded-xl bg-white shadow-elevated">
-          <header className="border-b border-ink-200 p-5">
+        <div className="w-full max-w-lg rounded-xl bg-card shadow-elevated">
+          <header className="border-b border-border p-5">
             <h2 className="text-lg font-bold text-success">Webhook criado com sucesso</h2>
           </header>
           <div className="space-y-3 p-5">
-            <div className="rounded-md border border-warning/30 bg-warning/5 p-3 text-sm text-ink-700">
+            <div className="rounded-md border border-warning/30 bg-warning/5 p-3 text-sm text-foreground/80">
               ⚠️ <strong>Copie o secret agora!</strong> Por segurança, ele não será mostrado novamente.
               Você pode regenerar depois, mas todos os webhooks já configurados pararão de validar.
             </div>
             <label className="block">
               <span className="field-label">Secret HMAC</span>
               <div className="flex gap-2">
-                <code className="flex-1 break-all rounded-md border border-ink-200 bg-ink-50 px-2 py-1.5 font-mono text-xs">
+                <code className="flex-1 break-all rounded-md border border-border bg-muted/40 px-2 py-1.5 font-mono text-xs">
                   {createdSecret}
                 </code>
                 <button
                   type="button"
                   onClick={() => navigator.clipboard.writeText(createdSecret)}
-                  className="inline-flex items-center gap-1 rounded-md border border-ink-200 bg-white px-2 text-xs font-medium text-ink-700 hover:bg-ink-50"
+                  className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-2 text-xs font-medium text-foreground/80 hover:bg-muted/40"
                 >
                   <Copy className="h-3.5 w-3.5" /> Copiar
                 </button>
               </div>
             </label>
-            <p className="text-xs text-ink-500">
+            <p className="text-xs text-muted-foreground">
               Use esse valor pra verificar o header <code>X-Nexo-Signature</code> em cada
               webhook recebido: <code>sha256=HMAC(secret, body)</code>.
             </p>
           </div>
-          <footer className="flex justify-end border-t border-ink-200 p-4">
+          <footer className="flex justify-end border-t border-border p-4">
             <button
               type="button"
               onClick={() => {
@@ -146,16 +146,16 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <form onSubmit={onSubmit} className="w-full max-w-2xl rounded-xl bg-white shadow-elevated">
-        <header className="flex items-center justify-between border-b border-ink-200 p-5">
-          <h2 className="text-lg font-bold text-ink-900">
+      <form onSubmit={onSubmit} className="w-full max-w-2xl rounded-xl bg-card shadow-elevated">
+        <header className="flex items-center justify-between border-b border-border p-5">
+          <h2 className="text-lg font-bold text-foreground">
             {isNew ? 'Novo webhook' : 'Editar webhook'}
           </h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-ink-100"
+            className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
           >
             <X className="h-4 w-4" />
           </button>
@@ -169,7 +169,7 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
               value={targetUrl}
               onChange={(e) => setTargetUrl(e.target.value)}
               placeholder="https://api.exemplo.com.br/webhooks/oxlify"
-              className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+              className="h-9 w-full rounded-md border border-border px-2 text-sm"
             />
           </label>
           <label className="block">
@@ -178,7 +178,7 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Default: host da URL"
-              className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+              className="h-9 w-full rounded-md border border-border px-2 text-sm"
             />
           </label>
 
@@ -188,9 +188,9 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
               {Object.entries(grouped).map(([entity, evList]) => {
                 const allOn = evList.every((e) => events.includes(e));
                 return (
-                  <div key={entity} className="rounded-md border border-ink-200 p-3">
+                  <div key={entity} className="rounded-md border border-border p-3">
                     <div className="mb-2 flex items-center justify-between">
-                      <h4 className="text-sm font-semibold text-ink-900">
+                      <h4 className="text-sm font-semibold text-foreground">
                         {ENTITY_LABELS[entity] ?? entity}
                       </h4>
                       <button
@@ -208,9 +208,9 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
                             type="checkbox"
                             checked={events.includes(ev)}
                             onChange={() => toggleEvent(ev)}
-                            className="h-3.5 w-3.5 rounded border-ink-300 text-brand-600"
+                            className="h-3.5 w-3.5 rounded border-border text-brand-600"
                           />
-                          <code className="text-ink-700">{ev}</code>
+                          <code className="text-foreground/80">{ev}</code>
                         </label>
                       ))}
                     </div>
@@ -226,11 +226,11 @@ export function WebhookFormModal({ open, onClose, editing }: Props) {
             </div>
           )}
         </div>
-        <footer className="flex items-center justify-end gap-2 border-t border-ink-200 p-4">
+        <footer className="flex items-center justify-end gap-2 border-t border-border p-4">
           <button
             type="button"
             onClick={onClose}
-            className="h-9 rounded-md border border-ink-200 bg-white px-4 text-sm font-medium text-ink-700 hover:bg-ink-50"
+            className="h-9 rounded-md border border-border bg-card px-4 text-sm font-medium text-foreground/80 hover:bg-muted/40"
           >
             Cancelar
           </button>

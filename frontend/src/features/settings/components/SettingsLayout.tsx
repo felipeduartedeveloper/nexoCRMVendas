@@ -70,7 +70,7 @@ const companySettings: NavItem[] = [
 function Section({ title, items }: { title: string; items: NavItem[] }) {
   return (
     <div className="mb-6">
-      <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-widest text-ink-500">
+      <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
         {title}
       </div>
       <ul className="space-y-0.5">
@@ -83,7 +83,7 @@ function Section({ title, items }: { title: string; items: NavItem[] }) {
                   'flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors',
                   isActive
                     ? 'bg-brand-50 font-semibold text-brand-700'
-                    : 'text-ink-700 hover:bg-ink-100',
+                    : 'text-foreground/80 hover:bg-muted',
                 )
               }
             >
@@ -106,12 +106,12 @@ export function SettingsLayout() {
 
   return (
     <div className="-m-6 flex min-h-[calc(100vh-64px)]">
-      <aside className="w-64 shrink-0 border-r border-ink-200 bg-white">
-        <div className="border-b border-ink-200 p-4">
-          <div className="text-xs font-bold uppercase tracking-wide text-ink-500">
+      <aside className="w-64 shrink-0 border-r border-border bg-card">
+        <div className="border-b border-border p-4">
+          <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
             Settings
           </div>
-          <div className="mt-0.5 text-base font-extrabold text-ink-900">{pageTitle}</div>
+          <div className="mt-0.5 text-base font-extrabold text-foreground">{pageTitle}</div>
         </div>
         <div className="p-3">
           <Section title="My account" items={myAccount} />
@@ -119,7 +119,7 @@ export function SettingsLayout() {
           <Section title="Company settings" items={companySettings} />
         </div>
       </aside>
-      <div className="min-w-0 flex-1 bg-ink-50 p-6 lg:p-8">
+      <div className="min-w-0 flex-1 bg-muted/40 p-6 lg:p-8">
         <SettingsBreadcrumbs pageTitle={pageTitle} />
         <Outlet />
       </div>
@@ -129,9 +129,9 @@ export function SettingsLayout() {
 
 function SettingsBreadcrumbs({ pageTitle }: { pageTitle: string }) {
   return (
-    <div className="mb-4 text-sm text-ink-500">
+    <div className="mb-4 text-sm text-muted-foreground">
       Settings <span className="mx-1">/</span>
-      <span className="font-semibold text-ink-900">{pageTitle}</span>
+      <span className="font-semibold text-foreground">{pageTitle}</span>
     </div>
   );
 }
@@ -148,12 +148,12 @@ export function SettingsPlaceholder({
   return (
     <div className="mx-auto max-w-4xl">
       <header className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-ink-900">{title}</h1>
-        {description && <p className="mt-1 text-sm text-ink-600">{description}</p>}
+        <h1 className="text-2xl font-extrabold tracking-tight text-foreground">{title}</h1>
+        {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
       </header>
       {children ?? (
-        <div className="grid place-items-center rounded-xl border border-dashed border-ink-300 bg-white p-12 text-center">
-          <p className="max-w-md text-sm text-ink-500">
+        <div className="grid place-items-center rounded-xl border border-dashed border-border bg-card p-12 text-center">
+          <p className="max-w-md text-sm text-muted-foreground">
             Esta seção será implementada nos próximos sprints. Toda a estrutura de navegação,
             integração com backend e permissões já está em vigor.
           </p>

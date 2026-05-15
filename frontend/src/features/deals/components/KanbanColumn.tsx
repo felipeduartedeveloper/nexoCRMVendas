@@ -35,7 +35,7 @@ export function KanbanColumn({
     <div className="flex h-full w-72 shrink-0 flex-col">
       <div
         className={cn(
-          'mb-2 rounded-t-lg border-b-2 bg-white p-3 transition-colors',
+          'mb-2 rounded-t-lg border-b-2 bg-card p-3 transition-colors',
           stage.isWon
             ? 'border-success'
             : stage.isLost
@@ -44,20 +44,20 @@ export function KanbanColumn({
         )}
       >
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-wide text-ink-900">
+          <span className="text-xs font-bold uppercase tracking-wide text-foreground">
             {stage.name}
           </span>
           <button
             type="button"
             onClick={() => onAddDeal?.(stage.id)}
-            className="grid h-6 w-6 place-items-center rounded text-ink-400 hover:bg-ink-100 hover:text-ink-900"
+            className="grid h-6 w-6 place-items-center rounded text-muted-foreground/70 hover:bg-muted hover:text-foreground"
             aria-label="Novo deal nesta etapa"
           >
             <Plus className="h-4 w-4" />
           </button>
         </div>
-        <div className="mt-1 flex items-center justify-between text-[11px] text-ink-500">
-          <span className="font-semibold text-ink-700">{formatMoney(total, currency)}</span>
+        <div className="mt-1 flex items-center justify-between text-[11px] text-muted-foreground">
+          <span className="font-semibold text-foreground/80">{formatMoney(total, currency)}</span>
           <span>
             {count} {count === 1 ? 'deal' : 'deals'}
           </span>
@@ -66,7 +66,7 @@ export function KanbanColumn({
       <div
         ref={setNodeRef}
         className={cn(
-          'flex-1 space-y-2 overflow-y-auto rounded-b-lg bg-ink-50 p-2 transition-colors',
+          'flex-1 space-y-2 overflow-y-auto rounded-b-lg bg-muted/40 p-2 transition-colors',
           isOver && 'bg-brand-50 ring-2 ring-inset ring-brand-300',
         )}
       >
@@ -75,7 +75,7 @@ export function KanbanColumn({
           strategy={verticalListSortingStrategy}
         >
           {deals.length === 0 ? (
-            <div className="grid h-24 place-items-center rounded-lg border border-dashed border-ink-300 text-xs text-ink-400">
+            <div className="grid h-24 place-items-center rounded-lg border border-dashed border-border text-xs text-muted-foreground/70">
               Arraste um deal aqui
             </div>
           ) : (

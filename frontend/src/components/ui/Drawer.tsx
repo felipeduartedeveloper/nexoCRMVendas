@@ -54,20 +54,20 @@ export function Drawer({
         role="dialog"
         aria-modal="true"
         className={cn(
-          'absolute right-0 top-0 flex h-full flex-col bg-white shadow-elevated transition-transform duration-200',
+          'absolute right-0 top-0 flex h-full flex-col bg-card shadow-elevated transition-transform duration-200',
           widths[width],
           open ? 'translate-x-0' : 'translate-x-full',
         )}
       >
-        <header className="flex items-start justify-between gap-3 border-b border-ink-200 p-5">
+        <header className="flex items-start justify-between gap-3 border-b border-border p-5">
           <div className="min-w-0 flex-1">
             {typeof title === 'string' ? (
-              <h2 className="truncate text-lg font-bold text-ink-900">{title}</h2>
+              <h2 className="truncate text-lg font-bold text-foreground">{title}</h2>
             ) : (
               title
             )}
             {subtitle && (
-              <div className="mt-1 text-sm text-ink-500">{subtitle}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{subtitle}</div>
             )}
           </div>
           {headerActions}
@@ -75,7 +75,7 @@ export function Drawer({
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-ink-100"
+            className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
           >
             <X className="h-4 w-4" />
           </button>

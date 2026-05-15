@@ -42,7 +42,7 @@ export function ForgotPasswordPage() {
           <div className="mx-auto h-12 w-12 rounded-full bg-brand-50 p-3 text-brand-600">
             <Mail className="h-6 w-6" aria-hidden />
           </div>
-          <p className="text-sm text-ink-700">
+          <p className="text-sm text-foreground/80">
             Se este e-mail estiver cadastrado, você receberá um link em instantes.
             Verifique também sua caixa de spam.
           </p>

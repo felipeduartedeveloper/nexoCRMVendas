@@ -26,11 +26,11 @@ export function DealCard({ deal, onClick }: Props) {
       ref={setNodeRef}
       style={style}
       className={cn(
-        'group rounded-lg border bg-white p-3 shadow-card transition-shadow',
+        'group rounded-lg border bg-card p-3 shadow-card transition-shadow',
         'hover:border-brand-300 hover:shadow-elevated',
         isDragging
           ? 'border-brand-500 opacity-50 ring-2 ring-brand-200'
-          : 'border-ink-200',
+          : 'border-border',
       )}
     >
       <div className="flex items-start gap-2">
@@ -38,7 +38,7 @@ export function DealCard({ deal, onClick }: Props) {
           type="button"
           {...attributes}
           {...listeners}
-          className="mt-0.5 cursor-grab touch-none text-ink-300 hover:text-ink-500 active:cursor-grabbing"
+          className="mt-0.5 cursor-grab touch-none text-muted-foreground/50 hover:text-muted-foreground active:cursor-grabbing"
           aria-label="Arrastar deal"
         >
           <GripVertical className="h-4 w-4" />
@@ -48,11 +48,11 @@ export function DealCard({ deal, onClick }: Props) {
           onClick={onClick}
           className="flex-1 text-left"
         >
-          <div className="line-clamp-2 text-sm font-semibold text-ink-900">
+          <div className="line-clamp-2 text-sm font-semibold text-foreground">
             {deal.title}
           </div>
           {deal.orgCompanyId && (
-            <div className="mt-1 inline-flex items-center gap-1 text-xs text-ink-500">
+            <div className="mt-1 inline-flex items-center gap-1 text-xs text-muted-foreground">
               <Building2 className="h-3 w-3" />
               Empresa associada
             </div>

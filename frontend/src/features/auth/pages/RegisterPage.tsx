@@ -82,7 +82,7 @@ export function RegisterPage() {
         <Button type="submit" fullWidth size="lg" loading={m.isPending}>
           Criar minha conta
         </Button>
-        <p className="text-center text-xs text-ink-500">
+        <p className="text-center text-xs text-muted-foreground">
           Ao criar a conta você concorda com nossos{' '}
           <a href="#" className="text-brand-600 hover:underline">
             Termos

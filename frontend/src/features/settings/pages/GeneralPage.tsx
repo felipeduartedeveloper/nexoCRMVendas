@@ -38,16 +38,16 @@ export function GeneralPage() {
   return (
     <div className="mx-auto max-w-4xl">
       <header className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight text-ink-900">
+        <h1 className="text-2xl font-extrabold tracking-tight text-foreground">
           Company settings
         </h1>
-        <p className="mt-1 text-sm text-ink-600">
+        <p className="mt-1 text-sm text-muted-foreground">
           Configure preferências gerais da sua empresa.
         </p>
       </header>
 
-      <div className="rounded-xl border border-ink-200 bg-white shadow-card">
-        <nav className="flex overflow-x-auto border-b border-ink-200" role="tablist">
+      <div className="rounded-xl border border-border bg-card shadow-card">
+        <nav className="flex overflow-x-auto border-b border-border" role="tablist">
           {TABS.map((t) => (
             <button
               key={t.value}
@@ -58,7 +58,7 @@ export function GeneralPage() {
                 'shrink-0 border-b-2 px-5 py-3 text-sm font-semibold transition-colors',
                 tab === t.value
                   ? 'border-brand-600 text-brand-700'
-                  : 'border-transparent text-ink-600 hover:text-ink-900',
+                  : 'border-transparent text-muted-foreground hover:text-foreground',
               )}
             >
               {t.label}
@@ -99,7 +99,7 @@ function GeneralFields() {
     onError: (err) => toast.error(extractErrorMessage(err)),
   });
 
-  if (q.isLoading) return <div className="text-sm text-ink-500">Carregando…</div>;
+  if (q.isLoading) return <div className="text-sm text-muted-foreground">Carregando…</div>;
 
   return (
     <form
@@ -157,7 +157,7 @@ function GeneralFields() {
                 e.target.value === 'No preference' ? null : e.target.value,
             }))
           }
-          className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+          className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
         >
           {MAINTENANCE_WINDOWS.map((w) => (
             <option key={w} value={w}>
@@ -181,25 +181,25 @@ function CurrenciesTab() {
   const current = q.data?.currency ?? 'BRL';
   return (
     <div>
-      <p className="mb-4 text-sm text-ink-600">
+      <p className="mb-4 text-sm text-muted-foreground">
         Moedas habilitadas para uso em deals, leads e relatórios.
       </p>
-      <ul className="divide-y divide-ink-100 rounded-lg border border-ink-200">
+      <ul className="divide-y divide-border/50 rounded-lg border border-border">
         {supported.map((code) => (
           <li
             key={code}
             className="flex items-center justify-between px-4 py-3 text-sm"
           >
             <div>
-              <span className="font-bold text-ink-900">{code}</span>
-              <span className="ml-2 text-ink-500">{currencyName(code)}</span>
+              <span className="font-bold text-foreground">{code}</span>
+              <span className="ml-2 text-muted-foreground">{currencyName(code)}</span>
             </div>
             {current === code ? (
               <span className="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-bold text-brand-700">
                 Padrão
               </span>
             ) : (
-              <span className="text-xs text-ink-400">Habilitada</span>
+              <span className="text-xs text-muted-foreground/70">Habilitada</span>
             )}
           </li>
         ))}
@@ -247,7 +247,7 @@ function LostReasonsList() {
 
   return (
     <div>
-      <p className="mb-4 text-sm text-ink-600">
+      <p className="mb-4 text-sm text-muted-foreground">
         Quando um deal é perdido, o vendedor pode escolher um destes motivos.
       </p>
       <form
@@ -266,11 +266,11 @@ function LostReasonsList() {
           Adicionar
         </Button>
       </form>
-      <ul className="divide-y divide-ink-100 rounded-lg border border-ink-200">
+      <ul className="divide-y divide-border/50 rounded-lg border border-border">
         {q.data?.length ? (
           q.data.map((r) => (
             <li key={r.id} className="flex items-center justify-between px-4 py-3 text-sm">
-              <span className="text-ink-900">{r.name}</span>
+              <span className="text-foreground">{r.name}</span>
               <button
                 type="button"
                 onClick={() => remove.mutate(r.id)}
@@ -281,7 +281,7 @@ function LostReasonsList() {
             </li>
           ))
         ) : (
-          <li className="px-4 py-8 text-center text-sm text-ink-500">
+          <li className="px-4 py-8 text-center text-sm text-muted-foreground">
             Nenhum motivo cadastrado.
           </li>
         )}
@@ -316,7 +316,7 @@ function LabelsList() {
 
   return (
     <div>
-      <p className="mb-4 text-sm text-ink-600">
+      <p className="mb-4 text-sm text-muted-foreground">
         Etiquetas servem para classificar deals, contatos e mais.
       </p>
       <form
@@ -331,12 +331,12 @@ function LabelsList() {
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          className="h-10 w-12 cursor-pointer rounded-lg border border-ink-300"
+          className="h-10 w-12 cursor-pointer rounded-lg border border-border"
         />
         <select
           value={entityType}
           onChange={(e) => setEntityType(e.target.value as any)}
-          className="h-10 rounded-lg border border-ink-300 bg-white px-3 text-sm"
+          className="h-10 rounded-lg border border-border bg-card px-3 text-sm"
         >
           <option value="DEAL">Deals</option>
           <option value="CONTACT">Contacts</option>
@@ -348,7 +348,7 @@ function LabelsList() {
           Adicionar
         </Button>
       </form>
-      <ul className="divide-y divide-ink-100 rounded-lg border border-ink-200">
+      <ul className="divide-y divide-border/50 rounded-lg border border-border">
         {q.data?.length ? (
           q.data.map((l) => (
             <li key={l.id} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
@@ -357,8 +357,8 @@ function LabelsList() {
                   className="inline-block h-4 w-4 rounded-full"
                   style={{ backgroundColor: l.color }}
                 />
-                <span className="font-semibold text-ink-900">{l.name}</span>
-                <span className="rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ink-600">
+                <span className="font-semibold text-foreground">{l.name}</span>
+                <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-muted-foreground">
                   {l.entityType}
                 </span>
               </div>
@@ -372,7 +372,7 @@ function LabelsList() {
             </li>
           ))
         ) : (
-          <li className="px-4 py-8 text-center text-sm text-ink-500">
+          <li className="px-4 py-8 text-center text-sm text-muted-foreground">
             Nenhuma etiqueta cadastrada.
           </li>
         )}
@@ -383,9 +383,9 @@ function LabelsList() {
 
 function Placeholder({ title, hint }: { title: string; hint?: string }) {
   return (
-    <div className="grid place-items-center rounded-lg border border-dashed border-ink-300 p-10 text-center">
-      <h3 className="text-base font-bold text-ink-900">{title}</h3>
-      {hint && <p className="mt-1 text-sm text-ink-500">{hint}</p>}
+    <div className="grid place-items-center rounded-lg border border-dashed border-border p-10 text-center">
+      <h3 className="text-base font-bold text-foreground">{title}</h3>
+      {hint && <p className="mt-1 text-sm text-muted-foreground">{hint}</p>}
     </div>
   );
 }

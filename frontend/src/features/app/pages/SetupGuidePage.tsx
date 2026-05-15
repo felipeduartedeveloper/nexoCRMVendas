@@ -90,7 +90,7 @@ export function SetupGuidePage() {
             <Compass className="h-6 w-6" />
           </span>
           <div className="flex-1">
-            <div className="font-bold text-ink-900">Seu progresso</div>
+            <div className="font-bold text-foreground">Seu progresso</div>
             <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-brand-100">
               <div
                 className="h-full rounded-full bg-brand-500 transition-all"
@@ -111,12 +111,12 @@ export function SetupGuidePage() {
           return (
             <div
               key={g.key}
-              className="overflow-hidden rounded-xl border border-ink-200 bg-white shadow-card"
+              className="overflow-hidden rounded-xl border border-border bg-card shadow-card"
             >
               <button
                 type="button"
                 onClick={() => setOpen(isOpen ? null : g.key)}
-                className="flex w-full items-center gap-4 p-5 text-left transition-colors hover:bg-ink-50"
+                className="flex w-full items-center gap-4 p-5 text-left transition-colors hover:bg-muted/40"
               >
                 <span
                   className={cn(
@@ -133,21 +133,21 @@ export function SetupGuidePage() {
                   )}
                 </span>
                 <div className="flex-1">
-                  <div className="font-bold text-ink-900">{g.title}</div>
-                  <div className="text-sm text-ink-600">{g.desc}</div>
+                  <div className="font-bold text-foreground">{g.title}</div>
+                  <div className="text-sm text-muted-foreground">{g.desc}</div>
                 </div>
-                <span className="hidden text-xs font-semibold text-ink-500 sm:inline">
+                <span className="hidden text-xs font-semibold text-muted-foreground sm:inline">
                   {done}/{g.tasks.length}
                 </span>
                 {isOpen ? (
-                  <ChevronDown className="h-5 w-5 text-ink-400" />
+                  <ChevronDown className="h-5 w-5 text-muted-foreground/70" />
                 ) : (
-                  <ChevronRight className="h-5 w-5 text-ink-400" />
+                  <ChevronRight className="h-5 w-5 text-muted-foreground/70" />
                 )}
               </button>
 
               {isOpen && (
-                <ul className="border-t border-ink-100 p-3">
+                <ul className="border-t border-border/50 p-3">
                   {g.tasks.map((t) => (
                     <li key={t.label} className="flex items-center gap-3 p-2">
                       <span
@@ -155,7 +155,7 @@ export function SetupGuidePage() {
                           'grid h-5 w-5 place-items-center rounded-full border ' +
                           (t.done
                             ? 'border-success bg-success text-white'
-                            : 'border-ink-300 bg-white')
+                            : 'border-border bg-card')
                         }
                       >
                         {t.done && <CheckCircle2 className="h-3 w-3" />}
@@ -164,8 +164,8 @@ export function SetupGuidePage() {
                         className={
                           'flex-1 text-sm ' +
                           (t.done
-                            ? 'text-ink-400 line-through'
-                            : 'text-ink-800')
+                            ? 'text-muted-foreground/70 line-through'
+                            : 'text-foreground/90')
                         }
                       >
                         {t.label}

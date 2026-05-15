@@ -35,33 +35,33 @@
 }
 
 .dark {
-  --background: 0.07 0.01 260;
-  --foreground: 0.98 0 0;
-  --card: 0.12 0.015 260;
-  --card-foreground: 0.98 0 0;
-  --popover: 0.10 0.01 260;
-  --popover-foreground: 0.98 0 0;
-  --primary: 0.65 0.20 250;
-  --primary-foreground: 0.98 0 0;
-  --secondary: 0.18 0.02 260;
-  --secondary-foreground: 0.90 0 0;
-  --muted: 0.20 0.015 260;
-  --muted-foreground: 0.60 0.01 260;
-  --accent: 0.55 0.25 280;
-  --accent-foreground: 0.98 0 0;
-  --destructive: 0.55 0.22 25;
-  --destructive-foreground: 0.98 0 0;
-  --border: 0.25 0.02 260;
-  --input: 0.15 0.015 260;
-  --ring: 0.65 0.20 250;
-  --sidebar: 0.09 0.012 260;
-  --sidebar-foreground: 0.98 0 0;
-  --sidebar-primary: 0.65 0.20 250;
-  --sidebar-primary-foreground: 0.98 0 0;
-  --sidebar-accent: 0.15 0.02 260;
-  --sidebar-accent-foreground: 0.98 0 0;
-  --sidebar-border: 0.20 0.02 260;
-  --sidebar-ring: 0.65 0.20 250;
+  --background: 0.13 0.012 260;
+  --foreground: 0.96 0.005 260;
+  --card: 0.17 0.014 260;
+  --card-foreground: 0.96 0.005 260;
+  --popover: 0.20 0.014 260;
+  --popover-foreground: 0.96 0.005 260;
+  --primary: 0.62 0.22 250;
+  --primary-foreground: 0.99 0 0;
+  --secondary: 0.22 0.018 260;
+  --secondary-foreground: 0.95 0.005 260;
+  --muted: 0.22 0.014 260;
+  --muted-foreground: 0.70 0.012 260;
+  --accent: 0.58 0.24 280;
+  --accent-foreground: 0.99 0 0;
+  --destructive: 0.62 0.22 25;
+  --destructive-foreground: 0.99 0 0;
+  --border: 0.28 0.018 260;
+  --input: 0.18 0.014 260;
+  --ring: 0.62 0.22 250;
+  --sidebar: 0.15 0.013 260;
+  --sidebar-foreground: 0.96 0.005 260;
+  --sidebar-primary: 0.62 0.22 250;
+  --sidebar-primary-foreground: 0.99 0 0;
+  --sidebar-accent: 0.22 0.014 260;
+  --sidebar-accent-foreground: 0.96 0.005 260;
+  --sidebar-border: 0.26 0.018 260;
+  --sidebar-ring: 0.62 0.22 250;
   color-scheme: dark;
 }
 
@@ -75,6 +75,40 @@
     @apply bg-background text-foreground antialiased font-sans;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
+
+  /* Inputs/selects/textareas: força bg + border + cores semânticas que
+     respondem ao .dark. Override do user-agent. */
+  input:not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='button']):not([type='range']):not([type='file']),
+  textarea,
+  select {
+    @apply bg-card text-foreground placeholder:text-muted-foreground;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-muted-foreground;
+  }
+  /* Hover/focus consistentes (não mexe nos borders que ja estao por classe) */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none;
+  }
+
+  /* Brand cores estaticas devem invertir no dark (tons de azul mais
+     claros pra ficarem legiveis em fundo escuro). */
+  .dark .bg-brand-50 { background-color: oklch(0.62 0.18 250 / 0.15); }
+  .dark .bg-brand-100 { background-color: oklch(0.62 0.18 250 / 0.22); }
+  .dark .text-brand-700 { color: oklch(0.75 0.18 250); }
+  .dark .text-brand-800 { color: oklch(0.78 0.16 250); }
+  .dark .text-brand-600 { color: oklch(0.72 0.20 250); }
+
+  /* Background tints suaves de status no dark */
+  .dark .bg-success\/5 { background-color: oklch(0.65 0.20 160 / 0.12); }
+  .dark .bg-success\/10 { background-color: oklch(0.65 0.20 160 / 0.18); }
+  .dark .bg-warning\/5 { background-color: oklch(0.75 0.18 85 / 0.12); }
+  .dark .bg-warning\/10 { background-color: oklch(0.75 0.18 85 / 0.18); }
+  .dark .bg-danger\/5 { background-color: oklch(0.62 0.22 25 / 0.12); }
+  .dark .bg-danger\/10 { background-color: oklch(0.62 0.22 25 / 0.18); }
 }
 
 @layer components {
@@ -82,16 +116,16 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
   .field-label {
-    @apply mb-1.5 block text-sm font-medium text-ink-700;
+    @apply mb-1.5 block text-sm font-medium text-foreground/80;
   }
   .field-hint {
-    @apply mt-1.5 text-xs text-ink-500;
+    @apply mt-1.5 text-xs text-muted-foreground;
   }
   .field-error {
     @apply mt-1.5 text-xs font-medium text-danger;
   }
   .divider {
-    @apply h-px w-full bg-ink-200;
+    @apply h-px w-full bg-border;
   }
 }
 

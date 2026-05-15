@@ -19,18 +19,18 @@ const steps = [
 
 export function OnboardingShell({ step, title, subtitle, children, rightHero }: Props) {
   return (
-    <div className="min-h-screen bg-white md:grid md:grid-cols-[1fr_minmax(0,40%)]">
+    <div className="min-h-screen bg-card md:grid md:grid-cols-[1fr_minmax(0,40%)]">
       {/* Left: form column */}
       <div className="flex min-h-screen flex-col">
         <header className="container-wide flex items-center justify-between py-6">
           <Logo />
-          <span className="text-sm text-ink-500">
+          <span className="text-sm text-muted-foreground">
             Etapa {step} de {steps.length}
           </span>
         </header>
 
         <div className="container-wide pb-2">
-          <ol className="flex items-center gap-3 text-xs font-medium text-ink-500">
+          <ol className="flex items-center gap-3 text-xs font-medium text-muted-foreground">
             {steps.map((s, i) => {
               const done = s.idx < step;
               const active = s.idx === step;
@@ -43,7 +43,7 @@ export function OnboardingShell({ step, title, subtitle, children, rightHero }: 
                         ? 'border-success bg-success text-white'
                         : active
                         ? 'border-brand-600 bg-brand-600 text-white'
-                        : 'border-ink-300 bg-white text-ink-500',
+                        : 'border-border bg-card text-muted-foreground',
                     )}
                   >
                     {done ? <Check className="h-3.5 w-3.5" /> : s.idx}
@@ -51,7 +51,7 @@ export function OnboardingShell({ step, title, subtitle, children, rightHero }: 
                   <span
                     className={cn(
                       'whitespace-nowrap',
-                      (active || done) && 'text-ink-900',
+                      (active || done) && 'text-foreground',
                     )}
                   >
                     {s.label}
@@ -60,7 +60,7 @@ export function OnboardingShell({ step, title, subtitle, children, rightHero }: 
                     <span
                       className={cn(
                         'h-px w-6 sm:w-12',
-                        done ? 'bg-success' : 'bg-ink-200',
+                        done ? 'bg-success' : 'bg-muted',
                       )}
                     />
                   )}
@@ -72,10 +72,10 @@ export function OnboardingShell({ step, title, subtitle, children, rightHero }: 
 
         <main className="container-wide flex-1 py-10">
           <div className="mx-auto max-w-xl">
-            <h1 className="text-3xl font-extrabold tracking-tight text-ink-900">
+            <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
               {title}
             </h1>
-            {subtitle && <p className="mt-2 text-ink-600">{subtitle}</p>}
+            {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
             <div className="mt-8">{children}</div>
           </div>
         </main>
@@ -86,13 +86,13 @@ export function OnboardingShell({ step, title, subtitle, children, rightHero }: 
         <div className="sticky top-0 flex h-screen flex-col justify-center px-12 text-white">
           {rightHero ?? (
             <>
-              <div className="rounded-2xl bg-white/10 p-6 backdrop-blur">
+              <div className="rounded-2xl bg-card/10 p-6 backdrop-blur">
                 <p className="text-lg font-semibold leading-snug">
                   "Em 30 dias triplicamos o número de deals fechados. oxlify é simples
                   como uma planilha, poderoso como um CRM de verdade."
                 </p>
                 <div className="mt-4 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-white/30" />
+                  <div className="h-10 w-10 rounded-full bg-card/30" />
                   <div>
                     <div className="font-semibold">Carolina Mendes</div>
                     <div className="text-sm text-brand-100">Head of Sales · Acme Tech</div>

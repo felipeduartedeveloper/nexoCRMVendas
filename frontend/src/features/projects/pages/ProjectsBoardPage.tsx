@@ -125,15 +125,15 @@ export function ProjectsBoardPage() {
   }
 
   if (boardsQ.isLoading) {
-    return <div className="p-8 text-sm text-ink-500">Carregando quadros...</div>;
+    return <div className="p-8 text-sm text-muted-foreground">Carregando quadros...</div>;
   }
 
   if (!currentBoardId) {
     return (
       <div className="grid place-items-center p-16 text-center">
-        <FolderKanban className="h-12 w-12 text-ink-300" />
-        <h2 className="mt-3 text-base font-semibold text-ink-900">Nenhum quadro de projetos</h2>
-        <p className="mt-1 text-sm text-ink-500">
+        <FolderKanban className="h-12 w-12 text-muted-foreground/50" />
+        <h2 className="mt-3 text-base font-semibold text-foreground">Nenhum quadro de projetos</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
           Crie seu primeiro projeto e um quadro padrão será gerado automaticamente.
         </p>
       </div>
@@ -142,10 +142,10 @@ export function ProjectsBoardPage() {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex items-center justify-between border-b border-ink-200 px-6 py-4">
+      <header className="flex items-center justify-between border-b border-border px-6 py-4">
         <div>
-          <h1 className="text-xl font-bold text-ink-900">Projetos</h1>
-          <p className="text-sm text-ink-500">
+          <h1 className="text-xl font-bold text-foreground">Projetos</h1>
+          <p className="text-sm text-muted-foreground">
             Acompanhe o pós-venda em um Kanban paralelo aos negócios.
           </p>
         </div>
@@ -154,7 +154,7 @@ export function ProjectsBoardPage() {
             <select
               value={currentBoardId}
               onChange={(e) => setBoardId(e.target.value)}
-              className="h-9 rounded-md border border-ink-200 bg-white px-2 text-sm"
+              className="h-9 rounded-md border border-border bg-card px-2 text-sm"
             >
               {boardsQ.data.map((b) => (
                 <option key={b.id} value={b.id}>

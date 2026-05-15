@@ -21,22 +21,22 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         )}
         <div
           className={cn(
-            'flex items-center gap-2 rounded-lg border bg-white px-3 transition-colors focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-200',
-            error ? 'border-danger' : 'border-ink-300 hover:border-ink-400',
-            rest.disabled && 'cursor-not-allowed bg-ink-50',
+            'flex items-center gap-2 rounded-lg border bg-card px-3 transition-colors focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-200',
+            error ? 'border-danger' : 'border-border hover:border-muted-foreground/40',
+            rest.disabled && 'cursor-not-allowed bg-muted/40',
           )}
         >
-          {leftSlot && <span className="text-ink-400">{leftSlot}</span>}
+          {leftSlot && <span className="text-muted-foreground/70">{leftSlot}</span>}
           <input
             id={inputId}
             ref={ref}
             className={cn(
-              'h-10 w-full bg-transparent text-sm text-ink-900 placeholder:text-ink-400 focus:outline-none',
+              'h-10 w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none',
               className,
             )}
             {...rest}
           />
-          {rightSlot && <span className="text-ink-400">{rightSlot}</span>}
+          {rightSlot && <span className="text-muted-foreground/70">{rightSlot}</span>}
         </div>
         {hint && !error && <p className="field-hint">{hint}</p>}
         {error && <p className="field-error">{error}</p>}

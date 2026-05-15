@@ -22,8 +22,8 @@ export function PipelinesReadyBanner() {
         <Sparkles className="h-5 w-5" />
       </span>
       <div className="flex-1">
-        <div className="font-bold text-ink-900">Seus pipelines estão prontos!</div>
-        <p className="text-sm text-ink-700">
+        <div className="font-bold text-foreground">Seus pipelines estão prontos!</div>
+        <p className="text-sm text-foreground/80">
           Criamos um pipeline com estágios sugeridos para o seu setor. Você pode
           ajustar os estágios a qualquer momento para refletir seu processo comercial.
         </p>
@@ -35,7 +35,7 @@ export function PipelinesReadyBanner() {
         type="button"
         onClick={dismiss}
         aria-label="Fechar"
-        className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-brand-100"
+        className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-brand-100"
       >
         <X className="h-4 w-4" />
       </button>

@@ -29,12 +29,12 @@ export function TimelineTab() {
   });
 
   if (q.isLoading) {
-    return <div className="p-12 text-center text-sm text-ink-500">Carregando timeline…</div>;
+    return <div className="p-12 text-center text-sm text-muted-foreground">Carregando timeline…</div>;
   }
   const items = q.data ?? [];
   if (!items.length) {
     return (
-      <div className="p-12 text-center text-sm text-ink-500">
+      <div className="p-12 text-center text-sm text-muted-foreground">
         Sua timeline está vazia. Atualizações em contatos aparecerão aqui.
       </div>
     );
@@ -45,23 +45,23 @@ export function TimelineTab() {
     <div className="p-5">
       {Object.entries(grouped).map(([label, list]) => (
         <div key={label} className="mb-6 last:mb-0">
-          <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-ink-500">
+          <div className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-muted-foreground">
             <Clock className="h-3.5 w-3.5" /> {label}
           </div>
           <ul className="space-y-2">
             {list.map((c) => (
               <li
                 key={c.id}
-                className="flex items-center gap-3 rounded-lg border border-ink-200 bg-white p-3"
+                className="flex items-center gap-3 rounded-lg border border-border bg-card p-3"
               >
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-brand-100 text-sm font-bold text-brand-700">
                   {initials(c.name)}
                 </span>
                 <div className="flex-1">
-                  <div className="font-semibold text-ink-900">{c.name}</div>
-                  <div className="text-xs text-ink-500">{c.email ?? 'Sem e-mail'}</div>
+                  <div className="font-semibold text-foreground">{c.name}</div>
+                  <div className="text-xs text-muted-foreground">{c.email ?? 'Sem e-mail'}</div>
                 </div>
-                <span className="text-xs text-ink-500">
+                <span className="text-xs text-muted-foreground">
                   {new Date(c.updatedAt).toLocaleString('pt-BR', {
                     day: '2-digit',
                     month: 'short',
@@ -69,7 +69,7 @@ export function TimelineTab() {
                     minute: '2-digit',
                   })}
                 </span>
-                <User className="h-4 w-4 text-ink-300" />
+                <User className="h-4 w-4 text-muted-foreground/50" />
               </li>
             ))}
           </ul>

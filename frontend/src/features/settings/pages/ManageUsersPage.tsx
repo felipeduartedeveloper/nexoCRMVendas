@@ -17,7 +17,7 @@ const ROLE_BADGE: Record<string, string> = {
   ADMIN: 'bg-blue-100 text-blue-700',
   MANAGER: 'bg-purple-100 text-purple-700',
   SALES: 'bg-green-100 text-green-700',
-  VIEWER: 'bg-ink-100 text-ink-700',
+  VIEWER: 'bg-muted text-foreground/80',
 };
 
 export function ManageUsersPage() {
@@ -54,8 +54,8 @@ export function ManageUsersPage() {
     <div className="mx-auto max-w-5xl">
       <header className="mb-6 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-ink-900">Manage users</h1>
-          <p className="mt-1 text-sm text-ink-600">
+          <h1 className="text-2xl font-extrabold tracking-tight text-foreground">Manage users</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             {q.data?.total ?? 0} usuários · convide vendedores, gerentes e administradores.
           </p>
         </div>
@@ -64,10 +64,10 @@ export function ManageUsersPage() {
         </Button>
       </header>
 
-      <div className="overflow-hidden rounded-xl border border-ink-200 bg-white shadow-card">
+      <div className="overflow-hidden rounded-xl border border-border bg-card shadow-card">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-ink-100 bg-ink-50 text-left text-[11px] font-bold uppercase tracking-wide text-ink-500">
+            <tr className="border-b border-border/50 bg-muted/40 text-left text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
               <th className="px-4 py-2.5">Nome</th>
               <th className="px-4 py-2.5">E-mail</th>
               <th className="px-4 py-2.5">Papel</th>
@@ -79,35 +79,35 @@ export function ManageUsersPage() {
           <tbody>
             {q.isLoading ? (
               <tr>
-                <td colSpan={6} className="p-12 text-center text-ink-500">
+                <td colSpan={6} className="p-12 text-center text-muted-foreground">
                   Carregando…
                 </td>
               </tr>
             ) : users.length === 0 ? (
               <tr>
-                <td colSpan={6} className="p-12 text-center text-sm text-ink-500">
+                <td colSpan={6} className="p-12 text-center text-sm text-muted-foreground">
                   Nenhum usuário ainda.
                 </td>
               </tr>
             ) : (
               users.map((u) => (
-                <tr key={u.id} className="border-b border-ink-100 hover:bg-brand-50/30">
+                <tr key={u.id} className="border-b border-border/50 hover:bg-brand-50/30">
                   <td className="px-4 py-2.5">
                     <div className="flex items-center gap-3">
                       <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">
                         {initials(u.name)}
                       </span>
-                      <span className="font-semibold text-ink-900">{u.name}</span>
+                      <span className="font-semibold text-foreground">{u.name}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-2.5 text-ink-700">{u.email}</td>
+                  <td className="px-4 py-2.5 text-foreground/80">{u.email}</td>
                   <td className="px-4 py-2.5">
                     <select
                       value={u.role}
                       onChange={(e) => setRole.mutate({ id: u.id, role: e.target.value })}
                       className={cn(
                         'rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide focus:outline-none',
-                        ROLE_BADGE[u.role] ?? 'bg-ink-100 text-ink-700',
+                        ROLE_BADGE[u.role] ?? 'bg-muted text-foreground/80',
                       )}
                     >
                       {ROLES.map((r) => (
@@ -121,19 +121,19 @@ export function ManageUsersPage() {
                     <span
                       className={cn(
                         'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium',
-                        u.isActive ? 'bg-success/10 text-success' : 'bg-ink-100 text-ink-500',
+                        u.isActive ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground',
                       )}
                     >
                       <span
                         className={cn(
                           'h-1.5 w-1.5 rounded-full',
-                          u.isActive ? 'bg-success' : 'bg-ink-400',
+                          u.isActive ? 'bg-success' : 'bg-muted-foreground/40',
                         )}
                       />
                       {u.isActive ? 'Ativo' : 'Inativo'}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-ink-600">
+                  <td className="px-4 py-2.5 text-muted-foreground">
                     {u.lastLoginAt
                       ? new Date(u.lastLoginAt).toLocaleString('pt-BR')
                       : '—'}
@@ -142,7 +142,7 @@ export function ManageUsersPage() {
                     <button
                       type="button"
                       onClick={() => toggleActive.mutate(u)}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-ink-600 hover:text-ink-900"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
                     >
                       {u.isActive ? (
                         <>
@@ -191,13 +191,13 @@ function InviteUserModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-elevated">
+      <div className="w-full max-w-md rounded-xl bg-card p-6 shadow-elevated">
         <div className="mb-4">
           <div className="inline-flex items-center gap-2">
             <Shield className="h-5 w-5 text-brand-600" />
-            <h3 className="text-lg font-bold text-ink-900">Convidar novo usuário</h3>
+            <h3 className="text-lg font-bold text-foreground">Convidar novo usuário</h3>
           </div>
-          <p className="mt-1 text-sm text-ink-600">
+          <p className="mt-1 text-sm text-muted-foreground">
             O usuário receberá uma senha temporária para o primeiro acesso.
           </p>
         </div>
@@ -207,10 +207,10 @@ function InviteUserModal({ onClose }: { onClose: () => void }) {
             <div className="flex items-center gap-2 text-sm font-semibold text-success">
               <Mail className="h-4 w-4" /> Convite criado!
             </div>
-            <p className="mt-2 text-sm text-ink-700">
+            <p className="mt-2 text-sm text-foreground/80">
               Envie estas credenciais para <strong>{email}</strong>:
             </p>
-            <div className="mt-3 rounded-lg bg-white p-3 font-mono text-sm">
+            <div className="mt-3 rounded-lg bg-card p-3 font-mono text-sm">
               <div>E-mail: {email}</div>
               <div>Senha temporária: <strong>{tempPassword}</strong></div>
             </div>
@@ -238,7 +238,7 @@ function InviteUserModal({ onClose }: { onClose: () => void }) {
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm"
               >
                 <option value="ADMIN">ADMIN — controla tudo da empresa</option>
                 <option value="MANAGER">MANAGER — gerencia time e relatórios</option>

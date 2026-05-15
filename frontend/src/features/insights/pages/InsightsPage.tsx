@@ -79,19 +79,19 @@ export function InsightsPage() {
         subtitle="Decisões guiadas por dados em tempo real."
         actions={
           <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-ink-400" />
+            <Search className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-muted-foreground/70" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar em Insights…"
-              className="h-9 w-64 rounded-lg border border-ink-200 bg-white pl-9 pr-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+              className="h-9 w-64 rounded-lg border border-border bg-card pl-9 pr-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
           </div>
         }
       />
 
       <div className="grid gap-4 lg:grid-cols-[240px_1fr]">
-        <aside className="rounded-xl border border-ink-200 bg-white p-3 shadow-card">
+        <aside className="rounded-xl border border-border bg-card p-3 shadow-card">
           <ul className="space-y-0.5">
             {MENU.map((it) => (
               <li key={it.value}>
@@ -102,21 +102,21 @@ export function InsightsPage() {
                     'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                     section === it.value
                       ? 'bg-brand-50 text-brand-700'
-                      : 'text-ink-700 hover:bg-ink-100',
+                      : 'text-foreground/80 hover:bg-muted',
                   )}
                 >
                   <it.icon className="h-4 w-4" />
                   <span className="flex-1 text-left">{it.label}</span>
                   {it.value === 'dashboards' && (
-                    <span className="text-[10px] text-ink-500">No dashboards</span>
+                    <span className="text-[10px] text-muted-foreground">No dashboards</span>
                   )}
                   {it.value === 'goals' && (
-                    <span className="text-[10px] text-ink-500">
+                    <span className="text-[10px] text-muted-foreground">
                       {completedGoals}/250
                     </span>
                   )}
                   {it.value === 'reports' && (
-                    <span className="text-[10px] text-ink-500">No reports</span>
+                    <span className="text-[10px] text-muted-foreground">No reports</span>
                   )}
                 </button>
               </li>
@@ -144,14 +144,14 @@ function DashboardsSection({ usage }: { usage: any }) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-ink-200 bg-white p-8 text-center shadow-card">
+      <section className="rounded-xl border border-border bg-card p-8 text-center shadow-card">
         <span className="grid h-14 w-14 mx-auto place-items-center rounded-xl bg-brand-100 text-brand-700">
           <Sparkles className="h-7 w-7" />
         </span>
-        <h2 className="mt-4 text-2xl font-extrabold text-ink-900">
+        <h2 className="mt-4 text-2xl font-extrabold text-foreground">
           Identify growth opportunities. Take action.
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm text-ink-600">
+        <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
           Set up your personalized, customizable reporting dashboard. Track oxlify data
           related to your sales activities. Make informed decisions at the right time.
         </p>
@@ -164,7 +164,7 @@ function DashboardsSection({ usage }: { usage: any }) {
       </section>
 
       <section>
-        <h3 className="mb-3 text-base font-bold text-ink-900">Snapshot do funil</h3>
+        <h3 className="mb-3 text-base font-bold text-foreground">Snapshot do funil</h3>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Kpi icon={Trophy} label="Deals abertos" value={String(open)} />
           <Kpi
@@ -192,11 +192,11 @@ function DashboardsSection({ usage }: { usage: any }) {
 function GoalsSection({ progress }: { progress: number }) {
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-ink-200 bg-white p-8 shadow-card">
+      <section className="rounded-xl border border-border bg-card p-8 shadow-card">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-extrabold text-ink-900">Goals</h2>
-            <p className="mt-1 text-sm text-ink-600">
+            <h2 className="text-2xl font-extrabold text-foreground">Goals</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
               Defina metas pessoais e do time. Acompanhe progresso em tempo real.
             </p>
           </div>
@@ -209,13 +209,13 @@ function GoalsSection({ progress }: { progress: number }) {
             0/250
           </div>
           <div className="flex-1">
-            <div className="h-2 w-full overflow-hidden rounded-full bg-ink-100">
+            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
               <div
                 className="h-full rounded-full bg-brand-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <div className="mt-1 text-xs text-ink-500">
+            <div className="mt-1 text-xs text-muted-foreground">
               Metas concluídas neste período
             </div>
           </div>
@@ -223,16 +223,16 @@ function GoalsSection({ progress }: { progress: number }) {
       </section>
 
       <section>
-        <h3 className="mb-3 text-base font-bold text-ink-900">Metas sugeridas</h3>
+        <h3 className="mb-3 text-base font-bold text-foreground">Metas sugeridas</h3>
         <ul className="grid gap-3 md:grid-cols-2">
           {SAMPLE_GOALS.map((g) => (
             <li
               key={g.label}
-              className="flex items-center justify-between rounded-xl border border-ink-200 bg-white p-4 shadow-card"
+              className="flex items-center justify-between rounded-xl border border-border bg-card p-4 shadow-card"
             >
               <div>
-                <div className="font-semibold text-ink-900">{g.label}</div>
-                <div className="text-xs text-ink-500">
+                <div className="font-semibold text-foreground">{g.label}</div>
+                <div className="text-xs text-muted-foreground">
                   {g.current} / {g.target}
                 </div>
               </div>
@@ -250,12 +250,12 @@ function GoalsSection({ progress }: { progress: number }) {
 function ReportsSection() {
   return (
     <div className="space-y-6">
-      <section className="rounded-xl border border-ink-200 bg-white p-8 text-center shadow-card">
-        <FileBarChart className="mx-auto h-12 w-12 text-ink-300" />
-        <h2 className="mt-3 text-xl font-extrabold text-ink-900">
+      <section className="rounded-xl border border-border bg-card p-8 text-center shadow-card">
+        <FileBarChart className="mx-auto h-12 w-12 text-muted-foreground/50" />
+        <h2 className="mt-3 text-xl font-extrabold text-foreground">
           You have no reports yet
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm text-ink-600">
+        <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
           Build relatórios customizados a partir dos seus dados de vendas. Escolha um
           template abaixo ou comece do zero.
         </p>
@@ -267,18 +267,18 @@ function ReportsSection() {
       </section>
 
       <section>
-        <h3 className="mb-3 text-base font-bold text-ink-900">Templates populares</h3>
+        <h3 className="mb-3 text-base font-bold text-foreground">Templates populares</h3>
         <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {REPORT_TEMPLATES.map((t) => (
             <li
               key={t.title}
-              className="rounded-xl border border-ink-200 bg-white p-5 shadow-card transition-shadow hover:shadow-elevated"
+              className="rounded-xl border border-border bg-card p-5 shadow-card transition-shadow hover:shadow-elevated"
             >
               <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600">
                 <t.icon className="h-5 w-5" />
               </span>
-              <h4 className="mt-3 font-bold text-ink-900">{t.title}</h4>
-              <p className="mt-1 text-sm text-ink-600">{t.desc}</p>
+              <h4 className="mt-3 font-bold text-foreground">{t.title}</h4>
+              <p className="mt-1 text-sm text-muted-foreground">{t.desc}</p>
               <button
                 type="button"
                 className="mt-3 text-xs font-bold text-brand-600 hover:underline"
@@ -309,14 +309,14 @@ function Kpi({
     success: 'bg-success/10 text-success',
   };
   return (
-    <div className="rounded-xl border border-ink-200 bg-white p-5 shadow-card">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-card">
       <div className={cn('grid h-10 w-10 place-items-center rounded-lg', colors[accent])}>
         <Icon className="h-5 w-5" />
       </div>
-      <div className="mt-4 text-2xl font-extrabold tracking-tight text-ink-900">
+      <div className="mt-4 text-2xl font-extrabold tracking-tight text-foreground">
         {value}
       </div>
-      <div className="text-sm font-medium text-ink-600">{label}</div>
+      <div className="text-sm font-medium text-muted-foreground">{label}</div>
     </div>
   );
 }

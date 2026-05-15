@@ -44,11 +44,11 @@ export function Topbar() {
     <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border bg-card px-4 lg:px-6">
       <div className="flex flex-1 items-center gap-3">
         <div className="relative flex w-full max-w-md items-center">
-          <Search className="pointer-events-none absolute left-3 h-4 w-4 text-ink-400" />
+          <Search className="pointer-events-none absolute left-3 h-4 w-4 text-muted-foreground/70" />
           <input
             type="search"
             placeholder="Pesquisar contatos, deals, atividades…"
-            className="h-10 w-full rounded-lg border border-ink-200 bg-ink-50 pl-9 pr-3 text-sm text-ink-900 placeholder:text-ink-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-100"
+            className="h-10 w-full rounded-lg border border-border bg-muted/40 pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground/70 focus:border-brand-500 focus:bg-card focus:outline-none focus:ring-2 focus:ring-brand-100"
           />
         </div>
       </div>
@@ -62,7 +62,7 @@ export function Topbar() {
 
         <button
           type="button"
-          className="relative grid h-10 w-10 place-items-center rounded-lg text-ink-600 hover:bg-ink-100"
+          className="relative grid h-10 w-10 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
           aria-label="Notificações"
         >
           <Bell className="h-5 w-5" />
@@ -73,25 +73,25 @@ export function Topbar() {
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
-            className="flex items-center gap-2 rounded-lg p-1.5 pr-2 hover:bg-ink-100"
+            className="flex items-center gap-2 rounded-lg p-1.5 pr-2 hover:bg-muted"
           >
             <span className="grid h-8 w-8 place-items-center rounded-full bg-brand-100 text-sm font-bold text-brand-700">
               {initials}
             </span>
-            <ChevronDown className="h-4 w-4 text-ink-500" />
+            <ChevronDown className="h-4 w-4 text-muted-foreground" />
           </button>
           {menuOpen && (
-            <div className="absolute right-0 top-12 z-30 w-64 rounded-xl border border-ink-200 bg-white p-2 shadow-elevated">
-              <div className="border-b border-ink-100 px-3 py-2">
-                <div className="truncate font-semibold text-ink-900">{user?.name}</div>
-                <div className="truncate text-xs text-ink-500">{user?.email}</div>
+            <div className="absolute right-0 top-12 z-30 w-64 rounded-xl border border-border bg-card p-2 shadow-elevated">
+              <div className="border-b border-border/50 px-3 py-2">
+                <div className="truncate font-semibold text-foreground">{user?.name}</div>
+                <div className="truncate text-xs text-muted-foreground">{user?.email}</div>
                 <span className="mt-1 inline-block rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-brand-700">
                   {user?.role}
                 </span>
               </div>
               <MenuItem icon={User} label="Meu perfil" onClick={() => navigate('/profile')} />
               <MenuItem icon={Settings} label="Configurações" onClick={() => navigate('/settings')} />
-              <div className="my-1 h-px bg-ink-100" />
+              <div className="my-1 h-px bg-muted" />
               <MenuItem
                 icon={LogOut}
                 label="Sair"
@@ -124,8 +124,8 @@ function MenuItem({
       className={
         'flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors ' +
         (danger
-          ? 'text-danger hover:bg-red-50'
-          : 'text-ink-800 hover:bg-ink-100')
+          ? 'text-danger hover:bg-danger/10'
+          : 'text-foreground/90 hover:bg-muted')
       }
     >
       <Icon className="h-4 w-4" />

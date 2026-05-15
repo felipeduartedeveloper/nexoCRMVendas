@@ -26,15 +26,15 @@ export function ProjectKanbanColumn({
   });
 
   return (
-    <div className="flex w-[300px] flex-shrink-0 flex-col rounded-xl bg-ink-50">
-      <header className="rounded-t-xl bg-white px-3 py-2.5" style={{ borderTop: `3px solid ${phase.color}` }}>
+    <div className="flex w-[300px] flex-shrink-0 flex-col rounded-xl bg-muted/40">
+      <header className="rounded-t-xl bg-card px-3 py-2.5" style={{ borderTop: `3px solid ${phase.color}` }}>
         <div className="flex items-center justify-between">
-          <h3 className="truncate text-sm font-bold text-ink-900">{phase.name}</h3>
-          <span className="rounded-full bg-ink-100 px-1.5 py-0.5 text-[10px] font-bold text-ink-600">
+          <h3 className="truncate text-sm font-bold text-foreground">{phase.name}</h3>
+          <span className="rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-bold text-muted-foreground">
             {count}
           </span>
         </div>
-        <p className="mt-0.5 text-[11px] text-ink-500">Progresso médio · {avgProgress}%</p>
+        <p className="mt-0.5 text-[11px] text-muted-foreground">Progresso médio · {avgProgress}%</p>
       </header>
 
       <div
@@ -49,7 +49,7 @@ export function ProjectKanbanColumn({
           ))}
         </SortableContext>
         {projects.length === 0 && (
-          <div className="rounded-lg border border-dashed border-ink-200 p-4 text-center text-[11px] text-ink-400">
+          <div className="rounded-lg border border-dashed border-border p-4 text-center text-[11px] text-muted-foreground/70">
             Arraste projetos para cá
           </div>
         )}
@@ -58,7 +58,7 @@ export function ProjectKanbanColumn({
       <button
         type="button"
         onClick={() => onAdd(phase.id)}
-        className="m-2 rounded-md border border-dashed border-ink-200 px-3 py-1.5 text-xs font-semibold text-ink-600 hover:bg-ink-100 hover:text-ink-900"
+        className="m-2 rounded-md border border-dashed border-border px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
       >
         + Adicionar projeto
       </button>

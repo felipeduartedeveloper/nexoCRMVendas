@@ -47,10 +47,10 @@ export function ProductsPage() {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex items-center justify-between border-b border-ink-200 px-6 py-4">
+      <header className="flex items-center justify-between border-b border-border px-6 py-4">
         <div>
-          <h1 className="text-xl font-bold text-ink-900">Produtos</h1>
-          <p className="text-sm text-ink-500">
+          <h1 className="text-xl font-bold text-foreground">Produtos</h1>
+          <p className="text-sm text-muted-foreground">
             Catálogo de produtos vendáveis. Vincule aos negócios para calcular valores.
           </p>
         </div>
@@ -64,9 +64,9 @@ export function ProductsPage() {
         </button>
       </header>
 
-      <div className="flex items-center gap-3 border-b border-ink-200 px-6 py-3">
+      <div className="flex items-center gap-3 border-b border-border px-6 py-3">
         <div className="relative flex-1 max-w-md">
-          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/70" />
           <input
             value={search}
             onChange={(e) => {
@@ -74,7 +74,7 @@ export function ProductsPage() {
               setPage(1);
             }}
             placeholder="Buscar por nome ou código..."
-            className="h-9 w-full rounded-md border border-ink-200 bg-white pl-8 pr-3 text-sm"
+            className="h-9 w-full rounded-md border border-border bg-card pl-8 pr-3 text-sm"
           />
         </div>
         <input
@@ -84,7 +84,7 @@ export function ProductsPage() {
             setPage(1);
           }}
           placeholder="Categoria"
-          className="h-9 w-40 rounded-md border border-ink-200 bg-white px-2 text-sm"
+          className="h-9 w-40 rounded-md border border-border bg-card px-2 text-sm"
         />
         <select
           value={active}
@@ -92,29 +92,29 @@ export function ProductsPage() {
             setActive(e.target.value as ActiveFilter);
             setPage(1);
           }}
-          className="h-9 rounded-md border border-ink-200 bg-white px-2 text-sm"
+          className="h-9 rounded-md border border-border bg-card px-2 text-sm"
         >
           <option value="all">Todos</option>
           <option value="true">Apenas ativos</option>
           <option value="false">Apenas inativos</option>
         </select>
-        <div className="ml-auto text-xs text-ink-500">
+        <div className="ml-auto text-xs text-muted-foreground">
           {data ? `${data.total} produto(s)` : '...'}
         </div>
       </div>
 
       <div className="flex-1 overflow-auto">
         {isLoading && (
-          <div className="p-8 text-sm text-ink-500">Carregando produtos...</div>
+          <div className="p-8 text-sm text-muted-foreground">Carregando produtos...</div>
         )}
 
         {!isLoading && items.length === 0 && (
           <div className="grid place-items-center p-16 text-center">
-            <Package className="h-12 w-12 text-ink-300" />
-            <h2 className="mt-3 text-base font-semibold text-ink-900">
+            <Package className="h-12 w-12 text-muted-foreground/50" />
+            <h2 className="mt-3 text-base font-semibold text-foreground">
               Cadastre seu primeiro produto
             </h2>
-            <p className="mt-1 max-w-sm text-sm text-ink-500">
+            <p className="mt-1 max-w-sm text-sm text-muted-foreground">
               Produtos podem ser vinculados a negócios com quantidade, desconto e
               imposto para calcular o valor total.
             </p>
@@ -130,8 +130,8 @@ export function ProductsPage() {
         )}
 
         {!isLoading && items.length > 0 && (
-          <table className="min-w-full divide-y divide-ink-200 text-sm">
-            <thead className="sticky top-0 z-10 bg-ink-50 text-xs font-semibold uppercase tracking-wider text-ink-500">
+          <table className="min-w-full divide-y divide-border text-sm">
+            <thead className="sticky top-0 z-10 bg-muted/40 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <tr>
                 <th className="px-3 py-2 text-left">Ativo</th>
                 <th className="px-3 py-2 text-left">Nome</th>
@@ -144,7 +144,7 @@ export function ProductsPage() {
                 <th className="px-3 py-2 text-left">Criado em</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-ink-200 bg-white">
+            <tbody className="divide-y divide-border bg-card">
               {items.map((p) => (
                 <ProductRow
                   key={p.id}
@@ -159,8 +159,8 @@ export function ProductsPage() {
       </div>
 
       {data && data.pages > 1 && (
-        <div className="flex items-center justify-between border-t border-ink-200 px-6 py-2">
-          <span className="text-xs text-ink-500">
+        <div className="flex items-center justify-between border-t border-border px-6 py-2">
+          <span className="text-xs text-muted-foreground">
             Página {data.page} de {data.pages}
           </span>
           <div className="flex gap-1">
@@ -168,7 +168,7 @@ export function ProductsPage() {
               type="button"
               disabled={page <= 1}
               onClick={() => setPage((p) => Math.max(1, p - 1))}
-              className="h-8 rounded-md border border-ink-200 bg-white px-3 text-xs font-medium text-ink-700 hover:bg-ink-50 disabled:opacity-40"
+              className="h-8 rounded-md border border-border bg-card px-3 text-xs font-medium text-foreground/80 hover:bg-muted/40 disabled:opacity-40"
             >
               Anterior
             </button>
@@ -176,7 +176,7 @@ export function ProductsPage() {
               type="button"
               disabled={page >= data.pages}
               onClick={() => setPage((p) => p + 1)}
-              className="h-8 rounded-md border border-ink-200 bg-white px-3 text-xs font-medium text-ink-700 hover:bg-ink-50 disabled:opacity-40"
+              className="h-8 rounded-md border border-border bg-card px-3 text-xs font-medium text-foreground/80 hover:bg-muted/40 disabled:opacity-40"
             >
               Próxima
             </button>
@@ -207,41 +207,41 @@ function ProductRow({
   const otherCount = (product.prices?.length ?? 1) - 1;
 
   return (
-    <tr className="cursor-pointer transition-colors hover:bg-ink-50" onClick={onOpen}>
+    <tr className="cursor-pointer transition-colors hover:bg-muted/40" onClick={onOpen}>
       <td className="px-3 py-2.5" onClick={(e) => e.stopPropagation()}>
         <label className="inline-flex cursor-pointer items-center">
           <input
             type="checkbox"
             checked={product.active}
             onChange={(e) => onToggle(e.target.checked)}
-            className="h-4 w-4 rounded border-ink-300 text-brand-600 focus:ring-brand-500"
+            className="h-4 w-4 rounded border-border text-brand-600 focus:ring-brand-500"
           />
         </label>
       </td>
-      <td className="px-3 py-2.5 font-medium text-ink-900">{product.name}</td>
-      <td className="px-3 py-2.5 text-ink-700">{product.code ?? '—'}</td>
-      <td className="px-3 py-2.5 text-ink-700">{product.category ?? '—'}</td>
-      <td className="px-3 py-2.5 text-ink-700">{product.unit ?? '—'}</td>
-      <td className="px-3 py-2.5 text-ink-700">
+      <td className="px-3 py-2.5 font-medium text-foreground">{product.name}</td>
+      <td className="px-3 py-2.5 text-foreground/80">{product.code ?? '—'}</td>
+      <td className="px-3 py-2.5 text-foreground/80">{product.category ?? '—'}</td>
+      <td className="px-3 py-2.5 text-foreground/80">{product.unit ?? '—'}</td>
+      <td className="px-3 py-2.5 text-foreground/80">
         {firstPrice ? (
           <span>
             {formatCurrency(firstPrice.price, firstPrice.currency)}
             {otherCount > 0 && (
-              <span className="ml-1 text-xs text-ink-500">
+              <span className="ml-1 text-xs text-muted-foreground">
                 + {otherCount} moeda{otherCount > 1 ? 's' : ''}
               </span>
             )}
           </span>
         ) : (
-          <span className="text-ink-400">—</span>
+          <span className="text-muted-foreground/70">—</span>
         )}
       </td>
-      <td className="px-3 py-2.5 text-ink-700">
+      <td className="px-3 py-2.5 text-foreground/80">
         {BILLING_FREQUENCY_LABELS[product.billingFrequency]}
         {product.billingCycles ? ` · ${product.billingCycles}x` : ''}
       </td>
-      <td className="px-3 py-2.5 text-ink-700">{Number(product.tax).toFixed(2)}%</td>
-      <td className="px-3 py-2.5 text-ink-500">
+      <td className="px-3 py-2.5 text-foreground/80">{Number(product.tax).toFixed(2)}%</td>
+      <td className="px-3 py-2.5 text-muted-foreground">
         {new Date(product.createdAt).toLocaleDateString('pt-BR')}
       </td>
     </tr>

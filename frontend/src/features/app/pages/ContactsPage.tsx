@@ -37,13 +37,13 @@ export function ContactsPage() {
         }
       />
 
-      <div className="rounded-xl border border-ink-200 bg-white shadow-card">
-        <div className="flex items-center gap-3 border-b border-ink-200 p-4">
+      <div className="rounded-xl border border-border bg-card shadow-card">
+        <div className="flex items-center gap-3 border-b border-border p-4">
           <div className="relative flex w-full max-w-sm items-center">
-            <Search className="pointer-events-none absolute left-3 h-4 w-4 text-ink-400" />
+            <Search className="pointer-events-none absolute left-3 h-4 w-4 text-muted-foreground/70" />
             <input
               placeholder="Buscar por nome, e-mail…"
-              className="h-9 w-full rounded-lg border border-ink-200 bg-white pl-9 pr-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
+              className="h-9 w-full rounded-lg border border-border bg-card pl-9 pr-3 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100"
             />
           </div>
           <Button variant="outline" size="sm">
@@ -56,13 +56,13 @@ export function ContactsPage() {
             <Spinner label="Carregando contatos…" />
           </div>
         ) : !q.data?.items?.length ? (
-          <div className="grid place-items-center p-12 text-center text-sm text-ink-500">
+          <div className="grid place-items-center p-12 text-center text-sm text-muted-foreground">
             Nenhum contato ainda.
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-ink-100 bg-ink-50 text-left text-xs font-bold uppercase tracking-wide text-ink-500">
+              <tr className="border-b border-border/50 bg-muted/40 text-left text-xs font-bold uppercase tracking-wide text-muted-foreground">
                 <th className="px-4 py-3">Nome</th>
                 <th className="px-4 py-3">E-mail</th>
                 <th className="px-4 py-3">Telefone</th>
@@ -73,7 +73,7 @@ export function ContactsPage() {
               {q.data.items.map((c) => (
                 <tr
                   key={c.id}
-                  className="border-b border-ink-100 hover:bg-brand-50/40"
+                  className="border-b border-border/50 hover:bg-brand-50/40"
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
@@ -85,14 +85,14 @@ export function ContactsPage() {
                           .join('')
                           .toUpperCase()}
                       </span>
-                      <span className="font-semibold text-ink-900">{c.name}</span>
+                      <span className="font-semibold text-foreground">{c.name}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-ink-700">{c.email ?? '—'}</td>
-                  <td className="px-4 py-3 text-ink-700">{c.phone ?? '—'}</td>
+                  <td className="px-4 py-3 text-foreground/80">{c.email ?? '—'}</td>
+                  <td className="px-4 py-3 text-foreground/80">{c.phone ?? '—'}</td>
                   <td className="px-4 py-3">
                     {c.companyName ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-ink-100 px-2.5 py-0.5 text-xs font-medium text-ink-700">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground/80">
                         <Building2 className="h-3 w-3" /> {c.companyName}
                       </span>
                     ) : (

@@ -87,7 +87,7 @@ export function CompanyInfoPage() {
                   'rounded-lg border px-3 py-2 text-left text-sm transition-colors ' +
                   (industry === i
                     ? 'border-brand-500 bg-brand-50 text-brand-700 ring-2 ring-brand-100'
-                    : 'border-ink-200 bg-white text-ink-800 hover:border-ink-300')
+                    : 'border-border bg-card text-foreground/90 hover:border-border')
                 }
               >
                 {i}
@@ -108,7 +108,7 @@ export function CompanyInfoPage() {
                   'rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ' +
                   (range === r
                     ? 'border-brand-500 bg-brand-50 text-brand-700 ring-2 ring-brand-100'
-                    : 'border-ink-200 bg-white text-ink-700 hover:border-ink-300')
+                    : 'border-border bg-card text-foreground/80 hover:border-border')
                 }
               >
                 {r}
@@ -119,12 +119,12 @@ export function CompanyInfoPage() {
 
         <div>
           <span className="field-label flex items-center gap-2">
-            <Globe className="h-4 w-4 text-ink-500" /> País
+            <Globe className="h-4 w-4 text-muted-foreground" /> País
           </span>
           <select
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="h-10 w-full rounded-lg border border-ink-300 bg-white px-3 text-sm text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
+            className="h-10 w-full rounded-lg border border-border bg-card px-3 text-sm text-foreground focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
           >
             {countries.map((c) => (
               <option key={c.code} value={c.code}>

@@ -72,10 +72,10 @@ export function LeadsPage() {
       />
 
       <div className="grid gap-4 lg:grid-cols-[260px_1fr]">
-        <aside className="rounded-xl border border-ink-200 bg-white p-3 shadow-card">
+        <aside className="rounded-xl border border-border bg-card p-3 shadow-card">
           {MENU.map((g) => (
             <div key={g.group} className="mb-4 last:mb-0">
-              <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-widest text-ink-500">
+              <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                 {g.group}
               </div>
               <ul className="space-y-0.5">
@@ -88,7 +88,7 @@ export function LeadsPage() {
                         'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                         section === it.value
                           ? 'bg-brand-50 text-brand-700'
-                          : 'text-ink-700 hover:bg-ink-100',
+                          : 'text-foreground/80 hover:bg-muted',
                       )}
                     >
                       <it.icon className="h-4 w-4" />
@@ -194,7 +194,7 @@ function LeadsInbox() {
   const COLUMNS: { status: LeadStatus; label: string; color: string }[] = [
     { status: 'INBOX', label: 'Inbox', color: 'border-brand-500' },
     { status: 'WORKING', label: 'Working', color: 'border-warning' },
-    { status: 'ARCHIVED', label: 'Archived', color: 'border-ink-400' },
+    { status: 'ARCHIVED', label: 'Archived', color: 'border-muted-foreground/40' },
     { status: 'CONVERTED', label: 'Converted', color: 'border-success' },
   ];
 
@@ -216,8 +216,8 @@ function LeadsInbox() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-ink-900">Leads Inbox</h2>
-          <p className="text-sm text-ink-600">{total} leads no total</p>
+          <h2 className="text-xl font-bold text-foreground">Leads Inbox</h2>
+          <p className="text-sm text-muted-foreground">{total} leads no total</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline">
@@ -232,10 +232,10 @@ function LeadsInbox() {
       {!total && (
         <div className="rounded-xl border border-brand-200 bg-brand-50/40 p-8 text-center">
           <Sparkles className="mx-auto h-10 w-10 text-brand-500" />
-          <h3 className="mt-3 text-xl font-extrabold text-ink-900">
+          <h3 className="mt-3 text-xl font-extrabold text-foreground">
             Take your leads to the next level
           </h3>
-          <p className="mx-auto mt-2 max-w-md text-sm text-ink-700">
+          <p className="mx-auto mt-2 max-w-md text-sm text-foreground/80">
             Add new lead or import your existing leads from spreadsheet.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
@@ -255,27 +255,27 @@ function LeadsInbox() {
           const total = list.reduce((acc, l) => acc + Number(l.value || 0), 0);
           return (
             <div key={c.status} className="min-h-[300px]">
-              <div className={cn('mb-2 rounded-t-lg border-b-2 bg-white p-3', c.color)}>
+              <div className={cn('mb-2 rounded-t-lg border-b-2 bg-card p-3', c.color)}>
                 <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wide">
-                  <span className="text-ink-900">{c.label}</span>
-                  <span className="text-ink-500">{list.length}</span>
+                  <span className="text-foreground">{c.label}</span>
+                  <span className="text-muted-foreground">{list.length}</span>
                 </div>
-                <div className="mt-1 text-[11px] text-ink-500">
+                <div className="mt-1 text-[11px] text-muted-foreground">
                   {formatMoney(total, list[0]?.currency ?? 'BRL')}
                 </div>
               </div>
-              <div className="space-y-2 rounded-b-lg bg-ink-50 p-2">
+              <div className="space-y-2 rounded-b-lg bg-muted/40 p-2">
                 {!list.length ? (
-                  <div className="grid h-20 place-items-center rounded-lg border border-dashed border-ink-300 text-xs text-ink-400">
+                  <div className="grid h-20 place-items-center rounded-lg border border-dashed border-border text-xs text-muted-foreground/70">
                     Sem leads
                   </div>
                 ) : (
                   list.map((l) => (
                     <div
                       key={l.id}
-                      className="rounded-lg border border-ink-200 bg-white p-3 shadow-card"
+                      className="rounded-lg border border-border bg-card p-3 shadow-card"
                     >
-                      <div className="line-clamp-2 text-sm font-semibold text-ink-900">
+                      <div className="line-clamp-2 text-sm font-semibold text-foreground">
                         {l.title}
                       </div>
                       <div className="mt-1 flex items-center gap-2 text-xs">
@@ -283,7 +283,7 @@ function LeadsInbox() {
                           {formatMoney(l.value, l.currency)}
                         </span>
                         {l.source && (
-                          <span className="inline-flex items-center gap-1 text-ink-500">
+                          <span className="inline-flex items-center gap-1 text-muted-foreground">
                             <Building2 className="h-3 w-3" /> {l.source}
                           </span>
                         )}
@@ -300,7 +300,7 @@ function LeadsInbox() {
                           <button
                             type="button"
                             onClick={() => archive.mutate(l.id)}
-                            className="inline-flex items-center rounded bg-ink-100 px-2 py-0.5 text-[11px] font-semibold text-ink-600 hover:bg-ink-200"
+                            className="inline-flex items-center rounded bg-muted px-2 py-0.5 text-[11px] font-semibold text-muted-foreground hover:bg-muted"
                           >
                             Arquivar
                           </button>
@@ -346,8 +346,8 @@ function NewLeadModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <form onSubmit={onSubmit} className="w-full max-w-md space-y-4 rounded-xl bg-white p-6 shadow-elevated">
-        <h3 className="text-lg font-bold text-ink-900">Novo lead</h3>
+      <form onSubmit={onSubmit} className="w-full max-w-md space-y-4 rounded-xl bg-card p-6 shadow-elevated">
+        <h3 className="text-lg font-bold text-foreground">Novo lead</h3>
         <Input
           label="Título"
           value={title}
@@ -395,14 +395,14 @@ function FeatureCard({
   cta: string;
 }) {
   return (
-    <section className="rounded-xl border border-ink-200 bg-white p-8 shadow-card">
+    <section className="rounded-xl border border-border bg-card p-8 shadow-card">
       <div className="grid place-items-center text-center">
         <span className="grid h-14 w-14 place-items-center rounded-xl bg-brand-100 text-brand-700">
           <Icon className="h-7 w-7" />
         </span>
-        <h2 className="mt-4 text-2xl font-extrabold text-ink-900">{title}</h2>
+        <h2 className="mt-4 text-2xl font-extrabold text-foreground">{title}</h2>
         <p className="mt-1 text-sm font-semibold text-brand-700">{tagline}</p>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-ink-600">{description}</p>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">{description}</p>
         <div className="mt-6 flex gap-2">
           <Button>
             <Send className="h-4 w-4" /> {cta}

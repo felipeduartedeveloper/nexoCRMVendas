@@ -5,7 +5,7 @@ const STYLES: Record<ProjectHealth, { cls: string; Icon: typeof CheckCircle2 }> 
   ON_TRACK: { cls: 'bg-success/10 text-success', Icon: CheckCircle2 },
   AT_RISK: { cls: 'bg-warning/10 text-warning', Icon: AlertTriangle },
   OFF_TRACK: { cls: 'bg-danger/10 text-danger', Icon: Clock },
-  ON_HOLD: { cls: 'bg-ink-100 text-ink-600', Icon: Pause },
+  ON_HOLD: { cls: 'bg-muted text-muted-foreground', Icon: Pause },
 };
 
 export function HealthBadge({ value }: { value: ProjectHealth }) {

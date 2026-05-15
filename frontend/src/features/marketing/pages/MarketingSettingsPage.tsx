@@ -37,9 +37,9 @@ export function MarketingSettingsPage() {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="border-b border-ink-200 px-6 py-4">
-        <h1 className="text-xl font-bold text-ink-900">Domínio e envio</h1>
-        <p className="text-sm text-ink-500">
+      <header className="border-b border-border px-6 py-4">
+        <h1 className="text-xl font-bold text-foreground">Domínio e envio</h1>
+        <p className="text-sm text-muted-foreground">
           Configure remetente padrão e verifique autenticação DKIM/SPF.
         </p>
       </header>
@@ -52,7 +52,7 @@ export function MarketingSettingsPage() {
               value={senderDomain}
               onChange={(e) => setSenderDomain(e.target.value)}
               placeholder="empresa.com.br"
-              className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+              className="h-9 w-full rounded-md border border-border px-2 text-sm"
             />
           </label>
           <label className="block">
@@ -61,7 +61,7 @@ export function MarketingSettingsPage() {
               value={senderName}
               onChange={(e) => setSenderName(e.target.value)}
               placeholder="Equipe Vendas"
-              className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+              className="h-9 w-full rounded-md border border-border px-2 text-sm"
             />
           </label>
           <label className="block col-span-2">
@@ -71,7 +71,7 @@ export function MarketingSettingsPage() {
               value={defaultReplyTo}
               onChange={(e) => setDefaultReplyTo(e.target.value)}
               placeholder="contato@empresa.com.br"
-              className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+              className="h-9 w-full rounded-md border border-border px-2 text-sm"
             />
           </label>
           <label className="block col-span-2">
@@ -80,7 +80,7 @@ export function MarketingSettingsPage() {
               value={signatureHtml}
               onChange={(e) => setSignatureHtml(e.target.value)}
               rows={4}
-              className="w-full rounded-md border border-ink-200 px-2 py-1.5 font-mono text-xs"
+              className="w-full rounded-md border border-border px-2 py-1.5 font-mono text-xs"
             />
           </label>
         </div>
@@ -97,9 +97,9 @@ export function MarketingSettingsPage() {
         </div>
 
         {data?.unsubscribeUrl && (
-          <div className="rounded-md border border-ink-200 bg-ink-50 p-3">
-            <p className="text-xs font-semibold text-ink-600">URL pública de unsubscribe</p>
-            <code className="mt-1 block text-xs text-ink-900">{data.unsubscribeUrl}</code>
+          <div className="rounded-md border border-border bg-muted/40 p-3">
+            <p className="text-xs font-semibold text-muted-foreground">URL pública de unsubscribe</p>
+            <code className="mt-1 block text-xs text-foreground">{data.unsubscribeUrl}</code>
           </div>
         )}
 
@@ -122,17 +122,17 @@ function StatusBadge({ label, verified }: { label: string; verified: boolean }) 
   return (
     <div
       className={`flex items-center gap-2 rounded-md border p-3 ${
-        verified ? 'border-success/30 bg-success/5' : 'border-ink-200 bg-ink-50'
+        verified ? 'border-success/30 bg-success/5' : 'border-border bg-muted/40'
       }`}
     >
       {verified ? (
         <ShieldCheck className="h-5 w-5 text-success" />
       ) : (
-        <ShieldX className="h-5 w-5 text-ink-400" />
+        <ShieldX className="h-5 w-5 text-muted-foreground/70" />
       )}
       <div>
-        <p className="font-semibold text-ink-900">{label}</p>
-        <p className="text-xs text-ink-500">{verified ? 'Verificado' : 'Não configurado'}</p>
+        <p className="font-semibold text-foreground">{label}</p>
+        <p className="text-xs text-muted-foreground">{verified ? 'Verificado' : 'Não configurado'}</p>
       </div>
     </div>
   );

@@ -86,15 +86,15 @@ export function NewProductModal({ open, onClose }: Props) {
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
       <form
         onSubmit={onSubmit}
-        className="w-full max-w-2xl rounded-xl bg-white shadow-elevated"
+        className="w-full max-w-2xl rounded-xl bg-card shadow-elevated"
       >
-        <header className="flex items-center justify-between border-b border-ink-200 p-5">
-          <h2 className="text-lg font-bold text-ink-900">Novo produto</h2>
+        <header className="flex items-center justify-between border-b border-border p-5">
+          <h2 className="text-lg font-bold text-foreground">Novo produto</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-ink-100"
+            className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
           >
             <X className="h-4 w-4" />
           </button>
@@ -102,7 +102,7 @@ export function NewProductModal({ open, onClose }: Props) {
 
         <div className="max-h-[70vh] space-y-5 overflow-y-auto p-5">
           <section className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-500">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Básico
             </h3>
             <div className="grid grid-cols-2 gap-3">
@@ -114,7 +114,7 @@ export function NewProductModal({ open, onClose }: Props) {
                   required
                   minLength={2}
                   maxLength={255}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
               <label className="block">
@@ -123,7 +123,7 @@ export function NewProductModal({ open, onClose }: Props) {
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   maxLength={100}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
               <label className="block">
@@ -132,7 +132,7 @@ export function NewProductModal({ open, onClose }: Props) {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   maxLength={100}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
               <label className="block">
@@ -142,7 +142,7 @@ export function NewProductModal({ open, onClose }: Props) {
                   onChange={(e) => setUnit(e.target.value)}
                   maxLength={50}
                   placeholder="un, kg, hora..."
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
             </div>
@@ -152,20 +152,20 @@ export function NewProductModal({ open, onClose }: Props) {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={2}
-                className="w-full rounded-md border border-ink-200 px-2 py-1.5 text-sm"
+                className="w-full rounded-md border border-border px-2 py-1.5 text-sm"
               />
             </label>
           </section>
 
           <section className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-500">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Preços
             </h3>
             <PriceList prices={prices} onChange={setPrices} />
           </section>
 
           <section className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-500">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Cobrança
             </h3>
             <div className="grid grid-cols-2 gap-3">
@@ -174,7 +174,7 @@ export function NewProductModal({ open, onClose }: Props) {
                 <select
                   value={billingFrequency}
                   onChange={(e) => setBillingFrequency(e.target.value as BillingFrequency)}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 >
                   {Object.entries(BILLING_FREQUENCY_LABELS).map(([k, v]) => (
                     <option key={k} value={k}>
@@ -194,7 +194,7 @@ export function NewProductModal({ open, onClose }: Props) {
                       setBillingCycles(e.target.value === '' ? '' : Number(e.target.value))
                     }
                     placeholder="Indeterminado"
-                    className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                    className="h-9 w-full rounded-md border border-border px-2 text-sm"
                   />
                 </label>
               )}
@@ -202,7 +202,7 @@ export function NewProductModal({ open, onClose }: Props) {
           </section>
 
           <section className="space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-ink-500">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Outros
             </h3>
             <div className="grid grid-cols-2 gap-3">
@@ -214,7 +214,7 @@ export function NewProductModal({ open, onClose }: Props) {
                   min="0"
                   value={tax}
                   onChange={(e) => setTax(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 />
               </label>
               <label className="block">
@@ -222,7 +222,7 @@ export function NewProductModal({ open, onClose }: Props) {
                 <select
                   value={visibleTo}
                   onChange={(e) => setVisibleTo(e.target.value as ProductVisibility)}
-                  className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+                  className="h-9 w-full rounded-md border border-border px-2 text-sm"
                 >
                   {Object.entries(VISIBILITY_LABELS).map(([k, v]) => (
                     <option key={k} value={k}>
@@ -241,11 +241,11 @@ export function NewProductModal({ open, onClose }: Props) {
           )}
         </div>
 
-        <footer className="flex items-center justify-end gap-2 border-t border-ink-200 p-4">
+        <footer className="flex items-center justify-end gap-2 border-t border-border p-4">
           <button
             type="button"
             onClick={onClose}
-            className="h-9 rounded-md border border-ink-200 bg-white px-4 text-sm font-medium text-ink-700 hover:bg-ink-50"
+            className="h-9 rounded-md border border-border bg-card px-4 text-sm font-medium text-foreground/80 hover:bg-muted/40"
           >
             Cancelar
           </button>

@@ -23,12 +23,12 @@ export function CalendarSyncBanner() {
       </span>
       <div className="flex-1 min-w-[280px]">
         <div className="flex items-center gap-2">
-          <span className="font-bold text-ink-900">Configure a sincronia de calendário</span>
-          <span className="rounded-full bg-ink-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ink-700">
+          <span className="font-bold text-foreground">Configure a sincronia de calendário</span>
+          <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-foreground/80">
             Sync inactive
           </span>
         </div>
-        <p className="text-sm text-ink-700">
+        <p className="text-sm text-foreground/80">
           Sincronize seu Google Calendar ou Outlook para nunca perder um compromisso.
         </p>
       </div>
@@ -39,7 +39,7 @@ export function CalendarSyncBanner() {
         type="button"
         onClick={dismiss}
         aria-label="Fechar"
-        className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-warning/20"
+        className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-warning/20"
       >
         <X className="h-4 w-4" />
       </button>

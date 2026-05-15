@@ -27,9 +27,9 @@ export function ContactsPage() {
         subtitle="Pessoas e empresas com quem você está construindo relacionamento."
       />
 
-      <div className="rounded-xl border border-ink-200 bg-white shadow-card">
+      <div className="rounded-xl border border-border bg-card shadow-card">
         <nav
-          className="flex overflow-x-auto border-b border-ink-200"
+          className="flex overflow-x-auto border-b border-border"
           role="tablist"
           aria-label="Abas de contatos"
         >
@@ -45,7 +45,7 @@ export function ContactsPage() {
                   'flex shrink-0 items-center gap-2 border-b-2 px-5 py-3 text-sm font-semibold transition-colors',
                   active
                     ? 'border-brand-600 text-brand-700'
-                    : 'border-transparent text-ink-600 hover:text-ink-900',
+                    : 'border-transparent text-muted-foreground hover:text-foreground',
                 )}
               >
                 <t.icon className="h-4 w-4" /> {t.label}

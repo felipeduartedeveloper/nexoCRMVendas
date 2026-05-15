@@ -39,10 +39,10 @@ export function AudiencesPage() {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex items-center justify-between border-b border-ink-200 px-6 py-4">
+      <header className="flex items-center justify-between border-b border-border px-6 py-4">
         <div>
-          <h1 className="text-xl font-bold text-ink-900">Audiências</h1>
-          <p className="text-sm text-ink-500">
+          <h1 className="text-xl font-bold text-foreground">Audiências</h1>
+          <p className="text-sm text-muted-foreground">
             Segmente seus contatos com filtros pra atingir os destinatários certos.
           </p>
         </div>
@@ -58,11 +58,11 @@ export function AudiencesPage() {
       <div className="flex-1 overflow-auto p-6">
         {data.length === 0 ? (
           <div className="grid place-items-center p-16 text-center">
-            <Users2 className="h-12 w-12 text-ink-300" />
-            <h2 className="mt-3 text-base font-semibold text-ink-900">
+            <Users2 className="h-12 w-12 text-muted-foreground/50" />
+            <h2 className="mt-3 text-base font-semibold text-foreground">
               Crie sua primeira audiência
             </h2>
-            <p className="mt-1 max-w-sm text-sm text-ink-500">
+            <p className="mt-1 max-w-sm text-sm text-muted-foreground">
               Audiências são grupos dinâmicos baseados em filtros sobre seus contatos.
             </p>
           </div>
@@ -71,14 +71,14 @@ export function AudiencesPage() {
             {data.map((a) => (
               <div
                 key={a.id}
-                className="flex items-center justify-between rounded-md border border-ink-200 bg-white p-3"
+                className="flex items-center justify-between rounded-md border border-border bg-card p-3"
               >
                 <div className="min-w-0">
-                  <h3 className="font-semibold text-ink-900">{a.name}</h3>
+                  <h3 className="font-semibold text-foreground">{a.name}</h3>
                   {a.description && (
-                    <p className="text-xs text-ink-500">{a.description}</p>
+                    <p className="text-xs text-muted-foreground">{a.description}</p>
                   )}
-                  <p className="mt-1 text-xs text-ink-600">
+                  <p className="mt-1 text-xs text-muted-foreground">
                     {a.estimatedSize} contato{a.estimatedSize !== 1 ? 's' : ''} ·{' '}
                     {a.filters.length} filtro{a.filters.length !== 1 ? 's' : ''}
                   </p>
@@ -88,7 +88,7 @@ export function AudiencesPage() {
                   onClick={() => {
                     if (confirm('Apagar audiência?')) deleteMut.mutate(a.id);
                   }}
-                  className="grid h-8 w-8 place-items-center rounded-md text-ink-500 hover:bg-ink-100 hover:text-danger"
+                  className="grid h-8 w-8 place-items-center rounded-md text-muted-foreground hover:bg-muted hover:text-danger"
                   aria-label="Apagar"
                 >
                   <Trash2 className="h-4 w-4" />
@@ -140,14 +140,14 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 p-4">
-      <div className="w-full max-w-2xl rounded-xl bg-white shadow-elevated">
-        <header className="flex items-center justify-between border-b border-ink-200 p-5">
-          <h2 className="text-lg font-bold text-ink-900">Nova audiência</h2>
+      <div className="w-full max-w-2xl rounded-xl bg-card shadow-elevated">
+        <header className="flex items-center justify-between border-b border-border p-5">
+          <h2 className="text-lg font-bold text-foreground">Nova audiência</h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="grid h-8 w-8 place-items-center rounded-lg text-ink-500 hover:bg-ink-100"
+            className="grid h-8 w-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted"
           >
             <X className="h-4 w-4" />
           </button>
@@ -158,7 +158,7 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+              className="h-9 w-full rounded-md border border-border px-2 text-sm"
             />
           </label>
           <label className="block">
@@ -166,7 +166,7 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
             <input
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="h-9 w-full rounded-md border border-ink-200 px-2 text-sm"
+              className="h-9 w-full rounded-md border border-border px-2 text-sm"
             />
           </label>
 
@@ -178,7 +178,7 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
                   <select
                     value={f.field}
                     onChange={(e) => updateFilter(i, { field: e.target.value })}
-                    className="col-span-4 h-9 rounded-md border border-ink-200 bg-white px-2 text-sm"
+                    className="col-span-4 h-9 rounded-md border border-border bg-card px-2 text-sm"
                   >
                     {FIELD_OPTIONS.map((o) => (
                       <option key={o.value} value={o.value}>
@@ -189,7 +189,7 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
                   <select
                     value={f.operator}
                     onChange={(e) => updateFilter(i, { operator: e.target.value })}
-                    className="col-span-3 h-9 rounded-md border border-ink-200 bg-white px-2 text-sm"
+                    className="col-span-3 h-9 rounded-md border border-border bg-card px-2 text-sm"
                   >
                     {OPERATOR_OPTIONS.map((o) => (
                       <option key={o.value} value={o.value}>
@@ -207,12 +207,12 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
                             : e.target.value,
                       })
                     }
-                    className="col-span-4 h-9 rounded-md border border-ink-200 px-2 text-sm"
+                    className="col-span-4 h-9 rounded-md border border-border px-2 text-sm"
                   />
                   <button
                     type="button"
                     onClick={() => setFilters(filters.filter((_, idx) => idx !== i))}
-                    className="col-span-1 grid h-9 place-items-center rounded-md text-ink-500 hover:bg-ink-100 hover:text-danger"
+                    className="col-span-1 grid h-9 place-items-center rounded-md text-muted-foreground hover:bg-muted hover:text-danger"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -235,7 +235,7 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
               type="button"
               onClick={() => previewMut.mutate()}
               disabled={previewMut.isPending}
-              className="h-9 rounded-md border border-ink-200 bg-white px-3 text-sm font-medium text-ink-700 hover:bg-ink-50"
+              className="h-9 rounded-md border border-border bg-card px-3 text-sm font-medium text-foreground/80 hover:bg-muted/40"
             >
               {previewMut.isPending ? 'Calculando...' : 'Pré-visualizar'}
             </button>
@@ -247,23 +247,23 @@ function AudienceBuilderModal({ onClose }: { onClose: () => void }) {
           </div>
 
           {preview && preview.sample.length > 0 && (
-            <div className="rounded-md border border-ink-200 bg-ink-50 p-2">
-              <p className="text-xs font-semibold text-ink-600">Amostra:</p>
-              <ul className="mt-1 text-xs text-ink-700">
+            <div className="rounded-md border border-border bg-muted/40 p-2">
+              <p className="text-xs font-semibold text-muted-foreground">Amostra:</p>
+              <ul className="mt-1 text-xs text-foreground/80">
                 {preview.sample.map((s) => (
                   <li key={s.id}>
-                    {s.name} {s.email && <span className="text-ink-500">· {s.email}</span>}
+                    {s.name} {s.email && <span className="text-muted-foreground">· {s.email}</span>}
                   </li>
                 ))}
               </ul>
             </div>
           )}
         </div>
-        <footer className="flex items-center justify-end gap-2 border-t border-ink-200 p-4">
+        <footer className="flex items-center justify-end gap-2 border-t border-border p-4">
           <button
             type="button"
             onClick={onClose}
-            className="h-9 rounded-md border border-ink-200 bg-white px-4 text-sm font-medium text-ink-700 hover:bg-ink-50"
+            className="h-9 rounded-md border border-border bg-card px-4 text-sm font-medium text-foreground/80 hover:bg-muted/40"
           >
             Cancelar
           </button>

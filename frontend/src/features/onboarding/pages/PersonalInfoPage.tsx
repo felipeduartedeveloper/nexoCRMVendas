@@ -62,7 +62,7 @@ export function PersonalInfoPage() {
         />
         <div>
           <span className="field-label flex items-center gap-2">
-            <Briefcase className="h-4 w-4 text-ink-500" /> Qual seu papel?
+            <Briefcase className="h-4 w-4 text-muted-foreground" /> Qual seu papel?
           </span>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-2">
             {roles.map((r) => (
@@ -74,7 +74,7 @@ export function PersonalInfoPage() {
                   'rounded-lg border px-3 py-2.5 text-left text-sm transition-colors ' +
                   (role === r
                     ? 'border-brand-500 bg-brand-50 text-brand-700 ring-2 ring-brand-100'
-                    : 'border-ink-200 bg-white text-ink-800 hover:border-ink-300')
+                    : 'border-border bg-card text-foreground/90 hover:border-border')
                 }
               >
                 {r}

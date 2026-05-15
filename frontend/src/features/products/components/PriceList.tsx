@@ -26,7 +26,7 @@ export function PriceList({ prices, onChange, readOnly = false }: Props) {
   return (
     <div className="space-y-2">
       {prices.length === 0 && (
-        <p className="text-sm text-ink-500">Nenhum preço cadastrado.</p>
+        <p className="text-sm text-muted-foreground">Nenhum preço cadastrado.</p>
       )}
       {prices.map((p, i) => (
         <div key={i} className="grid grid-cols-12 gap-2 items-center">
@@ -34,7 +34,7 @@ export function PriceList({ prices, onChange, readOnly = false }: Props) {
             disabled={readOnly}
             value={p.currency}
             onChange={(e) => update(i, { currency: e.target.value })}
-            className="col-span-3 h-9 rounded-md border border-ink-200 bg-white px-2 text-sm"
+            className="col-span-3 h-9 rounded-md border border-border bg-card px-2 text-sm"
           >
             {SUPPORTED_CURRENCIES.map((c) => (
               <option key={c} value={c}>
@@ -50,7 +50,7 @@ export function PriceList({ prices, onChange, readOnly = false }: Props) {
             placeholder="Preço"
             value={p.price}
             onChange={(e) => update(i, { price: Number(e.target.value) })}
-            className="col-span-4 h-9 rounded-md border border-ink-200 bg-white px-2 text-sm"
+            className="col-span-4 h-9 rounded-md border border-border bg-card px-2 text-sm"
           />
           <input
             disabled={readOnly}
@@ -64,14 +64,14 @@ export function PriceList({ prices, onChange, readOnly = false }: Props) {
                 costPrice: e.target.value === '' ? undefined : Number(e.target.value),
               })
             }
-            className="col-span-4 h-9 rounded-md border border-ink-200 bg-white px-2 text-sm"
+            className="col-span-4 h-9 rounded-md border border-border bg-card px-2 text-sm"
           />
           {!readOnly && (
             <button
               type="button"
               onClick={() => remove(i)}
               aria-label="Remover preço"
-              className="col-span-1 grid h-9 place-items-center rounded-md text-ink-500 hover:bg-ink-100 hover:text-danger"
+              className="col-span-1 grid h-9 place-items-center rounded-md text-muted-foreground hover:bg-muted hover:text-danger"
             >
               <Trash2 className="h-4 w-4" />
             </button>
@@ -82,7 +82,7 @@ export function PriceList({ prices, onChange, readOnly = false }: Props) {
         <button
           type="button"
           onClick={add}
-          className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-ink-300 px-3 py-1.5 text-xs font-semibold text-ink-700 hover:bg-ink-50"
+          className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-border px-3 py-1.5 text-xs font-semibold text-foreground/80 hover:bg-muted/40"
         >
           <Plus className="h-3.5 w-3.5" />
           Adicionar moeda

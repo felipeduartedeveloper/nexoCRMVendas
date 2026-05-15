@@ -140,8 +140,8 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
                   : deal.status === 'LOST'
                   ? 'bg-danger/10 text-danger'
                   : deal.status === 'DELETED'
-                  ? 'bg-ink-100 text-ink-500'
-                  : 'bg-ink-100 text-ink-700',
+                  ? 'bg-muted text-muted-foreground'
+                  : 'bg-muted text-foreground/80',
               )}
             >
               {deal.status}
@@ -172,7 +172,7 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
               onClick={() => {
                 if (window.confirm('Apagar este negócio?')) deleteMutation.mutate();
               }}
-              className="grid h-8 w-8 place-items-center rounded-lg text-danger hover:bg-red-50"
+              className="grid h-8 w-8 place-items-center rounded-lg text-danger hover:bg-danger/10"
               aria-label="Apagar"
             >
               <Trash2 className="h-4 w-4" />
@@ -182,10 +182,10 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
       }
     >
       {!deal ? (
-        <div className="p-8 text-center text-sm text-ink-500">Carregando…</div>
+        <div className="p-8 text-center text-sm text-muted-foreground">Carregando…</div>
       ) : (
         <div>
-          <div className="space-y-4 border-b border-ink-200 p-5">
+          <div className="space-y-4 border-b border-border p-5">
             <Input
               label="Título"
               value={editTitle}
@@ -221,7 +221,7 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
             </div>
           </div>
 
-          <nav className="flex border-b border-ink-200" role="tablist">
+          <nav className="flex border-b border-border" role="tablist">
             {TABS.map((t) => (
               <button
                 key={t.value}
@@ -232,7 +232,7 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
                   'flex flex-1 items-center justify-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors',
                   tab === t.value
                     ? 'border-brand-600 text-brand-700'
-                    : 'border-transparent text-ink-600 hover:text-ink-900',
+                    : 'border-transparent text-muted-foreground hover:text-foreground',
                 )}
               >
                 <t.icon className="h-4 w-4" /> {t.label}
@@ -244,7 +244,7 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
             {tab === 'activities' && (
               <div>
                 {activitiesQ.isLoading ? (
-                  <div className="text-sm text-ink-500">Carregando atividades…</div>
+                  <div className="text-sm text-muted-foreground">Carregando atividades…</div>
                 ) : !activitiesQ.data?.items?.length ? (
                   <EmptyState
                     icon={ActivityIcon}
@@ -256,7 +256,7 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
                     {activitiesQ.data.items.map((a) => (
                       <li
                         key={a.id}
-                        className="flex items-center gap-3 rounded-lg border border-ink-200 p-3"
+                        className="flex items-center gap-3 rounded-lg border border-border p-3"
                       >
                         <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-50 text-brand-700">
                           <Calendar className="h-4 w-4" />
@@ -264,13 +264,13 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
                         <div className="flex-1">
                           <div
                             className={cn(
-                              'text-sm font-semibold text-ink-900',
-                              a.done && 'text-ink-400 line-through',
+                              'text-sm font-semibold text-foreground',
+                              a.done && 'text-muted-foreground/70 line-through',
                             )}
                           >
                             {a.subject}
                           </div>
-                          <div className="text-xs text-ink-500">
+                          <div className="text-xs text-muted-foreground">
                             {a.dueAt
                               ? new Date(a.dueAt).toLocaleString('pt-BR')
                               : 'sem prazo'}{' '}
@@ -314,8 +314,8 @@ export function DealDetailDrawer({ open, dealId, pipeline, onClose }: Props) {
 function Field({ label, children }: { label: string; children: any }) {
   return (
     <div>
-      <div className="text-[10px] font-bold uppercase tracking-wide text-ink-500">{label}</div>
-      <div className="mt-0.5 truncate text-sm text-ink-800">{children}</div>
+      <div className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground">{label}</div>
+      <div className="mt-0.5 truncate text-sm text-foreground/90">{children}</div>
     </div>
   );
 }
@@ -331,9 +331,9 @@ function EmptyState({
 }) {
   return (
     <div className="grid place-items-center py-10 text-center">
-      <Icon className="h-8 w-8 text-ink-300" />
-      <p className="mt-2 text-sm font-semibold text-ink-900">{title}</p>
-      <p className="mt-1 max-w-xs text-xs text-ink-500">{subtitle}</p>
+      <Icon className="h-8 w-8 text-muted-foreground/50" />
+      <p className="mt-2 text-sm font-semibold text-foreground">{title}</p>
+      <p className="mt-1 max-w-xs text-xs text-muted-foreground">{subtitle}</p>
     </div>
   );
 }
