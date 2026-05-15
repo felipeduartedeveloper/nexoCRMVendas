@@ -1,4 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#f97316"/>
-  <path d="M20 18h7v28h-7zM32 25h7v21h-7zM44 12h7v34h-7z" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="oklch(0.65 0.22 55)" />
+      <stop offset="100%" stop-color="oklch(0.55 0.25 35)" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)" />
+  <g fill="#ffffff" stroke="#ffffff" stroke-width="3.6" stroke-linecap="round">
+    <circle cx="32" cy="18" r="4.5" stroke="none" />
+    <circle cx="16" cy="46" r="4.5" stroke="none" />
+    <circle cx="48" cy="46" r="4.5" stroke="none" />
+    <path d="M32 23 V32" />
+    <path d="M32 32 L18 42" />
+    <path d="M32 32 L46 42" />
+  </g>
 </svg>
