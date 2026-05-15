@@ -27,6 +27,7 @@ import { UsageModule } from './modules/usage/usage.module';
 import { ProductsModule } from './modules/products/products.module';
 import { ProjectsModule } from './modules/projects/projects.module';
 import { MarketingModule } from './modules/marketing/marketing.module';
+import { WebhooksModule } from './modules/webhooks/webhooks.module';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { MarketingModule } from './modules/marketing/marketing.module';
     ProductsModule,
     ProjectsModule,
     MarketingModule,
+    WebhooksModule,
   ],
   controllers: [HealthController],
   providers: [
