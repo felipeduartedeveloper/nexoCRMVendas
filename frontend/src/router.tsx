@@ -19,6 +19,7 @@ import { PlaceholderPage } from '@/features/app/pages/PlaceholderPage';
 import { DealsPage } from '@/features/deals/pages/DealsPage';
 import { ActivitiesPage } from '@/features/activities/pages/ActivitiesPage';
 import { SalesInboxPage } from '@/features/sales-inbox/pages/SalesInboxPage';
+import { LeadsPage } from '@/features/leads/pages/LeadsPage';
 
 import {
   SettingsLayout,
@@ -84,12 +85,7 @@ export const router = createBrowserRouter([
           { path: '/contacts', element: <ContactsPage /> },
           { path: '/activities', element: <ActivitiesPage /> },
           { path: '/deals', element: <DealsPage /> },
-          {
-            path: '/leads',
-            element: (
-              <PlaceholderPage title="Leads" subtitle="Caixa de entrada de leads ainda não qualificados." />
-            ),
-          },
+          { path: '/leads', element: <LeadsPage /> },
           {
             path: '/insights',
             element: (
