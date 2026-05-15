@@ -2,16 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: 0.985 0.002 260;
+  --foreground: 0.18 0.02 260;
+  --card: 1 0 0;
+  --card-foreground: 0.18 0.02 260;
+  --popover: 1 0 0;
+  --popover-foreground: 0.18 0.02 260;
+  --primary: 0.55 0.22 250;
+  --primary-foreground: 0.99 0 0;
+  --secondary: 0.95 0.005 260;
+  --secondary-foreground: 0.22 0.02 260;
+  --muted: 0.94 0.005 260;
+  --muted-foreground: 0.48 0.015 260;
+  --accent: 0.52 0.25 280;
+  --accent-foreground: 0.99 0 0;
+  --destructive: 0.55 0.22 25;
+  --destructive-foreground: 0.99 0 0;
+  --border: 0.90 0.01 260;
+  --input: 0.985 0.002 260;
+  --ring: 0.55 0.22 250;
+  --sidebar: 0.97 0.005 260;
+  --sidebar-foreground: 0.18 0.02 260;
+  --sidebar-primary: 0.55 0.22 250;
+  --sidebar-primary-foreground: 0.99 0 0;
+  --sidebar-accent: 0.93 0.008 260;
+  --sidebar-accent-foreground: 0.22 0.02 260;
+  --sidebar-border: 0.88 0.01 260;
+  --sidebar-ring: 0.55 0.22 250;
+  --radius: 1rem;
+  color-scheme: light;
+}
+
+.dark {
+  --background: 0.07 0.01 260;
+  --foreground: 0.98 0 0;
+  --card: 0.12 0.015 260;
+  --card-foreground: 0.98 0 0;
+  --popover: 0.10 0.01 260;
+  --popover-foreground: 0.98 0 0;
+  --primary: 0.65 0.20 250;
+  --primary-foreground: 0.98 0 0;
+  --secondary: 0.18 0.02 260;
+  --secondary-foreground: 0.90 0 0;
+  --muted: 0.20 0.015 260;
+  --muted-foreground: 0.60 0.01 260;
+  --accent: 0.55 0.25 280;
+  --accent-foreground: 0.98 0 0;
+  --destructive: 0.55 0.22 25;
+  --destructive-foreground: 0.98 0 0;
+  --border: 0.25 0.02 260;
+  --input: 0.15 0.015 260;
+  --ring: 0.65 0.20 250;
+  --sidebar: 0.09 0.012 260;
+  --sidebar-foreground: 0.98 0 0;
+  --sidebar-primary: 0.65 0.20 250;
+  --sidebar-primary-foreground: 0.98 0 0;
+  --sidebar-accent: 0.15 0.02 260;
+  --sidebar-accent-foreground: 0.98 0 0;
+  --sidebar-border: 0.20 0.02 260;
+  --sidebar-ring: 0.65 0.20 250;
+  color-scheme: dark;
+}
+
 @layer base {
-  :root {
-    color-scheme: light;
-  }
   html,
   body,
   #root {
     height: 100%;
   }
   body {
+    @apply bg-background text-foreground antialiased font-sans;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 }
@@ -37,5 +98,8 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
   }
 }
