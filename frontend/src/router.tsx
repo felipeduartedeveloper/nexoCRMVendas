@@ -23,6 +23,12 @@ import { LeadsPage } from '@/features/leads/pages/LeadsPage';
 import { InsightsPage } from '@/features/insights/pages/InsightsPage';
 import { ProductsPage } from '@/features/products/pages/ProductsPage';
 import { ProjectsBoardPage } from '@/features/projects/pages/ProjectsBoardPage';
+import { MarketingLayout } from '@/features/marketing/components/MarketingLayout';
+import { CampaignsListPage } from '@/features/marketing/pages/CampaignsListPage';
+import { TemplatesPage } from '@/features/marketing/pages/TemplatesPage';
+import { AudiencesPage } from '@/features/marketing/pages/AudiencesPage';
+import { RecommendationsPage } from '@/features/marketing/pages/RecommendationsPage';
+import { MarketingSettingsPage } from '@/features/marketing/pages/MarketingSettingsPage';
 
 import {
   SettingsLayout,
@@ -187,7 +193,19 @@ export const router = createBrowserRouter([
           { path: '/projects', element: <ProjectsBoardPage /> },
           { path: '/projects/board', element: <ProjectsBoardPage /> },
           { path: '/documents', element: <PlaceholderPage title="Documentos" /> },
-          { path: '/campaigns', element: <PlaceholderPage title="Campanhas" /> },
+          { path: '/campaigns', element: <Navigate to="/marketing/campaigns" replace /> },
+          {
+            path: '/marketing',
+            element: <MarketingLayout />,
+            children: [
+              { index: true, element: <Navigate to="/marketing/campaigns" replace /> },
+              { path: 'campaigns', element: <CampaignsListPage /> },
+              { path: 'templates', element: <TemplatesPage /> },
+              { path: 'audiences', element: <AudiencesPage /> },
+              { path: 'recommendations', element: <RecommendationsPage /> },
+              { path: 'settings', element: <MarketingSettingsPage /> },
+            ],
+          },
           { path: '/automations', element: <PlaceholderPage title="Automações" /> },
           { path: '/labels', element: <PlaceholderPage title="Etiquetas" /> },
           { path: '/billing', element: <PlaceholderPage title="Plano e cobrança" /> },
