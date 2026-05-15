@@ -60,7 +60,7 @@ export function Sidebar({ collapsed, onToggle }: Props) {
   return (
     <aside
       className={cn(
-        'sticky top-0 flex h-screen flex-col border-r border-border bg-card transition-all duration-200',
+        'sticky top-0 z-40 flex h-screen flex-col border-r border-border bg-card transition-all duration-200',
         collapsed ? 'w-16' : 'w-60',
       )}
     >
