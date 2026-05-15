@@ -322,7 +322,7 @@ export function LandingPage() {
       <footer className="border-t border-ink-200 bg-white py-10">
         <div className="container-wide flex flex-col items-center justify-between gap-4 text-sm text-ink-500 md:flex-row">
           <Logo />
-          <p>© {new Date().getFullYear()} oxlify. Todos os direitos reservados.</p>
+          <p>© 2026 oxlify. Todos os direitos reservados.</p>
         </div>
       </footer>
     </div>
