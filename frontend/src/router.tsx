@@ -22,6 +22,7 @@ import { SalesInboxPage } from '@/features/sales-inbox/pages/SalesInboxPage';
 import { LeadsPage } from '@/features/leads/pages/LeadsPage';
 import { InsightsPage } from '@/features/insights/pages/InsightsPage';
 import { ProductsPage } from '@/features/products/pages/ProductsPage';
+import { ProjectsBoardPage } from '@/features/projects/pages/ProjectsBoardPage';
 
 import {
   SettingsLayout,
@@ -183,7 +184,8 @@ export const router = createBrowserRouter([
             ),
           },
           { path: '/products', element: <ProductsPage /> },
-          { path: '/projects', element: <PlaceholderPage title="Projetos" /> },
+          { path: '/projects', element: <ProjectsBoardPage /> },
+          { path: '/projects/board', element: <ProjectsBoardPage /> },
           { path: '/documents', element: <PlaceholderPage title="Documentos" /> },
           { path: '/campaigns', element: <PlaceholderPage title="Campanhas" /> },
           { path: '/automations', element: <PlaceholderPage title="Automações" /> },
