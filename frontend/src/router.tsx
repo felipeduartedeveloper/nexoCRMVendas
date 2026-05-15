@@ -20,6 +20,7 @@ import { DealsPage } from '@/features/deals/pages/DealsPage';
 import { ActivitiesPage } from '@/features/activities/pages/ActivitiesPage';
 import { SalesInboxPage } from '@/features/sales-inbox/pages/SalesInboxPage';
 import { LeadsPage } from '@/features/leads/pages/LeadsPage';
+import { InsightsPage } from '@/features/insights/pages/InsightsPage';
 
 import {
   SettingsLayout,
@@ -86,12 +87,7 @@ export const router = createBrowserRouter([
           { path: '/activities', element: <ActivitiesPage /> },
           { path: '/deals', element: <DealsPage /> },
           { path: '/leads', element: <LeadsPage /> },
-          {
-            path: '/insights',
-            element: (
-              <PlaceholderPage title="Insights" subtitle="Relatórios e dashboards de performance." />
-            ),
-          },
+          { path: '/insights', element: <InsightsPage /> },
           { path: '/sales-inbox', element: <SalesInboxPage /> },
 
           // Settings (SettingsLayout aninhado)
