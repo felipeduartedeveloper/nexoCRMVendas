@@ -26,6 +26,7 @@ import { CustomFieldsModule } from './modules/custom-fields/custom-fields.module
 import { UsageModule } from './modules/usage/usage.module';
 import { ProductsModule } from './modules/products/products.module';
 import { ProjectsModule } from './modules/projects/projects.module';
+import { MarketingModule } from './modules/marketing/marketing.module';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { ProjectsModule } from './modules/projects/projects.module';
     UsageModule,
     ProductsModule,
     ProjectsModule,
+    MarketingModule,
   ],
   controllers: [HealthController],
   providers: [
