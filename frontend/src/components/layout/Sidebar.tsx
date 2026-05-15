@@ -40,7 +40,7 @@ const moreItems = [
   { to: '/products', label: 'Produtos', icon: Package },
   { to: '/projects', label: 'Projetos', icon: Briefcase },
   { to: '/documents', label: 'Documentos', icon: FileText },
-  { to: '/campaigns', label: 'Campanhas', icon: Megaphone },
+  { to: '/marketing/campaigns', label: 'Marketing', icon: Megaphone },
   { to: '/automations', label: 'Automações', icon: Workflow },
   { to: '/labels', label: 'Etiquetas', icon: Tag },
   { to: '/billing', label: 'Plano e cobrança', icon: CreditCard },

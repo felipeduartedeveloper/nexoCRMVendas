@@ -24,6 +24,7 @@ import {
   AlertTriangle,
   Workflow,
   KeyRound,
+  Webhook as WebhookIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
@@ -63,6 +64,7 @@ const companySettings: NavItem[] = [
   { to: '/settings/alerts', label: 'Alerts', icon: AlertTriangle },
   { to: '/settings/rules', label: 'Rules', icon: Workflow },
   { to: '/settings/sso', label: 'Single sign-on', icon: KeyRound },
+  { to: '/settings/webhooks', label: 'Webhooks', icon: WebhookIcon },
 ];
 
 function Section({ title, items }: { title: string; items: NavItem[] }) {
