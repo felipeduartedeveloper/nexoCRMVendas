@@ -18,6 +18,7 @@ import { ContactsPage } from '@/features/contacts/pages/ContactsPage';
 import { PlaceholderPage } from '@/features/app/pages/PlaceholderPage';
 import { DealsPage } from '@/features/deals/pages/DealsPage';
 import { ActivitiesPage } from '@/features/activities/pages/ActivitiesPage';
+import { SalesInboxPage } from '@/features/sales-inbox/pages/SalesInboxPage';
 
 import {
   SettingsLayout,
@@ -95,12 +96,7 @@ export const router = createBrowserRouter([
               <PlaceholderPage title="Insights" subtitle="Relatórios e dashboards de performance." />
             ),
           },
-          {
-            path: '/sales-inbox',
-            element: (
-              <PlaceholderPage title="Caixa de e-mails" subtitle="Sincronize Gmail/Outlook com os deals." />
-            ),
-          },
+          { path: '/sales-inbox', element: <SalesInboxPage /> },
 
           // Settings (SettingsLayout aninhado)
           {
