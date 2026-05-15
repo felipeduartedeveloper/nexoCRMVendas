@@ -86,7 +86,7 @@ export class DealsService {
         stageId: dto.stageId,
         orgId,
       })
-      .getRawOne<{ max: number | null }>();
+      .getRawOne();
     const nextIndex = (lastIndex?.max ?? -1) + 1;
     const d = this.repo.create({
       ...dto,
@@ -205,7 +205,7 @@ export class DealsService {
         s: DealStatus.OPEN,
       })
       .groupBy('d.stageId')
-      .getRawMany<{ stageId: string; count: string; total: string }>();
+      .getRawMany();
     return rows.map((r) => ({
       stageId: r.stageId,
       count: Number(r.count),
@@ -223,12 +223,12 @@ export class DealsService {
   }
 
   private async nextIndex(tx: any, stageId: string): Promise<number> {
-    const row = await tx
+    const row: { max: number | null } | undefined = await tx
       .getRepository(Deal)
       .createQueryBuilder('d')
       .select('MAX(d.stageOrderIndex)', 'max')
       .where('d.stageId = :stageId', { stageId })
-      .getRawOne<{ max: number | null }>();
-    return (row?.max ?? -1) + 1;
+      .getRawOne();
+    return Number(row?.max ?? -1) + 1;
   }
 }

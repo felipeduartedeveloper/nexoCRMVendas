@@ -10,11 +10,15 @@ export interface CurrentUserPayload {
 }
 
 export const CurrentUser = createParamDecorator<keyof CurrentUserPayload | undefined>(
-  (data, ctx: ExecutionContext): CurrentUserPayload | string | null => {
+  (data, ctx: ExecutionContext): CurrentUserPayload | string | number | null => {
     const req = ctx.switchToHttp().getRequest();
-    const user = req.user as CurrentUserPayload;
+    const user = req.user as CurrentUserPayload | undefined;
     if (!user) return null;
-    return data ? user[data] : user;
+    if (data) {
+      const v = user[data];
+      return v === undefined ? null : v;
+    }
+    return user;
   },
 );
 

@@ -134,7 +134,7 @@ export class ProjectsService {
       .createQueryBuilder('p')
       .select('MAX(p.orderIndex)', 'm')
       .where('p.boardId = :boardId', { boardId })
-      .getRawOne<{ m: number | null }>();
+      .getRawOne();
     const phase = this.phaseRepo.create({
       boardId,
       organizationId: orgId,
@@ -236,7 +236,7 @@ export class ProjectsService {
         .createQueryBuilder(Project, 'p')
         .select('MAX(p.phaseOrderIndex)', 'm')
         .where('p.phaseId = :phaseId', { phaseId })
-        .getRawOne<{ m: number | null }>();
+        .getRawOne();
 
       const p = em.create(Project, {
         organizationId: orgId,

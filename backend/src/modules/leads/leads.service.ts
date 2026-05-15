@@ -126,7 +126,7 @@ export class LeadsService {
         .createQueryBuilder('d')
         .select('MAX(d.stageOrderIndex)', 'max')
         .where('d.stageId = :stageId', { stageId: stage.id })
-        .getRawOne<{ max: number | null }>();
+        .getRawOne();
 
       const deal = tx.getRepository(Deal).create({
         title: lead.title,

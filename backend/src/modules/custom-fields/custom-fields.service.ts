@@ -30,7 +30,7 @@ export class CustomFieldsService {
       .createQueryBuilder('f')
       .select('MAX(f.orderIndex)', 'max')
       .where('f.organizationId = :orgId AND f.entity = :entity', { orgId, entity: dto.entity })
-      .getRawOne<{ max: number | null }>();
+      .getRawOne();
     const f = this.repo.create({
       ...dto,
       dataType: dto.dataType ?? CustomFieldType.TEXT,

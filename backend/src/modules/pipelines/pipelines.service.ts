@@ -63,7 +63,7 @@ export class PipelinesService {
         .createQueryBuilder('p')
         .select('MAX(p.orderIndex)', 'max')
         .where('p.organizationId = :orgId', { orgId })
-        .getRawOne<{ max: number | null }>();
+        .getRawOne();
       const p = tx.getRepository(Pipeline).create({
         name: dto.name,
         currency: dto.currency ?? 'USD',
@@ -130,7 +130,7 @@ export class PipelinesService {
       .createQueryBuilder('s')
       .select('MAX(s.orderIndex)', 'max')
       .where('s.pipelineId = :pipelineId', { pipelineId })
-      .getRawOne<{ max: number | null }>();
+      .getRawOne();
     const s = this.stageRepo.create({
       ...dto,
       pipelineId,
