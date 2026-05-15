@@ -24,6 +24,11 @@ import {
   SettingsPlaceholder,
 } from '@/features/settings/components/SettingsLayout';
 import { GeneralPage } from '@/features/settings/pages/GeneralPage';
+import { ManageUsersPage } from '@/features/settings/pages/ManageUsersPage';
+import { DataFieldsPage } from '@/features/settings/pages/DataFieldsPage';
+import { UsagePage } from '@/features/settings/pages/UsagePage';
+import { BillingPage } from '@/features/settings/pages/BillingPage';
+import { SecurityCenterPage } from '@/features/settings/pages/SecurityCenterPage';
 
 import { useAuthStore, useIsAuthenticated } from '@/store/auth.store';
 
@@ -168,13 +173,13 @@ export const router = createBrowserRouter([
                   />
                 ),
               },
-              { path: 'users', element: <SettingsPlaceholder title="Manage users" /> },
+              { path: 'users', element: <ManageUsersPage /> },
               { path: 'user-overview', element: <SettingsPlaceholder title="User overview" /> },
-              { path: 'data-fields', element: <SettingsPlaceholder title="Data fields" /> },
-              { path: 'usage', element: <SettingsPlaceholder title="Usage" /> },
+              { path: 'data-fields', element: <DataFieldsPage /> },
+              { path: 'usage', element: <UsagePage /> },
               { path: 'beta', element: <SettingsPlaceholder title="Beta program" /> },
-              { path: 'billing', element: <SettingsPlaceholder title="Billing" /> },
-              { path: 'security', element: <SettingsPlaceholder title="Security center" /> },
+              { path: 'billing', element: <BillingPage /> },
+              { path: 'security', element: <SecurityCenterPage /> },
               { path: 'dashboard', element: <SettingsPlaceholder title="Dashboard" /> },
               { path: 'alerts', element: <SettingsPlaceholder title="Alerts" /> },
               { path: 'rules', element: <SettingsPlaceholder title="Rules" /> },
