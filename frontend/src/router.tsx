@@ -40,6 +40,7 @@ import { DataFieldsPage } from '@/features/settings/pages/DataFieldsPage';
 import { UsagePage } from '@/features/settings/pages/UsagePage';
 import { BillingPage } from '@/features/settings/pages/BillingPage';
 import { SecurityCenterPage } from '@/features/settings/pages/SecurityCenterPage';
+import { WebhooksPage } from '@/features/settings/pages/WebhooksPage';
 
 import { useAuthStore, useIsAuthenticated } from '@/store/auth.store';
 
@@ -176,6 +177,7 @@ export const router = createBrowserRouter([
               { path: 'beta', element: <SettingsPlaceholder title="Beta program" /> },
               { path: 'billing', element: <BillingPage /> },
               { path: 'security', element: <SecurityCenterPage /> },
+              { path: 'webhooks', element: <WebhooksPage /> },
               { path: 'dashboard', element: <SettingsPlaceholder title="Dashboard" /> },
               { path: 'alerts', element: <SettingsPlaceholder title="Alerts" /> },
               { path: 'rules', element: <SettingsPlaceholder title="Rules" /> },
