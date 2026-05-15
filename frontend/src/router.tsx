@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 
-import { LandingPage } from '@/pages/LandingPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { LoginPage } from '@/features/auth/pages/LoginPage';
 import { RegisterPage } from '@/features/auth/pages/RegisterPage';
@@ -64,8 +63,13 @@ function PublicOnlyRoute() {
   return <Outlet />;
 }
 
+function RootRedirect() {
+  const isAuth = useIsAuthenticated();
+  return <Navigate to={isAuth ? '/dashboard' : '/login'} replace />;
+}
+
 export const router = createBrowserRouter([
-  { path: '/', element: <LandingPage /> },
+  { path: '/', element: <RootRedirect /> },
   {
     element: <PublicOnlyRoute />,
     children: [

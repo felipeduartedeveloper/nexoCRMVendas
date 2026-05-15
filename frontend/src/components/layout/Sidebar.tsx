@@ -60,13 +60,13 @@ export function Sidebar({ collapsed, onToggle }: Props) {
   return (
     <aside
       className={cn(
-        'sticky top-0 flex h-screen flex-col border-r border-ink-200 bg-white transition-all duration-200',
+        'sticky top-0 flex h-screen flex-col border-r border-border bg-card transition-all duration-200',
         collapsed ? 'w-16' : 'w-60',
       )}
     >
       <div
         className={cn(
-          'flex h-16 items-center border-b border-ink-200 px-3',
+          'flex h-16 items-center border-b border-border px-3',
           collapsed ? 'justify-center' : 'justify-between',
         )}
       >

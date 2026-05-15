@@ -7,7 +7,10 @@ import { RouterProvider } from 'react-router-dom';
 
 import { queryClient } from '@/lib/query-client';
 import { router } from '@/router';
+import { initTheme } from '@/store/theme.store';
 import './styles/index.css';
+
+initTheme();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

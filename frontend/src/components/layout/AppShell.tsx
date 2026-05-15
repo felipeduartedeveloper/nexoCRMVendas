@@ -7,7 +7,7 @@ import { Topbar } from './Topbar';
 export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="flex min-h-screen bg-ink-50">
+    <div className="flex min-h-screen bg-muted/40 dark:bg-background">
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((v) => !v)} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar />

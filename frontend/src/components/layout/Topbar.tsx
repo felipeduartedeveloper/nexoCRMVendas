@@ -5,6 +5,7 @@ import { Search, Bell, Plus, ChevronDown, LogOut, User, Settings } from 'lucide-
 import toast from 'react-hot-toast';
 
 import { Button } from '@/components/ui/Button';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useAuthStore } from '@/store/auth.store';
 import { authApi } from '@/api/auth.api';
 
@@ -40,7 +41,7 @@ export function Topbar() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-ink-200 bg-white px-4 lg:px-6">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border bg-card px-4 lg:px-6">
       <div className="flex flex-1 items-center gap-3">
         <div className="relative flex w-full max-w-md items-center">
           <Search className="pointer-events-none absolute left-3 h-4 w-4 text-ink-400" />
@@ -56,6 +57,8 @@ export function Topbar() {
         <Button size="md" className="hidden md:inline-flex">
           <Plus className="h-4 w-4" /> Novo
         </Button>
+
+        <ThemeToggle />
 
         <button
           type="button"
