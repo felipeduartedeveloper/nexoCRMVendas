@@ -7,8 +7,10 @@ import { RegisterDto } from './dto/register.dto';
 import { RefreshDto } from './dto/refresh.dto';
 import { RequestOtpDto, VerifyOtpDto } from './dto/verify-otp.dto';
 import { ForgotPasswordDto, ResetPasswordDto } from './dto/forgot-reset.dto';
+import { TotpSetupDto, TotpEnableDto, TotpVerifyDto, TotpCodeDto } from './dto/totp.dto';
 import { Public } from '../../common/decorators/public.decorator';
 import { CurrentUser, CurrentUserPayload } from '../../common/decorators/current-user.decorator';
+import { TurnstileGuard } from './guards/turnstile.guard';
 import { UsersService } from '../users/users.service';
 
 @ApiTags('auth')
@@ -33,6 +35,7 @@ export class AuthController {
   }
 
   @Public()
+  @UseGuards(TurnstileGuard)
   @Post('login')
   login(@Body() dto: LoginDto, @Req() req: Request) {
     return this.auth.login(dto, this.meta(req));
@@ -50,6 +53,45 @@ export class AuthController {
     return this.auth.logout(user.sub);
   }
 
+  // ---- 2FA TOTP no login (token temporário) ----
+  @Public()
+  @Post('totp/setup')
+  totpSetup(@Body() dto: TotpSetupDto) {
+    return this.auth.totpSetup(dto.token);
+  }
+
+  @Public()
+  @Post('totp/enable')
+  totpEnable(@Body() dto: TotpEnableDto, @Req() req: Request) {
+    return this.auth.totpEnableAtLogin(dto.token, dto.code, this.meta(req));
+  }
+
+  @Public()
+  @Post('totp/verify')
+  totpVerify(@Body() dto: TotpVerifyDto, @Req() req: Request) {
+    return this.auth.totpVerifyAtLogin(dto.token, dto.code, this.meta(req));
+  }
+
+  // ---- 2FA TOTP autenticado (Configurações) ----
+  @ApiBearerAuth()
+  @Post('totp/init')
+  totpInit(@CurrentUser() user: CurrentUserPayload) {
+    return this.auth.totpInit(user.sub);
+  }
+
+  @ApiBearerAuth()
+  @Post('totp/confirm')
+  totpConfirm(@CurrentUser() user: CurrentUserPayload, @Body() dto: TotpCodeDto) {
+    return this.auth.totpConfirm(user.sub, dto.code);
+  }
+
+  @ApiBearerAuth()
+  @Post('totp/disable')
+  totpDisable(@CurrentUser() user: CurrentUserPayload, @Body() dto: TotpCodeDto) {
+    return this.auth.totpDisable(user.sub, dto.code);
+  }
+
+  // ---- OTP por e-mail (verificação de e-mail / recuperação) ----
   @Public()
   @Post('2fa/request')
   request2fa(@Body() dto: RequestOtpDto) {

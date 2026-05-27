@@ -86,6 +86,15 @@ export class UsersService implements OnModuleInit {
     return this.repo.save(user);
   }
 
+  // ---- 2FA (TOTP) ----
+  async setTotpSecret(userId: string, encryptedSecret: string | null): Promise<void> {
+    await this.repo.update(userId, { totpSecret: encryptedSecret });
+  }
+
+  async setTotpEnabled(userId: string, enabled: boolean): Promise<void> {
+    await this.repo.update(userId, { totpEnabled: enabled });
+  }
+
   async setRole(userId: string, role: UserRole): Promise<User> {
     const user = await this.findById(userId);
     user.role = role;

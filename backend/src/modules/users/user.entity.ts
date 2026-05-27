@@ -43,6 +43,15 @@ export class User {
   @Column({ default: false })
   emailVerified: boolean;
 
+  // ---- 2FA (TOTP) ----
+  // Segredo TOTP cifrado em repouso (AES-256-GCM). NULL até o usuário ativar.
+  @Exclude({ toPlainOnly: true })
+  @Column({ type: 'text', nullable: true })
+  totpSecret: string | null;
+
+  @Column({ default: false })
+  totpEnabled: boolean;
+
   @Column({ length: 500, nullable: true })
   avatarUrl: string | null;
 

@@ -10,6 +10,7 @@ export interface RegisterPayload {
 export interface LoginPayload {
   email: string;
   password: string;
+  captchaToken?: string;
 }
 
 export interface AuthSession {
@@ -19,11 +20,19 @@ export interface AuthSession {
 }
 
 export interface AuthResponse {
-  requires2fa?: boolean;
+  requires2fa?: boolean; // OTP por e-mail (e-mail não verificado)
+  status?: 'TOTP_REQUIRED' | 'TOTP_SETUP_REQUIRED'; // 2FA por app autenticador
+  totpToken?: string;
   user?: AuthUser;
   accessToken?: string;
   refreshToken?: string;
   message?: string;
+}
+
+export interface TotpSecret {
+  qrDataUrl: string;
+  secret: string;
+  otpauthUrl: string;
 }
 
 export const authApi = {
@@ -35,6 +44,18 @@ export const authApi = {
     unwrap<AuthSession>(await api.post('/auth/2fa/verify', { email, code })),
   resend2fa: async (email: string) =>
     unwrap<{ message: string }>(await api.post('/auth/2fa/resend', { email })),
+
+  // ---- TOTP no login ----
+  totpVerifyLogin: async (token: string, code: string) =>
+    unwrap<AuthSession>(await api.post('/auth/totp/verify', { token, code })),
+
+  // ---- TOTP autenticado (Configurações) ----
+  totpInit: async () => unwrap<TotpSecret>(await api.post('/auth/totp/init')),
+  totpConfirm: async (code: string) =>
+    unwrap<{ totpEnabled: boolean }>(await api.post('/auth/totp/confirm', { code })),
+  totpDisable: async (code: string) =>
+    unwrap<{ totpEnabled: boolean }>(await api.post('/auth/totp/disable', { code })),
+
   me: async () => unwrap<AuthUser>(await api.get('/auth/me')),
   logout: async () => unwrap(await api.post('/auth/logout')),
   forgotPassword: async (email: string) =>

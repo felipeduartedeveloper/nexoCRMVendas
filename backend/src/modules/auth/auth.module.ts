@@ -5,6 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { TotpService } from './totp.service';
+import { TurnstileService } from './turnstile.service';
+import { TurnstileGuard } from './guards/turnstile.guard';
+import { CryptoService } from '../../common/crypto/crypto.service';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { PasswordReset } from './entities/password-reset.entity';
 import { EmailOtp } from './entities/email-otp.entity';
@@ -17,7 +21,14 @@ import { UsersModule } from '../users/users.module';
     TypeOrmModule.forFeature([RefreshToken, PasswordReset, EmailOtp]),
     UsersModule,
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    CryptoService,
+    TotpService,
+    TurnstileService,
+    TurnstileGuard,
+  ],
   controllers: [AuthController],
   exports: [AuthService],
 })

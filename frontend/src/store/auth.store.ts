@@ -10,6 +10,7 @@ export interface AuthUser {
   role: UserRole;
   organizationId: string | null;
   emailVerified: boolean;
+  totpEnabled?: boolean;
   avatarUrl?: string | null;
   locale?: string;
   timezone?: string;
