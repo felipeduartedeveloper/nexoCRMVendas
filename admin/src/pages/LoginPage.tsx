@@ -1,4 +1,4 @@
-import { useCallback, useState, type FormEvent } from 'react';
+import { useCallback, useRef, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
@@ -7,7 +7,7 @@ import { Mail, Lock, Shield, ShieldCheck, KeyRound } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Turnstile } from '@/components/Turnstile';
+import { Turnstile, type TurnstileHandle } from '@/components/Turnstile';
 import { api, extractErrorMessage, unwrap } from '@/lib/api';
 import { useAuthStore, type AdminUser } from '@/store/auth.store';
 
@@ -35,6 +35,7 @@ export function LoginPage() {
   const [totpToken, setTotpToken] = useState('');
   const [qr, setQr] = useState('');
   const [secret, setSecret] = useState('');
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const onCaptcha = useCallback((t: string) => setCaptcha(t), []);
 
@@ -76,7 +77,11 @@ export function LoginPage() {
       // fallback (não esperado p/ SUPER_ADMIN, mas trata)
       finishSession(resp);
     },
-    onError: (err) => toast.error(extractErrorMessage(err, 'Falha no login.')),
+    onError: (err) => {
+      // token Turnstile é de uso único — gera um novo pra próxima tentativa
+      turnstileRef.current?.reset();
+      toast.error(extractErrorMessage(err, 'Falha no login.'));
+    },
   });
 
   // passo 2: confirma o código e ATIVA o 2FA
@@ -138,7 +143,7 @@ export function LoginPage() {
                     leftSlot={<Lock className="h-4 w-4" />}
                     required
                   />
-                  <Turnstile onToken={onCaptcha} />
+                  <Turnstile ref={turnstileRef} onToken={onCaptcha} />
                   <Button type="submit" fullWidth size="lg" loading={busy}>
                     Entrar no console
                   </Button>

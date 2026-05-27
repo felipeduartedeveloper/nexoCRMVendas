@@ -43,6 +43,39 @@ Crie sua conta normalmente pelo frontend (`:5173`) — `Try free` na landing.
 
 ---
 
+## Produção (Oxlify Sales)
+
+Backend em Docker nesta VPS exposto via **Cloudflare Tunnel**; frontend e admin na **Vercel**.
+
+| Ambiente | URL |
+| -------- | --- |
+| **Frontend (CRM)** | https://sales.oxlify.com |
+| **Admin (SaaS Console)** | https://sales-admin.oxlify.com |
+| **API (backend/túnel)** | https://sales-api.oxlify.com |
+
+### Acessos de teste
+
+| Painel | Login | Senha | Papel |
+| ------ | ----- | ----- | ----- |
+| **sales** (CRM) | `demo@oxlify.com` | `Vendas@123` | ADMIN (org criada) |
+| **sales-admin** (console) | `admin@crmvendas.local` | `Admin@123` | SUPER_ADMIN |
+
+> ⚠️ **Credenciais de desenvolvimento/teste — troque em produção real.** Este repositório é público.
+
+### Segurança no login
+
+- **Cloudflare Turnstile (captcha)** exigido no login do `sales` e do `sales-admin` (env `VITE_TURNSTILE_SITE_KEY` no front/admin, `TURNSTILE_SECRET_KEY` no backend).
+- **2FA TOTP** (Google Authenticator / Authy / 1Password):
+  - **sales-admin:** obrigatório — no 1º login o SUPER_ADMIN é forçado a configurar (QR). Sem opção de desativar pela UI.
+  - **sales:** opcional — o usuário ativa/desativa em **Configurações → Security center**.
+- Reset de 2FA do admin (se perder o autenticador), via banco:
+  ```bash
+  docker exec crmvendas-postgres-1 psql -U crmvendas -d crmvendas_db \
+    -c "UPDATE users SET \"totpEnabled\"=false, \"totpSecret\"=NULL WHERE email='admin@crmvendas.local';"
+  ```
+
+---
+
 ## Estrutura
 
 ```

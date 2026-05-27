@@ -1,4 +1,4 @@
-import { useCallback, useState, type FormEvent } from 'react';
+import { useCallback, useRef, useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
@@ -7,7 +7,7 @@ import { Mail, Lock, KeyRound, ShieldCheck } from 'lucide-react';
 import { AuthLayout } from '../components/AuthLayout';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Turnstile } from '@/components/Turnstile';
+import { Turnstile, type TurnstileHandle } from '@/components/Turnstile';
 import { authApi } from '@/api/auth.api';
 import { useAuthStore } from '@/store/auth.store';
 import { extractErrorMessage } from '@/lib/api';
@@ -22,6 +22,7 @@ export function LoginPage() {
   const [totpStep, setTotpStep] = useState(false);
   const [totpToken, setTotpToken] = useState('');
   const [code, setCode] = useState('');
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const onCaptcha = useCallback((t: string) => setCaptcha(t), []);
 
@@ -44,7 +45,11 @@ export function LoginPage() {
         navigate('/dashboard');
       }
     },
-    onError: (err) => toast.error(extractErrorMessage(err, 'Falha no login.')),
+    onError: (err) => {
+      // token Turnstile é de uso único — gera um novo pra próxima tentativa
+      turnstileRef.current?.reset();
+      toast.error(extractErrorMessage(err, 'Falha no login.'));
+    },
   });
 
   const totpM = useMutation({
@@ -149,7 +154,7 @@ export function LoginPage() {
                 Esqueci minha senha
               </Link>
             </div>
-            <Turnstile onToken={onCaptcha} />
+            <Turnstile ref={turnstileRef} onToken={onCaptcha} />
             <Button type="submit" fullWidth size="lg" loading={m.isPending}>
               Entrar
             </Button>
