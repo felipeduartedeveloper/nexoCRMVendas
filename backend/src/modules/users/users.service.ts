@@ -101,6 +101,18 @@ export class UsersService implements OnModuleInit {
     await this.repo.update(userId, { emailOtpEnabled: enabled });
   }
 
+  /** Admin/owner da org (destinatário de e-mails de trial/cobrança). */
+  async findOrgAdmin(organizationId: string): Promise<{ email: string; name: string } | null> {
+    const admin = await this.repo.findOne({
+      where: { organizationId, role: UserRole.ADMIN, isActive: true },
+      order: { createdAt: 'ASC' },
+    });
+    const u =
+      admin ??
+      (await this.repo.findOne({ where: { organizationId, isActive: true }, order: { createdAt: 'ASC' } }));
+    return u ? { email: u.email, name: u.name } : null;
+  }
+
   async setRole(userId: string, role: UserRole): Promise<User> {
     const user = await this.findById(userId);
     user.role = role;
