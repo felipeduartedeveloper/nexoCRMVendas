@@ -148,14 +148,20 @@ export class AuthService {
       return { requires2fa: true, email: user.email };
     }
 
-    // 2) TOTP já ativo → exige código do autenticador
+    // 2) TOTP (app autenticador) já ativo → exige código do app
     if (user.totpEnabled) {
       return { status: 'TOTP_REQUIRED', totpToken: this.signTempToken(user.id, 'totp_challenge') };
     }
 
-    // 3) SUPER_ADMIN é OBRIGADO a configurar TOTP (admin robusto, sem opção de pular)
+    // 3) SUPER_ADMIN é OBRIGADO a configurar TOTP (app) — precede o e-mail
     if (user.role === UserRole.SUPER_ADMIN) {
       return { status: 'TOTP_SETUP_REQUIRED', totpToken: this.signTempToken(user.id, 'totp_setup') };
+    }
+
+    // 3b) 2FA por e-mail ativo → envia código por e-mail e exige verificação
+    if (user.emailOtpEnabled) {
+      await this.sendOtp(user.email, OtpPurpose.TWO_FACTOR);
+      return { requires2fa: true, email: user.email };
     }
 
     // 4) usuário normal sem TOTP → entra direto
@@ -239,6 +245,25 @@ export class AuthService {
     return { totpEnabled: false };
   }
 
+  /** Ativa 2FA por e-mail (usuário logado). SUPER_ADMIN usa app, não e-mail. */
+  async enableEmailOtp(userId: string) {
+    const user = await this.users.findById(userId);
+    if (user.role === UserRole.SUPER_ADMIN) {
+      throw new ForbiddenException('Administradores devem usar o 2FA por aplicativo.');
+    }
+    await this.users.setEmailOtpEnabled(userId, true);
+    this.fireMail(this.mail.sendTwoFactorChanged(user.email, true));
+    return { emailOtpEnabled: true };
+  }
+
+  /** Desativa 2FA por e-mail (usuário logado). */
+  async disableEmailOtp(userId: string) {
+    const user = await this.users.findById(userId);
+    await this.users.setEmailOtpEnabled(userId, false);
+    this.fireMail(this.mail.sendTwoFactorChanged(user.email, false));
+    return { emailOtpEnabled: false };
+  }
+
   publicUser(u: {
     id: string;
     email: string;
@@ -247,6 +272,7 @@ export class AuthService {
     organizationId: string | null;
     emailVerified: boolean;
     totpEnabled?: boolean;
+    emailOtpEnabled?: boolean;
   }) {
     return {
       id: u.id,
@@ -256,6 +282,7 @@ export class AuthService {
       organizationId: u.organizationId,
       emailVerified: u.emailVerified,
       totpEnabled: !!u.totpEnabled,
+      emailOtpEnabled: !!u.emailOtpEnabled,
     };
   }
 

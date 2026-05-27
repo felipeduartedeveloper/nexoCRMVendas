@@ -11,6 +11,7 @@ export interface AuthUser {
   organizationId: string | null;
   emailVerified: boolean;
   totpEnabled?: boolean;
+  emailOtpEnabled?: boolean;
   avatarUrl?: string | null;
   locale?: string;
   timezone?: string;

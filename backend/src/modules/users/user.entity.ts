@@ -52,6 +52,10 @@ export class User {
   @Column({ default: false })
   totpEnabled: boolean;
 
+  // 2FA por e-mail (código OTP enviado ao e-mail no login) — opcional, ativável nas configs.
+  @Column({ default: false })
+  emailOtpEnabled: boolean;
+
   @Column({ length: 500, nullable: true })
   avatarUrl: string | null;
 

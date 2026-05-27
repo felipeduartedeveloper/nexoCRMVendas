@@ -56,6 +56,12 @@ export const authApi = {
   totpDisable: async (code: string) =>
     unwrap<{ totpEnabled: boolean }>(await api.post('/auth/totp/disable', { code })),
 
+  // ---- 2FA por e-mail ----
+  emailOtpEnable: async () =>
+    unwrap<{ emailOtpEnabled: boolean }>(await api.post('/auth/email-2fa/enable')),
+  emailOtpDisable: async () =>
+    unwrap<{ emailOtpEnabled: boolean }>(await api.post('/auth/email-2fa/disable')),
+
   me: async () => unwrap<AuthUser>(await api.get('/auth/me')),
   logout: async () => unwrap(await api.post('/auth/logout')),
   forgotPassword: async (email: string) =>

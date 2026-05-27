@@ -97,6 +97,10 @@ export class UsersService implements OnModuleInit {
     await this.repo.update(userId, { totpEnabled: enabled });
   }
 
+  async setEmailOtpEnabled(userId: string, enabled: boolean): Promise<void> {
+    await this.repo.update(userId, { emailOtpEnabled: enabled });
+  }
+
   async setRole(userId: string, role: UserRole): Promise<User> {
     const user = await this.findById(userId);
     user.role = role;

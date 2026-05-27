@@ -91,6 +91,19 @@ export class AuthController {
     return this.auth.totpDisable(user.sub, dto.code);
   }
 
+  // ---- 2FA por e-mail (Configurações) ----
+  @ApiBearerAuth()
+  @Post('email-2fa/enable')
+  emailOtpEnable(@CurrentUser() user: CurrentUserPayload) {
+    return this.auth.enableEmailOtp(user.sub);
+  }
+
+  @ApiBearerAuth()
+  @Post('email-2fa/disable')
+  emailOtpDisable(@CurrentUser() user: CurrentUserPayload) {
+    return this.auth.disableEmailOtp(user.sub);
+  }
+
   // ---- OTP por e-mail (verificação de e-mail / recuperação) ----
   @Public()
   @Post('2fa/request')

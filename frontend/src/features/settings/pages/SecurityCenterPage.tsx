@@ -203,6 +203,48 @@ function TwoFactorCard() {
   );
 }
 
+function EmailOtpCard() {
+  const setUser = useAuthStore((s) => s.setUser);
+  const storeUser = useAuthStore((s) => s.user);
+  const meQ = useQuery({ queryKey: ['auth', 'me', 'emailotp'], queryFn: authApi.me });
+  const enabled = meQ.data?.emailOtpEnabled ?? !!storeUser?.emailOtpEnabled;
+  const isSuperAdmin = (meQ.data?.role ?? storeUser?.role) === 'SUPER_ADMIN';
+
+  const toggleM = useMutation({
+    mutationFn: () => (enabled ? authApi.emailOtpDisable() : authApi.emailOtpEnable()),
+    onSuccess: (r) => {
+      if (storeUser) setUser({ ...storeUser, emailOtpEnabled: r.emailOtpEnabled });
+      meQ.refetch();
+      toast.success(r.emailOtpEnabled ? '2FA por e-mail ativado.' : '2FA por e-mail desativado.');
+    },
+    onError: (err) => toast.error(extractErrorMessage(err, 'Não foi possível alterar.')),
+  });
+
+  return (
+    <li className="flex items-start gap-4 rounded-xl border border-border bg-card p-5 shadow-card">
+      <span className={'grid h-10 w-10 shrink-0 place-items-center rounded-lg ' + (enabled ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground')}>
+        <Smartphone className="h-5 w-5" />
+      </span>
+      <div className="flex-1">
+        <div className="flex items-center gap-2">
+          <h3 className="font-bold text-foreground">2FA por e-mail</h3>
+          <span className={'rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ' + (enabled ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground')}>
+            {enabled ? 'Ativo' : 'Inativo'}
+          </span>
+        </div>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Receba um código de 6 dígitos por e-mail a cada login. Alternativa ao app autenticador.
+        </p>
+      </div>
+      {!isSuperAdmin && (
+        <Button variant={enabled ? 'outline' : 'primary'} size="sm" loading={toggleM.isPending} onClick={() => toggleM.mutate()}>
+          {enabled ? 'Desativar' : 'Ativar'}
+        </Button>
+      )}
+    </li>
+  );
+}
+
 export function SecurityCenterPage() {
   return (
     <div className="mx-auto max-w-4xl">
@@ -213,6 +255,7 @@ export function SecurityCenterPage() {
 
       <ul className="space-y-3">
         <TwoFactorCard />
+        <EmailOtpCard />
         {otherItems.map((it) => (
           <li
             key={it.title}
