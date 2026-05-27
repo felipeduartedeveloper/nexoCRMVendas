@@ -14,6 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRole } from '../../common/enums/user-role.enum';
 import { PaginationDto, PaginatedResult } from '../../common/dto/pagination.dto';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -22,6 +23,7 @@ export class UsersService implements OnModuleInit {
   constructor(
     @InjectRepository(User)
     private readonly repo: Repository<User>,
+    private readonly mail: MailService,
   ) {}
 
   async onModuleInit() {
@@ -126,7 +128,9 @@ export class UsersService implements OnModuleInit {
 
   async delete(userId: string): Promise<void> {
     const user = await this.findById(userId);
+    const { email, name } = user;
     await this.repo.remove(user);
+    this.mail.sendAccountDeleted(email, name).catch(() => undefined);
   }
 
   async invite(
@@ -154,6 +158,8 @@ export class UsersService implements OnModuleInit {
       isActive: true,
     });
     const saved = await this.repo.save(user);
+    const loginUrl = (process.env.APP_PUBLIC_URL || 'https://sales.oxlify.com').replace(/\/$/, '') + '/login';
+    this.mail.sendInvite(saved.email, { loginUrl, tempPassword }).catch(() => undefined);
     return { user: saved, tempPassword };
   }
 

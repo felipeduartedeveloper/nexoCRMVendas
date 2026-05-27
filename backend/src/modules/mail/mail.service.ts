@@ -114,17 +114,17 @@ export class MailService {
     return this.send({ to, subject: `Oxlify — 2FA ${enabled ? 'ativado' : 'desativado'}`, html });
   }
 
-  /** Convite de novo membro pra organização. */
-  async sendInvite(to: string, link: string, orgName?: string, inviterName?: string) {
+  /** Convite de novo membro: senha temporária + link de login. */
+  async sendInvite(to: string, opts: { loginUrl: string; tempPassword: string; orgName?: string }) {
     const html = this.wrap(`
       <h2 style="margin:0 0 12px;font-size:20px">Você foi convidado 👋</h2>
-      <p>${inviterName ? `<strong>${inviterName}</strong> convidou` : 'Você foi convidado'} você
-         para a equipe${orgName ? ` <strong>${orgName}</strong>` : ''} na Oxlify.</p>
-      <p>Defina sua senha para começar:</p>
-      ${this.button(link, 'Aceitar convite')}
-      <p style="color:#64748b;font-size:13px">O link expira em breve; se expirar, use "Esqueci minha senha".</p>
+      <p>Você foi adicionado à equipe${opts.orgName ? ` <strong>${opts.orgName}</strong>` : ''} na Oxlify Vendas.</p>
+      <p>Acesse com a senha temporária abaixo e <strong>troque ao entrar</strong>:</p>
+      <p style="text-align:center;font-family:monospace;font-size:20px;font-weight:700;background:#f1f5f9;border-radius:8px;padding:12px;margin:16px 0">${opts.tempPassword}</p>
+      ${this.button(opts.loginUrl, 'Entrar na plataforma')}
+      <p style="color:#64748b;font-size:12px">Dica: se preferir, use "Esqueci minha senha" na tela de login para definir uma nova senha.</p>
     `);
-    return this.send({ to, subject: 'Oxlify — convite para a equipe', html, text: `Aceite o convite: ${link}` });
+    return this.send({ to, subject: 'Oxlify — convite para a equipe', html, text: `Convite Oxlify. Acesse ${opts.loginUrl} com a senha temporária: ${opts.tempPassword}` });
   }
 
   // ─────────────────────────── Conta ───────────────────────────
