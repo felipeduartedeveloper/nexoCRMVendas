@@ -76,6 +76,11 @@ export class AuthService {
     return { sub: user.id, email: user.email, role: user.role, organizationId: user.organizationId };
   }
 
+  /** Dispara um e-mail sem bloquear/quebrar o fluxo (fire-and-forget). */
+  private fireMail(p: Promise<unknown>) {
+    Promise.resolve(p).catch((e: any) => this.logger.warn(`Falha ao enviar e-mail: ${e?.message}`));
+  }
+
   async register(dto: RegisterDto) {
     const existing = await this.users.findByEmailWithPassword(dto.email);
     if (existing) throw new ConflictException('Email already registered');
@@ -86,6 +91,7 @@ export class AuthService {
       phone: dto.phone,
     });
     await this.sendOtp(user.email, OtpPurpose.EMAIL_VERIFICATION);
+    this.fireMail(this.mail.sendWelcome(user.email, user.name));
     return { id: user.id, email: user.email, emailVerified: user.emailVerified };
   }
 
@@ -126,6 +132,7 @@ export class AuthService {
     const accessToken = this.signAccess(payload);
     const refreshToken = this.signRefresh(payload);
     await this.storeRefresh(user.id, refreshToken, meta);
+    this.fireMail(this.mail.sendLoginAlert(user.email, { ip: meta?.ip, userAgent: meta?.userAgent }));
     return { accessToken, refreshToken, user: this.publicUser(user) };
   }
 
@@ -177,6 +184,7 @@ export class AuthService {
     }
     await this.users.setTotpEnabled(userId, true);
     user.totpEnabled = true;
+    this.fireMail(this.mail.sendTwoFactorChanged(user.email, true));
     return this.issueSession(user, meta);
   }
 
@@ -211,6 +219,7 @@ export class AuthService {
       throw new UnauthorizedException('Código inválido.');
     }
     await this.users.setTotpEnabled(userId, true);
+    this.fireMail(this.mail.sendTwoFactorChanged(user.email, true));
     return { totpEnabled: true };
   }
 
@@ -226,6 +235,7 @@ export class AuthService {
     }
     await this.users.setTotpEnabled(userId, false);
     await this.users.setTotpSecret(userId, null);
+    this.fireMail(this.mail.sendTwoFactorChanged(user.email, false));
     return { totpEnabled: false };
   }
 
@@ -337,6 +347,8 @@ export class AuthService {
         pr.used = true;
         await this.resetRepo.save(pr);
         await this.users.setPassword(pr.userId, dto.newPassword);
+        const u = await this.users.findById(pr.userId).catch(() => null);
+        if (u) this.fireMail(this.mail.sendPasswordChanged(u.email, u.name));
         return { ok: true };
       }
     }
