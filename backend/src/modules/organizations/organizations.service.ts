@@ -39,12 +39,18 @@ export class OrganizationsService {
 
   async create(dto: CreateOrganizationDto): Promise<Organization> {
     const slug = await this.uniqueSlug(dto.name);
+    const plan = dto.plan ?? OrganizationPlan.TRIAL;
+    // Trial de 14 dias quando a org nasce no plano TRIAL.
+    const trialEndsAt =
+      plan === OrganizationPlan.TRIAL ? new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) : null;
     const org = this.repo.create({
       ...dto,
       slug,
-      plan: dto.plan ?? OrganizationPlan.TRIAL,
+      plan,
       status: dto.status ?? OrganizationStatus.ACTIVE,
       maxUsers: dto.maxUsers ?? 5,
+      trialEndsAt,
+      trialNoticeStage: 0,
     });
     return this.repo.save(org);
   }

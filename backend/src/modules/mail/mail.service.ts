@@ -127,6 +127,42 @@ export class MailService {
     return this.send({ to, subject: 'Oxlify — convite para a equipe', html, text: `Convite Oxlify. Acesse ${opts.loginUrl} com a senha temporária: ${opts.tempPassword}` });
   }
 
+  // ─────────────────────────── Trial / Cobrança ───────────────────────────
+
+  /** Trial iniciado (14 dias). */
+  async sendTrialStarted(to: string, name: string, days: number, upgradeUrl: string) {
+    const html = this.wrap(`
+      <h2 style="margin:0 0 12px;font-size:20px">Seu teste grátis começou 🚀</h2>
+      <p>Olá${name ? ' ' + name : ''}, sua organização está com <strong>${days} dias grátis</strong> da Oxlify Vendas — acesso completo, sem cartão.</p>
+      <p>Explore o funil, contatos e atividades. Quando quiser garantir a continuidade, é só assinar:</p>
+      ${this.button(upgradeUrl, 'Ver planos')}
+    `);
+    return this.send({ to, subject: 'Oxlify — seu teste grátis começou', html });
+  }
+
+  /** Faltam N dias para o trial expirar. */
+  async sendTrialEnding(to: string, name: string, daysLeft: number, upgradeUrl: string) {
+    const label = daysLeft <= 1 ? 'amanhã' : `em ${daysLeft} dias`;
+    const html = this.wrap(`
+      <h2 style="margin:0 0 12px;font-size:20px">Seu teste termina ${label} ⏳</h2>
+      <p>Olá${name ? ' ' + name : ''}, seu período grátis da Oxlify Vendas termina <strong>${label}</strong>.</p>
+      <p>Assine agora para não perder o acesso aos seus dados e ao funil de vendas:</p>
+      ${this.button(upgradeUrl, 'Assinar agora')}
+    `);
+    return this.send({ to, subject: `Oxlify — seu teste termina ${label}`, html });
+  }
+
+  /** Trial expirou. */
+  async sendTrialExpired(to: string, name: string, upgradeUrl: string) {
+    const html = this.wrap(`
+      <h2 style="margin:0 0 12px;font-size:20px">Seu teste grátis expirou</h2>
+      <p>Olá${name ? ' ' + name : ''}, seu período grátis da Oxlify Vendas terminou. Seus dados estão guardados.</p>
+      <p>Reative o acesso assinando um plano — leva menos de 1 minuto:</p>
+      ${this.button(upgradeUrl, 'Assinar e reativar')}
+    `);
+    return this.send({ to, subject: 'Oxlify — seu teste expirou (reative em 1 min)', html });
+  }
+
   // ─────────────────────────── Conta ───────────────────────────
 
   async sendAccountDeleted(to: string, name?: string) {

@@ -39,6 +39,15 @@ export class Organization {
   @Column({ type: 'enum', enum: OrganizationPlan, default: OrganizationPlan.TRIAL })
   plan: OrganizationPlan;
 
+  // ---- Trial (14 dias) ----
+  @Column({ type: 'timestamptz', nullable: true })
+  trialEndsAt: Date | null;
+
+  // Estágio dos avisos de trial já enviados (evita duplicar no cron diário):
+  // 0=nenhum/iniciado · 1=aviso 2 dias · 2=aviso 1 dia · 3=expirado.
+  @Column({ type: 'int', default: 0 })
+  trialNoticeStage: number;
+
   @Column({ type: 'int', default: 5 })
   maxUsers: number;
 
