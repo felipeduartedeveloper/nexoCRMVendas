@@ -36,6 +36,7 @@ export class DealsService {
     orgId: string | null,
     p: PaginationDto,
     f: DealFilters = {},
+    actor?: { role?: string; sub?: string },
   ): Promise<PaginatedResult<Deal>> {
     const page = p.page ?? 1;
     const limit = p.limit ?? 100;
@@ -48,6 +49,10 @@ export class DealsService {
     if (f.pipelineId) qb.andWhere('d.pipelineId = :pipelineId', { pipelineId: f.pipelineId });
     if (f.stageId) qb.andWhere('d.stageId = :stageId', { stageId: f.stageId });
     if (f.ownerUserId) qb.andWhere('d.ownerUserId = :owner', { owner: f.ownerUserId });
+    // Vendedor isolado (SALES) só vê os próprios deals.
+    if (actor?.role === 'SALES' && actor.sub) {
+      qb.andWhere('d.ownerUserId = :__owner', { __owner: actor.sub });
+    }
     if (f.contactId) qb.andWhere('d.contactId = :contactId', { contactId: f.contactId });
     if (f.orgCompanyId) qb.andWhere('d.orgCompanyId = :orgCompanyId', { orgCompanyId: f.orgCompanyId });
     if (p.search) {

@@ -55,6 +55,11 @@ export class OrganizationsService {
     return this.repo.save(org);
   }
 
+  /** Define o usuário dono/criador do tenant (ADMIN principal). */
+  async setOwner(orgId: string, userId: string): Promise<void> {
+    await this.repo.update(orgId, { ownerUserId: userId });
+  }
+
   async findById(id: string): Promise<Organization> {
     const org = await this.repo.findOne({ where: { id } });
     if (!org) throw new NotFoundException('Organization not found');

@@ -37,9 +37,11 @@ export class DealsController {
     @Query('ownerUserId') ownerUserId?: string,
     @Query('contactId') contactId?: string,
     @Query('orgCompanyId') orgCompanyId?: string,
+    @CurrentUser('role') role?: string,
+    @CurrentUser('sub') sub?: string,
   ) {
     const filters: DealFilters = { status, pipelineId, stageId, ownerUserId, contactId, orgCompanyId };
-    return this.svc.list(orgId, p, filters);
+    return this.svc.list(orgId, p, filters, { role, sub });
   }
 
   @Get('kanban/:pipelineId')

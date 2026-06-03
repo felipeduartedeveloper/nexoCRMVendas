@@ -12,6 +12,7 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bufferLogs: true,
+    rawBody: true, // necessário pro webhook do Stripe verificar a assinatura
   });
 
   app.setGlobalPrefix('api', { exclude: ['health', 'docs', 'docs-json'] });

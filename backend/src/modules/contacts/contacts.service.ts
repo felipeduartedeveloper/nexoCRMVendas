@@ -22,11 +22,19 @@ export class ContactsService {
 
   // ────── Contacts ──────
 
-  async list(orgId: string | null, p: PaginationDto): Promise<PaginatedResult<Contact>> {
+  async list(
+    orgId: string | null,
+    p: PaginationDto,
+    actor?: { role?: string; sub?: string },
+  ): Promise<PaginatedResult<Contact>> {
     const page = p.page ?? 1;
     const limit = p.limit ?? 50;
     const qb = this.repo.createQueryBuilder('c').orderBy('c.createdAt', 'DESC');
     if (orgId) qb.where('c.organizationId = :orgId', { orgId });
+    // Vendedor isolado (SALES) só vê os próprios contatos.
+    if (actor?.role === 'SALES' && actor.sub) {
+      qb.andWhere('c.ownerUserId = :__owner', { __owner: actor.sub });
+    }
     if (p.search) {
       qb.andWhere(
         '(LOWER(c.name) LIKE :s OR LOWER(c.email) LIKE :s OR LOWER(c.phone) LIKE :s)',

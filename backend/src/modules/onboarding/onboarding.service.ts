@@ -66,6 +66,7 @@ export class OnboardingService {
 
     await this.users.setOrganization(user.id, org.id);
     await this.users.setRole(user.id, UserRole.ADMIN);
+    await this.orgs.setOwner(org.id, user.id); // quem cria a conta é o dono/owner
 
     await this.dataSource.transaction(async (tx) => {
       const pipelineRepo = tx.getRepository(Pipeline);

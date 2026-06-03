@@ -25,8 +25,13 @@ export class ContactsController {
   constructor(private readonly svc: ContactsService) {}
 
   @Get()
-  list(@CurrentOrg() orgId: string | null, @Query() p: PaginationDto) {
-    return this.svc.list(orgId, p);
+  list(
+    @CurrentOrg() orgId: string | null,
+    @Query() p: PaginationDto,
+    @CurrentUser('role') role: string,
+    @CurrentUser('sub') sub: string,
+  ) {
+    return this.svc.list(orgId, p, { role, sub });
   }
 
   @Get('timeline')
