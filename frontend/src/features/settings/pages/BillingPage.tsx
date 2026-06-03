@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { CreditCard, CheckCircle2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/Button';
-import { settingsApi } from '@/api/settings.api';
+import { settingsApi, billingApi } from '@/api/settings.api';
 import { cn } from '@/lib/cn';
+
+type PaidPlan = 'essential' | 'advanced' | 'professional' | 'power';
 
 const PLANS = [
   {
@@ -42,6 +45,25 @@ const PLANS = [
 export function BillingPage() {
   const q = useQuery({ queryKey: ['settings-org'], queryFn: settingsApi.currentOrg });
   const current = q.data?.plan ?? 'TRIAL';
+  const access = q.data?.access;
+  const [loading, setLoading] = useState<string | null>(null);
+
+  const subscribe = async (plan: PaidPlan) => {
+    setLoading(plan);
+    try {
+      const origin = window.location.origin;
+      const { url } = await billingApi.checkout({
+        plan,
+        cycle: 'monthly',
+        successUrl: `${origin}/settings/billing?status=success`,
+        cancelUrl: `${origin}/settings/billing?status=cancel`,
+      });
+      window.location.href = url;
+    } catch {
+      setLoading(null);
+      alert('Não foi possível iniciar o checkout. Tente novamente.');
+    }
+  };
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -51,6 +73,17 @@ export function BillingPage() {
           Gerencie seu plano e veja o histórico de cobrança.
         </p>
       </header>
+
+      {access?.status === 'trial' && (
+        <div className="mb-4 rounded-lg border border-brand-200 bg-brand-50 px-4 py-2 text-sm text-brand-700">
+          Teste grátis: <strong>{access.daysLeft}</strong> {access.daysLeft === 1 ? 'dia restante' : 'dias restantes'}. Assine para não perder o acesso.
+        </div>
+      )}
+      {access?.status === 'expired' && (
+        <div className="mb-4 rounded-lg border border-danger/30 bg-danger/10 px-4 py-2 text-sm text-danger">
+          Seu teste grátis expirou. Assine um plano para reativar o acesso — seus dados estão guardados.
+        </div>
+      )}
 
       <section className="mb-6 rounded-xl border border-brand-200 bg-brand-50 p-5">
         <div className="flex items-center gap-4">
@@ -104,9 +137,22 @@ export function BillingPage() {
               <Button
                 className="mt-6"
                 variant={active ? 'outline' : 'primary'}
-                disabled={active}
+                disabled={active || loading !== null}
+                onClick={() => {
+                  if (p.code === 'ENTERPRISE') {
+                    window.location.href = 'mailto:contato@oxlify.com?subject=Plano Enterprise';
+                  } else if (!active) {
+                    subscribe(p.code.toLowerCase() as PaidPlan);
+                  }
+                }}
               >
-                {active ? 'Plano atual' : 'Selecionar plano'}
+                {active
+                  ? 'Plano atual'
+                  : p.code === 'ENTERPRISE'
+                  ? 'Falar com vendas'
+                  : loading === p.code.toLowerCase()
+                  ? 'Redirecionando…'
+                  : 'Assinar'}
               </Button>
             </div>
           );

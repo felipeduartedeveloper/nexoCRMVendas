@@ -1,11 +1,22 @@
 import { api, unwrap } from '@/lib/api';
 
+export type AccessStatus = 'trial' | 'active' | 'expired' | 'none';
+export interface OrgAccess {
+  status: AccessStatus;
+  daysLeft: number;
+  trialEndsAt: string | null;
+  plan: string;
+}
+
 export interface CurrentOrganization {
   id: string;
   name: string;
   slug: string;
   status: 'ACTIVE' | 'INACTIVE';
   plan: 'TRIAL' | 'ESSENTIAL' | 'ADVANCED' | 'PROFESSIONAL' | 'POWER' | 'ENTERPRISE';
+  /** Status derivado de trial/assinatura — fonte da verdade p/ paywall/badge. */
+  access?: OrgAccess;
+  trialEndsAt?: string | null;
   maxUsers: number;
   industry: string | null;
   employeesRange: string | null;
@@ -64,6 +75,17 @@ export const settingsApi = {
   updateCurrentOrg: async (data: Partial<CurrentOrganization>) =>
     unwrap<CurrentOrganization>(await api.patch('/organizations/current', data)),
   usage: async () => unwrap<UsageSnapshot>(await api.get('/usage/current')),
+};
+
+export const billingApi = {
+  checkout: async (data: {
+    plan: 'essential' | 'advanced' | 'professional' | 'power';
+    cycle?: 'monthly' | 'annual';
+    successUrl: string;
+    cancelUrl: string;
+  }) => unwrap<{ url: string }>(await api.post('/billing/checkout', data)),
+  portal: async (returnUrl: string) =>
+    unwrap<{ url: string }>(await api.post('/billing/portal', { returnUrl })),
 };
 
 export const labelsApi = {
