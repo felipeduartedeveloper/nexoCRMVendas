@@ -9,6 +9,9 @@ import * as redisStore from 'cache-manager-redis-yet';
 
 import { typeOrmConfig } from './config/typeorm.config';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { SubscriptionGuard } from './common/guards/subscription.guard';
+import { WritePermissionGuard } from './common/guards/write-permission.guard';
+import { Organization } from './modules/organizations/organization.entity';
 import { HealthController } from './common/health.controller';
 
 import { MailModule } from './modules/mail/mail.module';
@@ -35,6 +38,7 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     ConfigModule.forRoot({ isGlobal: true }),
     ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({ useFactory: typeOrmConfig }),
+    TypeOrmModule.forFeature([Organization]),
     ThrottlerModule.forRoot([
       {
         ttl: Number(process.env.THROTTLE_TTL || 60) * 1000,
@@ -77,6 +81,8 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
   controllers: [HealthController],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: SubscriptionGuard },
+    { provide: APP_GUARD, useClass: WritePermissionGuard },
     { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })

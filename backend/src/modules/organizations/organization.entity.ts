@@ -51,6 +51,23 @@ export class Organization {
   @Column({ type: 'int', default: 5 })
   maxUsers: number;
 
+  // ---- Billing / Stripe (assinatura) ----
+  @Column({ length: 100, nullable: true })
+  stripeCustomerId: string | null;
+
+  @Column({ length: 100, nullable: true })
+  stripeSubscriptionId: string | null;
+
+  @Column({ length: 40, nullable: true })
+  subscriptionStatus: string | null;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  subscriptionEndsAt: Date | null;
+
+  /** Usuário dono/criador do tenant (ADMIN principal). */
+  @Column({ type: 'uuid', nullable: true })
+  ownerUserId: string | null;
+
   @Column({ length: 160, nullable: true })
   industry: string | null;
 

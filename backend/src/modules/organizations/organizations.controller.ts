@@ -8,6 +8,7 @@ import { RolesGuard } from '../../common/guards/roles.guard';
 import { UserRole } from '../../common/enums/user-role.enum';
 import { CurrentOrg } from '../../common/decorators/current-user.decorator';
 import { PaginationDto } from '../../common/dto/pagination.dto';
+import { computeAccess } from '../../common/utils/subscription-access';
 
 @ApiTags('organizations')
 @ApiBearerAuth()
@@ -17,15 +18,18 @@ export class OrganizationsController {
   constructor(private readonly orgs: OrganizationsService) {}
 
   @Get('me')
-  myOrg(@CurrentOrg() orgId: string | null) {
+  async myOrg(@CurrentOrg() orgId: string | null) {
     if (!orgId) return null;
-    return this.orgs.findById(orgId);
+    const org = await this.orgs.findById(orgId);
+    return { ...org, access: computeAccess(org) };
   }
 
   @Get('current')
-  current(@CurrentOrg() orgId: string | null) {
+  async current(@CurrentOrg() orgId: string | null) {
     if (!orgId) throw new BadRequestException('No organization in context');
-    return this.orgs.findById(orgId);
+    const org = await this.orgs.findById(orgId);
+    // `access` é a fonte da verdade de trial/assinatura para a UI (paywall/badge).
+    return { ...org, access: computeAccess(org) };
   }
 
   @Patch('current')
