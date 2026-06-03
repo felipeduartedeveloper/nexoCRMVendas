@@ -1,0 +1,5 @@
+
+# build artifacts emitidos pelo tsc -b (não versionar)
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
