@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { User, Mail, Lock } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 import { AuthLayout } from '../components/AuthLayout';
 import { Button } from '@/components/ui/Button';
@@ -15,6 +15,9 @@ export function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [showPwd, setShowPwd] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const m = useMutation({
     mutationFn: authApi.register,
@@ -32,13 +35,17 @@ export function RegisterPage() {
       toast.error('A senha precisa ter ao menos 8 caracteres.');
       return;
     }
+    if (password !== confirm) {
+      toast.error('As senhas não conferem.');
+      return;
+    }
     m.mutate({ name, email, password });
   }
 
   return (
     <AuthLayout
       title="Comece grátis"
-      subtitle="14 dias de teste. Sem cartão de crédito."
+      subtitle="15 dias de teste. Sem cartão de crédito."
       footer={
         <>
           Já tem conta?{' '}
@@ -69,14 +76,37 @@ export function RegisterPage() {
           required
         />
         <Input
-          label="Senha"
-          type="password"
+          label="Digite sua senha"
+          type={showPwd ? 'text' : 'password'}
           autoComplete="new-password"
           placeholder="Mínimo 8 caracteres"
           leftSlot={<Lock className="h-4 w-4" aria-hidden />}
+          rightSlot={
+            <button type="button" onClick={() => setShowPwd((v) => !v)}
+              className="hover:text-foreground" aria-label={showPwd ? 'Ocultar senha' : 'Mostrar senha'}>
+              {showPwd ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          }
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           hint="Use ao menos 8 caracteres, com letras e números."
+          required
+        />
+        <Input
+          label="Confirme sua senha"
+          type={showConfirm ? 'text' : 'password'}
+          autoComplete="new-password"
+          placeholder="Repita a senha"
+          leftSlot={<Lock className="h-4 w-4" aria-hidden />}
+          rightSlot={
+            <button type="button" onClick={() => setShowConfirm((v) => !v)}
+              className="hover:text-foreground" aria-label={showConfirm ? 'Ocultar senha' : 'Mostrar senha'}>
+              {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          }
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+          error={confirm.length > 0 && confirm !== password ? 'As senhas não conferem.' : undefined}
           required
         />
         <Button type="submit" fullWidth size="lg" loading={m.isPending}>

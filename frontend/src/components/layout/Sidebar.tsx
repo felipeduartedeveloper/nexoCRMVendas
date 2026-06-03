@@ -25,6 +25,7 @@ import {
 
 import { Logo } from '@/components/Logo';
 import { cn } from '@/lib/cn';
+import { useOrgAccess } from '@/hooks/useOrgAccess';
 
 const primary = [
   { to: '/setup-guide', label: 'Guia de configuração', icon: Compass },
@@ -55,6 +56,7 @@ interface Props {
 }
 
 export function Sidebar({ collapsed, onToggle }: Props) {
+  const { isTrial, isBlocked, daysLeft } = useOrgAccess();
   const [moreOpen, setMoreOpen] = useState(false);
 
   return (
@@ -146,17 +148,19 @@ export function Sidebar({ collapsed, onToggle }: Props) {
         </ul>
       </nav>
 
-      {!collapsed && (
+      {!collapsed && (isTrial || isBlocked) && (
         <div className="border-t border-border p-3">
-          <div className="rounded-lg bg-brand-50 p-3">
-            <p className="text-xs font-semibold text-brand-800">
-              14 dias grátis restantes
+          <div className={cn('rounded-lg p-3', isBlocked ? 'bg-danger/10' : 'bg-brand-50')}>
+            <p className={cn('text-xs font-semibold', isBlocked ? 'text-danger' : 'text-brand-800')}>
+              {isBlocked
+                ? 'Teste expirado'
+                : `${daysLeft} ${daysLeft === 1 ? 'dia' : 'dias'} grátis ${daysLeft === 1 ? 'restante' : 'restantes'}`}
             </p>
             <p className="mt-1 text-[11px] text-brand-700/80">
-              Faça upgrade para liberar todos os recursos.
+              {isBlocked ? 'Assine para reativar o acesso.' : 'Faça upgrade para liberar todos os recursos.'}
             </p>
             <NavLink
-              to="/billing"
+              to="/settings/billing"
               className="mt-2 inline-block text-xs font-bold text-brand-700 hover:underline"
             >
               Ver planos →
