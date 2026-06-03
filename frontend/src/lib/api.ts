@@ -53,6 +53,10 @@ api.interceptors.response.use(
   (resp) => resp,
   async (error: AxiosError) => {
     const original = error.config as InternalAxiosRequestConfig & { _retried?: boolean };
+    // Paywall (trial expirado / sem assinatura) — leva o usuário para os planos.
+    if (error.response?.status === 402 && !window.location.pathname.startsWith('/settings/billing')) {
+      window.location.assign('/settings/billing');
+    }
     if (
       error.response?.status === 401 &&
       original &&

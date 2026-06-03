@@ -214,7 +214,7 @@ export const router = createBrowserRouter([
           },
           { path: '/automations', element: <PlaceholderPage title="Automações" /> },
           { path: '/labels', element: <PlaceholderPage title="Etiquetas" /> },
-          { path: '/billing', element: <PlaceholderPage title="Plano e cobrança" /> },
+          { path: '/billing', element: <Navigate to="/settings/billing" replace /> },
           { path: '/permissions', element: <PlaceholderPage title="Permissões" /> },
           { path: '/help', element: <PlaceholderPage title="Central de ajuda" /> },
           { path: '/integrations', element: <PlaceholderPage title="Integrações" /> },

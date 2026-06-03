@@ -183,7 +183,7 @@ export const router = createBrowserRouter([
                     },
                     { path: '/automations', element: _jsx(PlaceholderPage, { title: "Automa\u00E7\u00F5es" }) },
                     { path: '/labels', element: _jsx(PlaceholderPage, { title: "Etiquetas" }) },
-                    { path: '/billing', element: _jsx(PlaceholderPage, { title: "Plano e cobran\u00E7a" }) },
+                    { path: '/billing', element: _jsx(Navigate, { to: "/settings/billing", replace: true }) },
                     { path: '/permissions', element: _jsx(PlaceholderPage, { title: "Permiss\u00F5es" }) },
                     { path: '/help', element: _jsx(PlaceholderPage, { title: "Central de ajuda" }) },
                     { path: '/integrations', element: _jsx(PlaceholderPage, { title: "Integra\u00E7\u00F5es" }) },

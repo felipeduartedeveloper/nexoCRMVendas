@@ -46,6 +46,10 @@ async function refreshAccessToken() {
 }
 api.interceptors.response.use((resp) => resp, async (error) => {
     const original = error.config;
+    // Paywall (trial expirado / sem assinatura) — leva o usuário para os planos.
+    if (error.response?.status === 402 && !window.location.pathname.startsWith('/settings/billing')) {
+        window.location.assign('/settings/billing');
+    }
     if (error.response?.status === 401 &&
         original &&
         !original._retried &&
