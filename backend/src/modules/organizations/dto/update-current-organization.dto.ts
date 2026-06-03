@@ -1,14 +1,9 @@
 import {
-  IsEnum,
-  IsInt,
   IsOptional,
   IsString,
-  Max,
   MaxLength,
-  Min,
   MinLength,
 } from 'class-validator';
-import { OrganizationPlan, OrganizationStatus } from '../organization.entity';
 
 export class UpdateCurrentOrganizationDto {
   @IsOptional()
@@ -71,17 +66,7 @@ export class UpdateCurrentOrganizationDto {
   @IsString()
   notes?: string;
 
-  @IsOptional()
-  @IsEnum(OrganizationStatus)
-  status?: OrganizationStatus;
-
-  @IsOptional()
-  @IsEnum(OrganizationPlan)
-  plan?: OrganizationPlan;
-
-  @IsOptional()
-  @IsInt()
-  @Min(1)
-  @Max(10_000)
-  maxUsers?: number;
+  // SEGURANÇA: `plan`, `maxUsers`, `status`, `trial*` e `subscription*` NÃO são
+  // editáveis pelo cliente aqui. O plano só muda por webhook Stripe (assinatura
+  // verificada) ou pelo super-admin. Removidos para evitar escalonamento de plano.
 }

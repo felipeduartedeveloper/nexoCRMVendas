@@ -13,6 +13,11 @@ export class MailService {
   private transporter: nodemailer.Transporter | null = null;
 
   constructor() {
+    // Preferência: API HTTP do Brevo (autentica por API key — sem restrição de IP).
+    if (process.env.BREVO_API_KEY) {
+      this.logger.log('Mail: usando Brevo HTTP API (independente de IP).');
+      return;
+    }
     const host = process.env.SMTP_HOST;
     if (host) {
       const port = Number(process.env.SMTP_PORT || 587);
@@ -30,6 +35,13 @@ export class MailService {
   }
 
   async send(opts: { to: string; subject: string; html: string; text?: string }) {
+    // 1) Brevo HTTP API (recomendado: sem "Unauthorized IP").
+    const apiKey = process.env.BREVO_API_KEY;
+    if (apiKey) {
+      return this.sendViaBrevoApi(apiKey, opts);
+    }
+
+    // 2) Fallback SMTP.
     const from = process.env.SMTP_FROM || 'Oxlify <no-reply@oxlify.com>';
     if (!this.transporter) {
       this.logger.log(`[mail:log] to=${opts.to} subject=${opts.subject}`);
@@ -43,6 +55,44 @@ export class MailService {
       html: opts.html,
       text: opts.text,
     });
+  }
+
+  /** Envia via API transacional do Brevo (POST /v3/smtp/email). */
+  private async sendViaBrevoApi(
+    apiKey: string,
+    opts: { to: string; subject: string; html: string; text?: string },
+  ) {
+    const sender = this.parseFrom();
+    const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'api-key': apiKey,
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      body: JSON.stringify({
+        sender,
+        to: [{ email: opts.to }],
+        subject: opts.subject,
+        htmlContent: opts.html,
+        ...(opts.text ? { textContent: opts.text } : {}),
+      }),
+    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => '');
+      this.logger.error(`Brevo API falhou (${res.status}): ${detail}`);
+      throw new Error(`Brevo API ${res.status}: ${detail}`);
+    }
+    return res.json().catch(() => ({ ok: true }));
+  }
+
+  /** Converte SMTP_FROM ("Nome <email>") em { name, email } para o Brevo. */
+  private parseFrom(): { name: string; email: string } {
+    const brand = process.env.MAIL_BRAND || 'Oxlify Vendas';
+    const raw = process.env.SMTP_FROM || process.env.BREVO_FROM || `${brand} <no-reply@oxlify.com>`;
+    const m = raw.match(/^\s*(.*?)\s*<\s*([^>]+)\s*>\s*$/);
+    if (m) return { name: brand, email: m[2] };
+    return { name: brand, email: raw.trim() };
   }
 
   // ─────────────────────────── Auth / Segurança ───────────────────────────
@@ -182,14 +232,17 @@ export class MailService {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef1f6;padding:32px 12px;">
           <tr><td align="center">
             <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;">
-              <tr><td style="padding:4px 4px 22px;">
-                <img src="https://sales.oxlify.com/email-logo.png" alt="Oxlify" width="150" style="display:block;border:0;outline:none;text-decoration:none;height:auto;" />
+              <tr><td style="padding:4px 4px 6px;">
+                <img src="https://sales.oxlify.com/email-logo.png" alt="${process.env.MAIL_BRAND || 'Oxlify Vendas'}" width="150" style="display:block;border:0;outline:none;text-decoration:none;height:auto;" />
+              </td></tr>
+              <tr><td style="padding:0 4px 22px;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;letter-spacing:.3px;color:#3a64ff;">
+                ${process.env.MAIL_BRAND || 'Oxlify Vendas'}
               </td></tr>
               <tr><td style="background:#ffffff;border:1px solid #e6e9ef;border-radius:16px;padding:32px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#0f172a;">
                 ${content}
               </td></tr>
               <tr><td style="padding:18px 8px;text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#94a3b8;">
-                © Oxlify · este é um e-mail automático, não responda.
+                © ${process.env.MAIL_BRAND || 'Oxlify Vendas'} · este é um e-mail automático, não responda.
               </td></tr>
             </table>
           </td></tr>

@@ -35,7 +35,15 @@ export class OrganizationsController {
     @Body() dto: UpdateCurrentOrganizationDto,
   ) {
     if (!orgId) throw new BadRequestException('No organization in context');
-    return this.orgs.update(orgId, dto as any);
+    // Defesa em profundidade: remove qualquer campo sensível que escape do DTO.
+    // Plano/limites/trial/assinatura só mudam por webhook Stripe ou super-admin.
+    const safe: Record<string, unknown> = { ...(dto as any) };
+    for (const k of ['plan', 'maxUsers', 'status', 'trialEndsAt', 'trialNoticeStage',
+                     'subscriptionStatus', 'subscriptionEndsAt', 'stripeCustomerId',
+                     'stripeSubscriptionId']) {
+      delete safe[k];
+    }
+    return this.orgs.update(orgId, safe as any);
   }
 
   @Get()
