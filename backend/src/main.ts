@@ -54,7 +54,9 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document, { swaggerOptions: { persistAuthorization: true } });
 
   const port = Number(process.env.APP_PORT || 3000);
-  await app.listen(port, '0.0.0.0');
+  // HOST=127.0.0.1 no host (PM2) restringe ao loopback; no Docker fica 0.0.0.0.
+  const host = process.env.HOST ?? '0.0.0.0';
+  await app.listen(port, host);
 
   // eslint-disable-next-line no-console
   console.log(`[crmvendas] API running on http://localhost:${port}`);

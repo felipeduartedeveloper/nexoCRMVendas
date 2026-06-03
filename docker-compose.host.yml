@@ -1,0 +1,24 @@
+# Override "HOST/PM2": so postgres + redis + minio no Docker (loopback).
+# Backend vai p/ PM2; frontend/admin/nginx desativados (frontends na Vercel).
+#
+# Subir so o banco/storage:
+#   docker compose -f docker-compose.yml -f docker-compose.host.yml up -d postgres redis minio
+services:
+  postgres:
+    ports: !override
+      - "127.0.0.1:${POSTGRES_PORT:-5435}:5432"
+  redis:
+    ports: !override
+      - "127.0.0.1:${REDIS_PORT:-6382}:6379"
+  minio:
+    ports: !override
+      - "127.0.0.1:${MINIO_PORT:-9002}:9000"
+      - "127.0.0.1:${MINIO_CONSOLE_PORT:-9003}:9001"
+  backend:
+    profiles: ["disabled"]
+  frontend:
+    profiles: ["disabled"]
+  admin:
+    profiles: ["disabled"]
+  nginx:
+    profiles: ["disabled"]
